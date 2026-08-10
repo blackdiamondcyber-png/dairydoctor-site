@@ -1,0 +1,108 @@
+<!--
+
+
+
+A.type1:link    
+{color: #006666; font-family: arial, helvetica, sans-serif; text-decoration: underline; font-size: 13px; }
+
+A.type1:visited 
+{color: #006666; font-family: arial, helvetica, sans-serif; text-decoration: underline; font-size: 13px; }
+
+A.type1:active  
+{color: #ff3300; font-family: arial, helvetica, sans-serif; text-decoration: underline; font-size: 13px; }
+
+A.type1:hover   
+{color: #993300; font-family: arial, helvetica, sans-serif; text-decoration: none; font-size: 13px; }
+
+
+
+
+A.type2:link    
+{color: #006666; font-family: verdana, arial, helvetica, sans-serif; text-decoration: underline; font-size: 12px; }
+
+A.type2:visited 
+{color: #006666; font-family: verdana, arial, helvetica, sans-serif; text-decoration: underline; font-size: 12px; }
+
+A.type2:active  
+{color: #ff3300; font-family: verdana, arial, helvetica, sans-serif; text-decoration: underline; font-size: 12px; }
+
+A.type2:hover   
+{color: #993300; font-family: verdana, arial, helvetica, sans-serif; text-decoration: none; font-size: 12px; }
+
+
+
+
+A.type3:link    
+{color: #006666; font-family: verdana, arial, helvetica, sans-serif; text-decoration: underline; font-size: 10px; }
+
+A.type3:visited 
+{color: #006666; font-family: verdana, arial, helvetica, sans-serif; text-decoration: underline; font-size: 10px; }
+
+A.type3:active  
+{color: #ff3300; font-family: verdana, arial, helvetica, sans-serif; text-decoration: underline; font-size: 10px; }
+
+A.type3:hover   
+{color: #993300; font-family: verdana, arial, helvetica, sans-serif; text-decoration: none; font-size: 10px; }
+
+
+
+
+
+A.type4:link    
+{color: #003333; font-family: verdana, arial, helvetica, sans-serif; text-decoration: none; font-size: 10px; line-height: 13px; }
+
+A.type4:visited 
+{color: #003333; font-family: verdana, arial, helvetica, sans-serif; text-decoration: none; font-size: 10px; line-height: 13px; }
+
+A.type4:active  
+{color: #ff3300; font-family: verdana, arial, helvetica, sans-serif; text-decoration: none; font-size: 10px; line-height: 13px; }
+
+A.type4:hover   
+{color: #993300; font-family: verdana, arial, helvetica, sans-serif; text-decoration: underline; font-size: 10px; line-height: 13px; }
+
+
+
+
+
+
+body
+{color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 11px; }
+
+.text11 
+{color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 11px; line-height: 16px; }
+
+.text12 
+{color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; line-height: 19px; }
+
+.menu 
+{color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 11px; }
+
+.small 
+{color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 10px; }
+
+.med 
+{color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 11px; }
+
+.large 
+{color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 14px; }
+
+.yelbkd 
+{color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; background: #99cccc; }
+
+.title
+{color: #993300; font-family: times, arial, helvetica, sans-serif; font-size: 18px; font-weight: bold; line-height: 21px; }
+
+.title2
+{color: #000000; font-family: times, arial, helvetica, sans-serif; font-size: 24px; font-weight: bold; line-height: 28px; }
+
+
+//-->
+
+
+
+
+
+
+
+
+
