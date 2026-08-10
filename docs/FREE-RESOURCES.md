@@ -61,10 +61,16 @@ Fix the fossilized "Dairy Pharmacy Service" records with the identity block:
   "BioPRYN lab", "BVD PI testing").
 
 ## 6. BioPRYN affiliate ecosystem (Glenn)
-- Email BioTracking: ask that their affiliate-lab locator/list link to
-  https://dairydoctor.com for the Wisconsin/east-of-Rockies entry. Other WI
-  affiliate labs currently outrank ADDC for "BioPRYN Wisconsin". One
-  relevant backlink from the trademark owner is worth more than any paid ad.
+- GOOD NEWS (verified 2026-08-10): BioTracking's lab locator ALREADY lists the
+  lab at biotracking.com/lab/advanced-dairy-diagnostics-consulting/ and links
+  to www.dairydoctor.com. Actions instead of asking for a listing:
+  (a) resolve the PRICE CONFLICT - that directory shows $3.50 cattle/bison and
+  $5.75 sheep/goat today, while dairydoctor.com's own pages say $3.25/$6.75;
+  confirm with Glenn which is current and sync BOTH places;
+  (b) after DNS cutover, ask BioTracking to update the link to https;
+  (c) keep the listing's turnaround/bio fresh - it ranks well for BioPRYN
+  searches. Competitive note: Waupun Veterinary Services sits in the same
+  directory at $2.75 cattle, Mon-Fri same-day turnaround.
 
 ## 7. Analytics, optional (Erik)
 - Google Analytics 4 is free: create a property, then paste the snippet into
