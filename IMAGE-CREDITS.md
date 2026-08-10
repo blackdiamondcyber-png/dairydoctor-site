@@ -16,7 +16,7 @@ here for provenance) or the business's own property. All fonts are OFL.
 | images/biopryn-logo.gif | Original dairydoctor.com; BioPRYN is a trademark of BioTracking, LLC, used here as an affiliate lab (continuing existing usage) | Trademark of BioTracking |
 | images/cow_ears_flick.gif | Original dairydoctor.com | Owner's own asset |
 | fonts/sora-600.woff2, fonts/sora-800.woff2 | Sora (Sora Sans Project), latin subsets via google-webfonts-helper; the site's heading face | SIL Open Font License 1.1 |
-| images/logo-512.png, images/plate-mark.png, favicon.svg, favicon-48.png, favicon-180.png, images/logo.svg | ADDC badge logo composed for the lab in 2026: vintage public-domain Holstein engraving (rawpixel PD vintage illustration collection, CC0) inside an original badge design | Engraving CC0; badge composition owner's asset |
+| images/header-mark.png, images/logo-512.png, favicon.svg, favicon-48.png, favicon-180.png, images/logo.svg | ADDC label-style logo composed for the lab in 2026: vintage public-domain Holstein engraving (rawpixel PD vintage illustration collection, CC0) inside an original cream-rectangle keyline design with ADDC lettering | Engraving CC0; composition owner's asset |
 | images/logo-lockup.jpg | The Dairy Doctor brand lockup composed 2026 from the same CC0 engraving | Engraving CC0; lockup composition owner's asset |
 | images/goats-nubian.jpg | USDA Flickr 20160521-RD-LSC-0452 via Openverse | Public Domain Mark (US government work) |
 | images/bison-herd.jpg | "Hayden Valley, Yellowstone National Park" via Openverse/Flickr | CC0 |

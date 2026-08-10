@@ -31,8 +31,9 @@ Consulting, LLC (Dr. Glenn Pearson, DVM, Frederic WI) - all on free tooling.
     44 confirmed, 2 refuted-and-corrected):
     https://claude.ai/code/artifact/b3d25095-683a-4c5a-8e97-2d89b97e9237
   - Erik growth strategy (industry audit, network price map, consulting-led
-    plan, ranked moves, calendar; 44 claims audited, all refuted/overclaimed
-    items corrected):
+    plan, ranked moves, calendar; adversarial fact-check returned 38 verdicts:
+    22 confirmed, 6 refuted and corrected, 9 relabeled as estimates, 1
+    unverifiable flagged in place):
     https://claude.ai/code/artifact/b8bf7217-e7ce-4c3b-88f0-683a5bc336c4
   - Site QA crawl (12/12 pass):
     https://claude.ai/code/artifact/95416764-bac6-4f27-9021-a271c489ad1a
@@ -45,10 +46,13 @@ Consulting, LLC (Dr. Glenn Pearson, DVM, Frederic WI) - all on free tooling.
   the 6-site typography study in the research archive). Hero headline:
   "One blood sample tells you which cows are open." Homepage is price-free
   (interior testing pages keep the old site's published prices pending
-  Glenn's decision); trust strip deduplicated; a NEW custom logo (Holstein
-  cow head with a blood-drop forehead star, images/logo.svg, sized for GBP
-  at images/logo-512.png) serves as header mark + all favicons;
-  accent #B8430F, AA-verified.
+  Glenn's decision); trust strip deduplicated; brand system built from a
+  public-domain engraved Holstein: cream label-rectangle header emblem with
+  teal keyline and ADDC lettering (images/header-mark.png), matching square
+  favicons + images/logo-512.png for GBP, and the full lockup
+  (images/logo-lockup.jpg); accent #B8430F, AA-verified. Later passes added
+  the new-client FormSubmit form + thanks.html and the 5-item grouped nav
+  (Testing/Guides dropdowns, no pills).
   Live Lighthouse after v5: homepage 100/100/100/100 both form factors, CLS 0.
 
 ## Blocked on Glenn (go-live gate)
