@@ -36,10 +36,17 @@ Consulting, LLC (Dr. Glenn Pearson, DVM, Frederic WI) - all on free tooling.
   - Site QA crawl (12/12 pass):
     https://claude.ai/code/artifact/95416764-bac6-4f27-9021-a271c489ad1a
 - **v3 imagery:** every page carries photography (WI dairy aerials, Jersey
-  herd, calf; all CC0/public-domain, licensing in IMAGE-CREDITS.md). Live
-  Lighthouse after v3: homepage 100/100/100/100 both form factors, CLS 0.
+  herd, calf; all CC0/public-domain, licensing in IMAGE-CREDITS.md).
   Lesson recorded: rawpixel's "image_1300" endpoint serves WATERMARKED
   previews; only the editor_1024 render is clean.
+- **v4-v5 design refinement (Erik feedback + industry research):** headings
+  now Sora (the face IDEXX runs; geometric sans dominates top vet brands per
+  the 6-site typography study in the research archive). Hero headline:
+  "One blood sample tells you which cows are open." Homepage is price-free
+  (interior testing pages keep the old site's published prices pending
+  Glenn's decision); trust strip deduplicated; header logo + favicons built
+  from the lab's own result-plate photo; accent #B8430F, AA-verified.
+  Live Lighthouse after v5: homepage 100/100/100/100 both form factors, CLS 0.
 
 ## Blocked on Glenn (go-live gate)
 
