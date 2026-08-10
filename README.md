@@ -4,10 +4,13 @@ Modernized static website for Dr. Glenn Pearson, DVM (Frederic, WI) — BioPRYN 
 lab offering mail-in pregnancy testing for cattle/bison plus BVD, Johnes, Leukosis and
 Mycoplasma disease monitoring. Clients in all 48 states.
 
-- **Stack:** plain static HTML/CSS, zero build step, zero dependencies
+- **Stack:** plain static HTML/CSS + ~2KB vanilla JS (scroll reveals, gated
+  behind prefers-reduced-motion), zero build step, zero external requests
 - **Hosting:** GitHub Pages (free, HTTPS)
-- **Palette:** carried forward from the original site — deep teal `#336666`,
-  teal `#006666`, rust `#993300`, ice `#99CCCC` — modernized
+- **Palette:** carried forward from the original site and modernized - deep
+  teal `#336666`, teal links `#006666`, ember accent `#B8430F`, white/mint
+  fields. Headings set in Sora (self-hosted, OFL); body is the system sans stack
+- **Logo/favicon:** the lab's own circular BioPRYN result-plate photo
 - **Original site assets:** `assets/original/` (reference copies of the 1999-era site)
 
 ## Local preview

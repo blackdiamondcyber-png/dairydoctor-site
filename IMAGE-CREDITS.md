@@ -15,4 +15,5 @@ here for provenance) or the business's own property. All fonts are OFL.
 | images/roundpreg.gif | Original dairydoctor.com (the lab's own BioPRYN result plate photo) | Owner's own asset |
 | images/biopryn-logo.gif | Original dairydoctor.com; BioPRYN is a trademark of BioTracking, LLC, used here as an affiliate lab (continuing existing usage) | Trademark of BioTracking |
 | images/cow_ears_flick.gif | Original dairydoctor.com | Owner's own asset |
-| fonts/fraunces-600.woff2, fonts/fraunces-900.woff2 | Fraunces (Undercase Type), latin subset via google-webfonts-helper | SIL Open Font License 1.1 |
+| fonts/sora-600.woff2, fonts/sora-800.woff2 | Sora (Sora Sans Project), latin subsets via google-webfonts-helper; the site's heading face | SIL Open Font License 1.1 |
+| images/plate-mark.png, favicon-48.png, favicon-180.png | Derived (resized) from images/roundpreg.gif, the lab's own result-plate photo | Owner's own asset |
