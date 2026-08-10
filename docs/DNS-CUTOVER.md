@@ -48,6 +48,12 @@ Do not proceed to Phase 2 until Phase 1 tests pass.
    check and the certificate is provisioned (minutes to ~1 hour), then enable
    "Enforce HTTPS".
 
+## Phase 2b - form redirect
+
+9. After the domain is live, edit contact.html: change the form's hidden
+   `_next` input from the github.io thanks-page URL to
+   `https://dairydoctor.com/thanks.html`, commit, push.
+
 ## Phase 3 - verify
 
 - https://dairydoctor.com loads the new site with a valid padlock

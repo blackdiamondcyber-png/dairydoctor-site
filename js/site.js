@@ -1,12 +1,67 @@
-/* Advanced Dairy Diagnostic & Consulting - scroll motion (progressive enhancement).
-   No dependencies. If this file fails to load, or the visitor prefers reduced
-   motion, every [data-reveal] element is already fully visible via CSS alone. */
+/* Advanced Dairy Diagnostic & Consulting - nav + scroll motion (progressive
+   enhancement). No dependencies. If this fails to load, nav-group triggers
+   are real links to sensible pages, and [data-reveal] is visible via CSS
+   alone. Nav-dropdown logic runs unconditionally (core nav, not motion). */
 (function () {
   'use strict';
 
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    return;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var groups = document.querySelectorAll('.nav-group');
+  var openGroup = null;
+  var hoverCapable = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  function closeGroup(g) {
+    if (!g) return;
+    g.trigger.setAttribute('aria-expanded', 'false');
+    g.panel.classList.remove('is-open');
+    if (openGroup === g) openGroup = null;
   }
+
+  function openGroupNow(g) {
+    if (openGroup && openGroup !== g) closeGroup(openGroup);
+    g.trigger.setAttribute('aria-expanded', 'true');
+    g.panel.classList.add('is-open');
+    openGroup = g;
+  }
+
+  groups.forEach(function (el) {
+    var trigger = el.querySelector('.nav-group-trigger');
+    var panel = el.querySelector('.nav-panel');
+    if (!trigger || !panel) return;
+    var g = { el: el, trigger: trigger, panel: panel };
+
+    trigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (trigger.getAttribute('aria-expanded') === 'true') closeGroup(g);
+      else openGroupNow(g);
+    });
+
+    el.addEventListener('mouseenter', function () {
+      if (hoverCapable && hoverCapable.matches) openGroupNow(g);
+    });
+    el.addEventListener('mouseleave', function () {
+      if (hoverCapable && hoverCapable.matches) closeGroup(g);
+    });
+
+    el.addEventListener('focusout', function (e) {
+      if (!el.contains(e.relatedTarget)) closeGroup(g);
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (openGroup && !openGroup.el.contains(e.target)) closeGroup(openGroup);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && openGroup) {
+      var t = openGroup.trigger;
+      closeGroup(openGroup);
+      t.focus();
+    }
+  });
+
+  if (reduceMotion) return;
 
   document.documentElement.classList.add('js-motion');
 

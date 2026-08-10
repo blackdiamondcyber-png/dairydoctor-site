@@ -76,7 +76,16 @@ Fix the fossilized "Dairy Pharmacy Service" records with the identity block:
   searches. Competitive note: Waupun Veterinary Services sits in the same
   directory at $2.75 cattle, Mon-Fri same-day turnaround.
 
-## 7. Analytics, optional (Erik)
+## 7. Activate the new-client inquiry form (Glenn + Erik, one time, free)
+- The contact page's "Become a new client" form posts through FormSubmit
+  (free service, no account) to info@dairydoctor.com.
+- One-time activation: submit the form once as a test. FormSubmit then sends
+  a confirmation email to info@dairydoctor.com - Glenn clicks the activation
+  link in it. From then on every inquiry arrives as a formatted email.
+- Until that link is clicked, submissions are held by FormSubmit, so do the
+  activation BEFORE announcing the site.
+
+## 8. Analytics, optional (Erik)
 - Google Analytics 4 is free: create a property, then paste the snippet into
   the marked comment slot already present in every page's <head>. Until then
   the site makes zero third-party requests, which is a feature, not a gap.

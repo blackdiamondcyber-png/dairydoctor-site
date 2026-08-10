@@ -68,7 +68,7 @@
   <div class="container brand-row">
     <div class="brand">
       <a href="index.html">
-        <img class="brand-mark" src="images/plate-mark.png" width="40" height="40" alt="Advanced Dairy Diagnostic and Consulting logo: a Holstein cow head with a blood drop marking">
+        <img class="brand-mark" src="images/header-mark.png" width="56" height="56" alt="Advanced Dairy Diagnostic and Consulting badge: an engraved Holstein cow with the letters ADDC">
         <div class="brand-text">
           <p class="brand-name">The Dairy Doctor</p>
           <p class="brand-sub">Advanced Dairy Diagnostic &amp; Consulting, LLC</p>
@@ -82,15 +82,25 @@
   </div>
   <nav class="site-nav" aria-label="Primary">
     <div class="container">
-      <div class="nav-scroll">
-        <a href="index.html" class="nav-pill" aria-current="page">Home</a>
-        <a href="pregtest.html" class="nav-pill">Pregnancy Testing</a>
-        <a href="bvdtest.html" class="nav-pill">BVD Testing</a>
-        <a href="tailbleeding.html" class="nav-pill">Tail Bleeding How-To</a>
-        <a href="shipping_test.html" class="nav-pill">Shipping</a>
-        <a href="faq.html" class="nav-pill">FAQs</a>
-        <a href="aboutus.html" class="nav-pill">About</a>
-        <a href="contact.html" class="nav-pill">Contact</a>
+      <div class="nav-row">
+        <a href="index.html" class="nav-link" aria-current="page">Home</a>
+        <div class="nav-group">
+          <a href="pregtest.html" class="nav-link nav-group-trigger" aria-expanded="false" aria-controls="nav-panel-testing">Testing<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-panel" id="nav-panel-testing">
+            <a href="pregtest.html" class="nav-panel-link">Pregnancy Testing</a>
+            <a href="bvdtest.html" class="nav-panel-link">BVD Testing</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <a href="tailbleeding.html" class="nav-link nav-group-trigger" aria-expanded="false" aria-controls="nav-panel-guides">Guides<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-panel" id="nav-panel-guides">
+            <a href="tailbleeding.html" class="nav-panel-link">Tail Bleeding</a>
+            <a href="shipping_test.html" class="nav-panel-link">Shipping &amp; Forms</a>
+            <a href="faq.html" class="nav-panel-link">FAQs</a>
+          </div>
+        </div>
+        <a href="aboutus.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
       </div>
     </div>
   </nav>
@@ -110,8 +120,8 @@
           <svg class="icon-phone" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
           Call (715) 653-2201
         </a>
-        <a class="btn btn-secondary" href="shipping_test.html#forms">
-          Download test forms
+        <a class="btn btn-secondary" href="contact.html#new-client">
+          Become a new client
           <svg class="cta-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>

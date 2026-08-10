@@ -28,7 +28,7 @@
   <div class="container brand-row">
     <div class="brand">
       <a href="index.html">
-        <img class="brand-mark" src="images/plate-mark.png" width="40" height="40" alt="Advanced Dairy Diagnostic and Consulting logo: a Holstein cow head with a blood drop marking">
+        <img class="brand-mark" src="images/header-mark.png" width="56" height="56" alt="Advanced Dairy Diagnostic and Consulting badge: an engraved Holstein cow with the letters ADDC">
         <div class="brand-text">
           <p class="brand-name">The Dairy Doctor</p>
           <p class="brand-sub">Advanced Dairy Diagnostic &amp; Consulting, LLC</p>
@@ -42,15 +42,25 @@
   </div>
   <nav class="site-nav" aria-label="Primary">
     <div class="container">
-      <div class="nav-scroll">
-        <a href="index.html" class="nav-pill">Home</a>
-        <a href="pregtest.html" class="nav-pill">Pregnancy Testing</a>
-        <a href="bvdtest.html" class="nav-pill">BVD Testing</a>
-        <a href="tailbleeding.html" class="nav-pill">Tail Bleeding How-To</a>
-        <a href="shipping_test.html" class="nav-pill">Shipping</a>
-        <a href="faq.html" class="nav-pill">FAQs</a>
-        <a href="aboutus.html" class="nav-pill" aria-current="page">About</a>
-        <a href="contact.html" class="nav-pill">Contact</a>
+      <div class="nav-row">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="nav-group">
+          <a href="pregtest.html" class="nav-link nav-group-trigger" aria-expanded="false" aria-controls="nav-panel-testing">Testing<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-panel" id="nav-panel-testing">
+            <a href="pregtest.html" class="nav-panel-link">Pregnancy Testing</a>
+            <a href="bvdtest.html" class="nav-panel-link">BVD Testing</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <a href="tailbleeding.html" class="nav-link nav-group-trigger" aria-expanded="false" aria-controls="nav-panel-guides">Guides<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-panel" id="nav-panel-guides">
+            <a href="tailbleeding.html" class="nav-panel-link">Tail Bleeding</a>
+            <a href="shipping_test.html" class="nav-panel-link">Shipping &amp; Forms</a>
+            <a href="faq.html" class="nav-panel-link">FAQs</a>
+          </div>
+        </div>
+        <a href="aboutus.html" class="nav-link" aria-current="page">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
       </div>
     </div>
   </nav>
@@ -71,6 +81,10 @@
 
     <p>A 1985 graduate of the University of Illinois College of Veterinary Medicine, Glenn served for 15 years in traditional dairy practice in Cumberland, Wisconsin, prior to opening Dairy Pharm Services in 1999.</p>
     <p>Married in 1988, Glenn and his wife Elaine have since been blessed with three sons. When he's not at Advanced Dairy Diagnostic &amp; Consulting, Glenn is usually involved in his family's church, school and sports activities.</p>
+
+    <figure class="figure-lockup" data-reveal>
+      <img src="images/logo-lockup.jpg" width="1200" height="788" alt="The Dairy Doctor brand lockup: an engraved Holstein above the business name" loading="lazy" decoding="async">
+    </figure>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Our story</p>
