@@ -10,6 +10,10 @@ confirmation of the legal LLC name):
 - Phone: (715) 653-2201 · Fax: (715) 653-4301
 - Email: info@dairydoctor.com · Web: https://dairydoctor.com
 - Category: Veterinarian / Veterinary laboratory (NEVER pharmacy/drug store)
+- Name history, so old listings make sense: the business launched in 1999 as
+  "Dairy Pharm Services"; data aggregators corrupted that into "Dairy
+  Pharmacy Service" (the wrong name found across directories today); the
+  current name is Advanced Dairy Diagnostic & Consulting, LLC
 - Short description: Veterinary diagnostic lab in Frederic, Wisconsin.
   BioPRYN blood pregnancy testing for cattle, bison, goats and sheep, plus
   BVD, Johnes, Leukosis and Mycoplasma testing by mail. Serving all 48

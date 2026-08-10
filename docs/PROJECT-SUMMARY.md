@@ -12,10 +12,11 @@ Consulting, LLC (Dr. Glenn Pearson, DVM, Frederic WI) - all on free tooling.
     page) and a custom 404.
   - Lighthouse on the LIVE deploy: **100/100/100/100 mobile AND desktop**
     (old site: Perf 100 / A11y 64 / BP 63 / SEO 92 mobile). CLS 0.000, TBT 0ms.
-  - CC0/public-domain photography, self-hosted Fraunces type, scroll-reveal +
-    counter + Ken Burns motion fully gated behind prefers-reduced-motion with
-    a no-JS fallback; zero external requests; schema.org VeterinaryCare
-    JSON-LD; sitemap; llms.txt; print styles for the how-to pages.
+  - CC0/public-domain photography, self-hosted Sora headings (see v4-v5 note
+    below for the type history), scroll-reveal + counter + Ken Burns motion
+    fully gated behind prefers-reduced-motion with a no-JS fallback; zero
+    external requests; schema.org VeterinaryCare JSON-LD; sitemap; llms.txt;
+    print styles for the how-to pages.
   - Hosting: GitHub Pages free tier (repo: blackdiamondcyber-png/dairydoctor-site).
 - **DNS cutover runbook:** docs/DNS-CUTOVER.md - CRITICAL: email (MX) rides the
   old host at the apex; the runbook moves MX to mail.dairydoctor.com BEFORE
