@@ -24,10 +24,22 @@ Consulting, LLC (Dr. Glenn Pearson, DVM, Frederic WI) - all on free tooling.
   fossilized as "Dairy Pharmacy Service"/pharmacy category across 6+
   directories in 3 towns), reviews, directory corrections, Bing Places,
   Search Console, BioTracking directory sync.
-- **Two decision documents (published as Claude artifacts; links added after
-  the verification wave):** the Glenn presentation (before/after, findings,
-  competitor chapter, go-live checklist) and the Erik growth strategy
-  (industry audit, network price map, ranked revenue moves, 12-month calendar).
+- **Two decision documents, published and verification-gated:**
+  - Glenn presentation (before/after, plain-language traffic explainer,
+    findings, competitor chapter, go-live checklist; 56 claims audited,
+    44 confirmed, 2 refuted-and-corrected):
+    https://claude.ai/code/artifact/b3d25095-683a-4c5a-8e97-2d89b97e9237
+  - Erik growth strategy (industry audit, network price map, consulting-led
+    plan, ranked moves, calendar; 44 claims audited, all refuted/overclaimed
+    items corrected):
+    https://claude.ai/code/artifact/b8bf7217-e7ce-4c3b-88f0-683a5bc336c4
+  - Site QA crawl (12/12 pass):
+    https://claude.ai/code/artifact/95416764-bac6-4f27-9021-a271c489ad1a
+- **v3 imagery:** every page carries photography (WI dairy aerials, Jersey
+  herd, calf; all CC0/public-domain, licensing in IMAGE-CREDITS.md). Live
+  Lighthouse after v3: homepage 100/100/100/100 both form factors, CLS 0.
+  Lesson recorded: rawpixel's "image_1300" endpoint serves WATERMARKED
+  previews; only the editor_1024 render is clean.
 
 ## Blocked on Glenn (go-live gate)
 
