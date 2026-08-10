@@ -16,4 +16,4 @@ here for provenance) or the business's own property. All fonts are OFL.
 | images/biopryn-logo.gif | Original dairydoctor.com; BioPRYN is a trademark of BioTracking, LLC, used here as an affiliate lab (continuing existing usage) | Trademark of BioTracking |
 | images/cow_ears_flick.gif | Original dairydoctor.com | Owner's own asset |
 | fonts/sora-600.woff2, fonts/sora-800.woff2 | Sora (Sora Sans Project), latin subsets via google-webfonts-helper; the site's heading face | SIL Open Font License 1.1 |
-| images/plate-mark.png, favicon-48.png, favicon-180.png | Derived (resized) from images/roundpreg.gif, the lab's own result-plate photo | Owner's own asset |
+| images/logo.svg, favicon.svg, images/plate-mark.png, images/logo-512.png, favicon-48.png, favicon-180.png | Original logo mark (Holstein cow head with blood-drop star) created for the lab during the 2026 rebuild; PNGs rendered from the SVG | Owner's own asset (work made for the business) |

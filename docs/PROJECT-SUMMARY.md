@@ -44,8 +44,10 @@ Consulting, LLC (Dr. Glenn Pearson, DVM, Frederic WI) - all on free tooling.
   the 6-site typography study in the research archive). Hero headline:
   "One blood sample tells you which cows are open." Homepage is price-free
   (interior testing pages keep the old site's published prices pending
-  Glenn's decision); trust strip deduplicated; header logo + favicons built
-  from the lab's own result-plate photo; accent #B8430F, AA-verified.
+  Glenn's decision); trust strip deduplicated; a NEW custom logo (Holstein
+  cow head with a blood-drop forehead star, images/logo.svg, sized for GBP
+  at images/logo-512.png) serves as header mark + all favicons;
+  accent #B8430F, AA-verified.
   Live Lighthouse after v5: homepage 100/100/100/100 both form factors, CLS 0.
 
 ## Blocked on Glenn (go-live gate)

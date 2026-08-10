@@ -10,7 +10,9 @@ Mycoplasma disease monitoring. Clients in all 48 states.
 - **Palette:** carried forward from the original site and modernized - deep
   teal `#336666`, teal links `#006666`, ember accent `#B8430F`, white/mint
   fields. Headings set in Sora (self-hosted, OFL); body is the system sans stack
-- **Logo/favicon:** the lab's own circular BioPRYN result-plate photo
+- **Logo/favicon:** custom mark created for the lab (images/logo.svg): a
+  Holstein cow head with an ember blood-drop forehead star, on the brand teal.
+  images/logo-512.png is sized for the Google Business Profile avatar
 - **Original site assets:** `assets/original/` (reference copies of the 1999-era site)
 
 ## Local preview
