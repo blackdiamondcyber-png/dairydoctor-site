@@ -337,13 +337,17 @@ section + section {
   border-bottom: 1px solid var(--ice);
 }
 
+/* The nav never scrolls sideways. It used to be an overflow-x scroller,
+   which pushed "Contact" out of sight behind a visible scrollbar at any
+   width where the five items did not fit. It now wraps to a second row
+   instead, and the sizing rules below keep it on one row on phones. */
 .nav-row {
   display: flex;
   align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.15rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  overflow-x: visible;
 }
 
 /* Narrow phones: tighten the nav so all five items fit without the last one
@@ -370,6 +374,26 @@ section + section {
   .site-nav .nav-row .nav-link::after {
     left: 0.25em;
     right: 0.25em;
+  }
+}
+
+/* Large phones and small tablets: still one row, just less cramped than the
+   narrow-phone tier above. Without this the full-size links need about
+   418px of run and would wrap to a second row. */
+@media (min-width: 431px) and (max-width: 699px) {
+  .site-nav .nav-row {
+    gap: 0;
+    justify-content: space-evenly;
+  }
+
+  .site-nav .nav-row .nav-link {
+    padding: 0.5em 0.45em;
+    font-size: 0.9rem;
+  }
+
+  .site-nav .nav-row .nav-link::after {
+    left: 0.45em;
+    right: 0.45em;
   }
 }
 
