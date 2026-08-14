@@ -1,4 +1,4 @@
-/* Advanced Dairy Diagnostic & Consulting - nav + scroll motion (progressive
+/* Advanced Dairy Diagnostics & Consulting - nav + scroll motion (progressive
    enhancement). No dependencies. If this fails to load, nav-group triggers
    are real links to sensible pages, and [data-reveal] is visible via CSS
    alone. Nav-dropdown logic runs unconditionally (core nav, not motion). */
@@ -99,7 +99,11 @@
           }
         });
       },
-      { threshold: 0.15 }
+      /* A low threshold plus a positive bottom rootMargin makes sections fade
+         in just before they scroll into view. The old 0.15 threshold could
+         leave a tall section blank on short screens, which reads as a page
+         that failed to load. */
+      { threshold: 0.01, rootMargin: '0px 0px 8% 0px' }
     );
     revealEls.forEach(function (el) {
       io.observe(el);
