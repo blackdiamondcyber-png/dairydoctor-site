@@ -32,9 +32,11 @@
     var g = { el: el, trigger: trigger, panel: panel };
 
     trigger.addEventListener('click', function (e) {
+      /* First activation opens the panel; a second one follows the link,
+         so the trigger keeps behaving like the link it is announced as. */
+      if (trigger.getAttribute('aria-expanded') === 'true') return;
       e.preventDefault();
-      if (trigger.getAttribute('aria-expanded') === 'true') closeGroup(g);
-      else openGroupNow(g);
+      openGroupNow(g);
     });
 
     el.addEventListener('mouseenter', function () {
@@ -105,8 +107,17 @@
          that failed to load. */
       { threshold: 0.01, rootMargin: '0px 0px 8% 0px' }
     );
+    var vh = window.innerHeight || document.documentElement.clientHeight;
     revealEls.forEach(function (el) {
-      io.observe(el);
+      var r = el.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) {
+        /* Already in view: show it at once instead of fading it in. */
+        el.classList.add('now');
+        el.classList.add('in');
+        startCounts(el);
+      } else {
+        io.observe(el);
+      }
     });
   } else {
     revealEls.forEach(function (el) {

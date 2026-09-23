@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" href="favicon-180.png">
 <!-- Google Analytics 4: paste GA4 snippet here after creating the property. See docs/FREE-RESOURCES playbook. -->
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="images/band-tailbleed.jpg" imagesrcset="images/band-tailbleed-760.jpg 760w, images/band-tailbleed.jpg 1280w" imagesizes="(max-width: 800px) 100vw, 1024px">
+<link rel="preload" as="image" href="images/band-tailbleed.jpg" imagesrcset="images/band-tailbleed-760.jpg 760w, images/band-tailbleed-1000.jpg 1000w, images/band-tailbleed.jpg 1280w" imagesizes="100vw">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
 <script src="js/tools.js" defer></script>
@@ -55,7 +55,7 @@
           </div>
         </div>
         <div class="nav-group">
-          <a href="tailbleeding.html" class="nav-link nav-group-trigger is-active" aria-expanded="false" aria-controls="nav-panel-guides">Guides<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="tailbleeding.html" class="nav-link nav-group-trigger is-active" aria-current="true" aria-expanded="false" aria-controls="nav-panel-guides">Guides<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           <div class="nav-panel" id="nav-panel-guides">
             <a href="tailbleeding.html" class="nav-panel-link" aria-current="page">Tail Bleeding</a>
             <a href="shipping_test.html" class="nav-panel-link">Shipping &amp; Forms</a>
@@ -70,22 +70,23 @@
 </header>
 
 <div class="page-band">
-  <img src="images/band-tailbleed.jpg" width="1280" height="853" alt="A Holstein cow in a summer pasture, head raised, looking at the camera" decoding="async" fetchpriority="high" srcset="images/band-tailbleed-760.jpg 760w, images/band-tailbleed.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px">
+  <img src="images/band-tailbleed.jpg" width="1280" height="853" alt="A Holstein cow in a summer pasture, head raised, looking at the camera" decoding="async" fetchpriority="high" srcset="images/band-tailbleed-760.jpg 760w, images/band-tailbleed-1000.jpg 1000w, images/band-tailbleed.jpg 1280w" sizes="100vw">
 </div>
 
 <main id="main">
   <section class="container">
     <h1>How to Tail Bleed a Cow</h1>
-    <p>Samples collected with this procedure are submitted on the ADDC Preg Submission Form. <a href="ADDC%20Preg%20Submission%20Form.pdf">Download the form (PDF)</a>.</p>
+    <p>This is the cattle and bison procedure; the samples go in on the <a href="ADDC%20Preg%20Submission%20Form.pdf">ADDC Preg Submission Form (PDF)</a>. Goats and sheep are drawn from the jugular vein instead, and their samples go in on the <a href="Farm%20Pregnancy%20Test.pdf">goat and sheep form (PDF)</a>.</p>
+    <p>Before you start, restrain the cow in a chute, headgate or stanchion, and stand to the side of her hindquarters rather than directly behind her.</p>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Walk through it</p>
       <h2 id="guide">One step at a time</h2>
     </div>
-    <div class="tool stepper" data-tool="stepper" data-steps="#tail-steps" hidden aria-label="Tail bleeding, step by step">
-      <svg class="stepper-figure" viewBox="0 0 640 260" role="img" aria-label="Diagram of the underside of a cow's tail showing the needle insertion point three to six inches from the base">
+    <div class="tool stepper" data-tool="stepper" data-steps="#tail-steps" hidden role="group" aria-label="Tail bleeding, step by step" aria-describedby="stepper-hint">
+      <svg class="stepper-figure" viewBox="0 0 640 260" aria-hidden="true" focusable="false">
         <rect x="0" y="0" width="640" height="260" fill="#f2f7f6"/>
-        <g data-step="3 4 5 6 7 8">
+        <g data-step="3 4 5 6 7 8 9">
           <path d="M40 60 C 120 40, 220 40, 300 70 S 470 120, 600 150" fill="none" stroke="#244949" stroke-width="42" stroke-linecap="round"/>
           <path d="M40 60 C 120 40, 220 40, 300 70 S 470 120, 600 150" fill="none" stroke="#99cccc" stroke-width="4" stroke-dasharray="6 8" stroke-linecap="round"/>
           <text x="36" y="118" font-size="14" fill="#244949" font-family="Arial, sans-serif">tail base</text>
@@ -99,58 +100,59 @@
           <line x1="610" y1="193" x2="632" y2="193" stroke="#244949" stroke-width="3"/>
           <text x="400" y="228" font-size="14" fill="#244949" font-family="Arial, sans-serif">holder, tube, needle</text>
         </g>
-        <g data-step="4 5 6">
+        <g data-step="4 5 6 7">
           <line x1="196" y1="150" x2="196" y2="88" stroke="#b8430f" stroke-width="3" stroke-linecap="round"/>
           <circle cx="196" cy="86" r="5" fill="#b8430f"/>
           <text x="150" y="176" font-size="14" fill="#b8430f" font-family="Arial, sans-serif">about 1/2 inch, straight in</text>
         </g>
-        <g data-step="9 10 11">
+        <g data-step="10 11 12">
           <rect x="60" y="190" width="22" height="50" rx="5" fill="#ffffff" stroke="#244949" stroke-width="2"/>
           <rect x="60" y="190" width="22" height="10" rx="3" fill="#b8430f"/>
           <text x="92" y="222" font-size="14" fill="#244949" font-family="Arial, sans-serif">label, chill, new needle next cow</text>
         </g>
       </svg>
       <p class="stepper-num"></p>
-      <p class="stepper-text"></p>
+      <p class="stepper-text" aria-live="polite"></p>
       <div class="stepper-bar" aria-hidden="true"><span></span></div>
+      <p class="muted" id="stepper-hint">Tap Next step to continue, or use the arrow keys on a keyboard.</p>
       <div class="stepper-nav">
         <button type="button" class="btn btn-outline stepper-prev">Previous</button>
         <button type="button" class="btn btn-outline stepper-next">Next step</button>
         <button type="button" class="btn btn-outline" data-print>Print the checklist</button>
       </div>
-      <p class="muted">Use the arrow keys to move through the steps.</p>
     </div>
 
-    <div class="section-head" data-reveal>
+    <div class="section-head" data-reveal id="tail-steps-head">
       <p class="eyebrow">Steps</p>
-      <h2>The Tail Bleeding Procedure</h2>
+      <h2>The tail bleeding procedure</h2>
     </div>
 
     <ol class="steps" id="tail-steps">
       <li data-reveal style="--d:0s">Screw the Vacutainer needle onto the needle holder.</li>
       <li data-reveal style="--d:.08s">Insert the Vacutainer tube into the other end of the needle holder until the stopper touches the back portion of the needle. Do not puncture the stopper. Hold these assembled materials in one hand.</li>
       <li data-reveal style="--d:.16s">Lift the cow's tail with your other hand.</li>
-      <li data-reveal style="--d:0s">Insert the needle approximately 1/2 inch deep, perpendicular to the tail, on the underside at the midline, about 3 to 6 inches from the base of the tail. In this region there is a longitudinal, midline ridge of skin through which you push the needle.</li>
+      <li data-reveal style="--d:0s">Find the spot: on the underside of the tail at the midline, about 3 to 6 inches from the base, there is a ridge of skin running lengthwise.</li>
+      <li data-reveal style="--d:.08s">Push the needle through that ridge, straight in and perpendicular to the tail, about 1/2 inch deep.</li>
       <li data-reveal style="--d:.08s">Blood will appear at the junction of the stopper and the back portion of the needle once the vein is punctured. If it does not appear, pull the needle out slightly and insert it in a different direction until the vein is punctured.</li>
-      <li data-reveal style="--d:.16s">Once blood is seen, push the tube onto the needle. Keep the needle under the skin, since the vacuum will be lost if it is not. The vacuum pulls blood into the tube; if the vacuum is lost, blood cannot be collected. Use a second tube if this happens.</li>
-      <li data-reveal style="--d:0s">Collect 2 cc or more of blood.</li>
+      <li data-reveal style="--d:.16s">Once blood is seen, push the tube onto the needle and keep the needle under the skin. If it slips out, the vacuum is lost and blood stops flowing; use a second tube if that happens.</li>
+      <li data-reveal style="--d:0s">Collect 2cc or more of blood.</li>
       <li data-reveal style="--d:.08s">Withdraw the needle from the skin and remove the tube from the tube holder.</li>
       <li data-reveal style="--d:.16s">Label the tube with the animal identification.</li>
-      <li data-reveal style="--d:0s">Place the tube in an ice rack or refrigerator until shipment.</li>
+      <li data-reveal style="--d:0s">Place the tube in an ice rack or refrigerator until shipment. Pregnancy tubes ship without ice; chilling only keeps them fresh until the box goes out.</li>
       <li data-reveal style="--d:.08s">Discard the needle into a sharps container and re-use the needle holder. Use a new needle for each cow.</li>
     </ol>
     <figure class="figure-wide" data-reveal>
-      <img src="images/fig-sampling.jpg" width="1280" height="853" alt="A blood sample being drawn from a cow into a vacuum tube" srcset="images/fig-sampling-760.jpg 760w, images/fig-sampling.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
-      <figcaption>Holder in one hand, tail in the other. Two cc is enough.</figcaption>
+      <img src="images/fig-sampling.jpg" width="1280" height="853" alt="A blood sample being drawn from a cow into a vacuum tube" srcset="images/fig-sampling-760.jpg 760w, images/fig-sampling.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" fetchpriority="low" decoding="async">
+      <figcaption>Holder in one hand, tail in the other. 2cc is enough.</figcaption>
     </figure>
 
     <p class="mt-lg">When your samples are ready, see our <a href="shipping_test.html">shipping instructions</a> and download the test form to mail in with your blood sample.</p>
     <figure class="figure-wide" data-reveal>
-      <img src="images/fig-sampling2.jpg" width="1280" height="853" alt="A syringe drawing blood from the underside of a cow's tail" srcset="images/fig-sampling2-760.jpg 760w, images/fig-sampling2.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
-      <figcaption>With a syringe instead of a vacuum tube: same spot, same 2cc, then transfer to a red-top tube.</figcaption>
+      <img src="images/fig-sampling2.jpg" width="1280" height="853" alt="A syringe drawing blood from the underside of a cow's tail" srcset="images/fig-sampling2-760.jpg 760w, images/fig-sampling2.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" fetchpriority="low" decoding="async">
+      <figcaption>With a syringe instead of the Vacutainer system: same spot, same 2cc, then transfer to a red-top tube.</figcaption>
     </figure>
     <p>Questions about the procedure? Call us at <a href="tel:+17156532201">(715) 653-2201</a> or <a href="mailto:info@dairydoctor.com">email us</a>.</p>
-    <p class="badge">Ask about new client discounts</p>
+    <p><a class="badge" href="contact.html#new-client">Ask about new client discounts</a></p>
   </section>
 </main>
 
@@ -181,7 +183,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons, Kristenmacphee, RianHS, Agungtrinugroho, Gannu03 and Witia via Wikimedia Commons (CC BY-SA 4.0); Corey Coyle (CC BY 3.0); USDA; Carol M. Highsmith, Library of Congress; Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

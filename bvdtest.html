@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" href="favicon-180.png">
 <!-- Google Analytics 4: paste GA4 snippet here after creating the property. See docs/FREE-RESOURCES playbook. -->
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="images/band-bvd.jpg" imagesrcset="images/band-bvd-760.jpg 760w, images/band-bvd.jpg 1280w" imagesizes="(max-width: 800px) 100vw, 1024px">
+<link rel="preload" as="image" href="images/band-bvd.jpg" imagesrcset="images/band-bvd-760.jpg 760w, images/band-bvd-1000.jpg 1000w, images/band-bvd.jpg 1280w" imagesizes="100vw">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
 <script src="js/tools.js" defer></script>
@@ -47,7 +47,7 @@
       <div class="nav-row">
         <a href="index.html" class="nav-link">Home</a>
         <div class="nav-group">
-          <a href="pregtest.html" class="nav-link nav-group-trigger is-active" aria-expanded="false" aria-controls="nav-panel-testing">Testing<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="pregtest.html" class="nav-link nav-group-trigger is-active" aria-current="true" aria-expanded="false" aria-controls="nav-panel-testing">Testing<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           <div class="nav-panel" id="nav-panel-testing">
             <a href="pregtest.html" class="nav-panel-link">Pregnancy Testing</a>
             <a href="bvdtest.html" class="nav-panel-link" aria-current="page">BVD Testing</a>
@@ -70,41 +70,14 @@
 </header>
 
 <div class="page-band">
-  <img src="images/band-bvd.jpg" width="1280" height="853" alt="A Holstein cow standing in tall pasture grass, looking straight at the camera" decoding="async" fetchpriority="high" srcset="images/band-bvd-760.jpg 760w, images/band-bvd.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px">
+  <img src="images/band-bvd.jpg" width="1280" height="853" alt="A Holstein cow standing in tall pasture grass, looking straight at the camera" decoding="async" fetchpriority="high" srcset="images/band-bvd-760.jpg 760w, images/band-bvd-1000.jpg 1000w, images/band-bvd.jpg 1280w" sizes="100vw">
 </div>
 
 <main id="main">
   <section class="container">
     <h1>Testing Your Herd for BVD Persistent Infection</h1>
     <p class="badge">What you don't know will hurt you</p>
-
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">The science</p>
-      <h2>Understanding BVD and Persistent Infection</h2>
-    </div>
-
-    <h3>What is Bovine Viral Diarrhea virus (BVD)?</h3>
-    <p>The BVD virus is one of the most economically significant viruses affecting both the dairy and beef industries in the U.S. It has been estimated that as many as 70% of BVD virus infections are sub-clinical. These infections may not be readily visible but can be costly by reducing growth, production and reproduction within a herd.</p>
-
-    <h3>How is BVD transmitted?</h3>
-    <p>Cattle infected with BVD can shed virus through virtually any bodily fluid, making it one of the most contagious diseases in U.S. cattle herds.</p>
-
-    <h3>What is a persistent BVD infection?</h3>
-    <p>Some calves are born persistently infected (PI) with BVD virus, posing a serious threat to the health of the herd. PI calves are born from a pregnant cow that is exposed to BVD virus during the first 5 months of gestation. These PI calves may be born weak, deformed, or may appear completely normal, yet they always shed large amounts of virus into their environment.</p>
-
-    <h3>What effect can a PI animal have on the rest of the herd?</h3>
-    <p>In a herd situation, a single PI animal can expose many other pregnant cows that may then produce PI calves of their own. Since a PI animal sheds vast amounts of BVD virus, it can cause a wide array of health problems within a herd or pen. Increased respiratory disease (pneumonia), diarrhea (scours), and reproductive failures (abortions, mummifications, congenital defects) are the main symptoms of cattle challenged with BVD virus.</p>
-
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Testing and prevention</p>
-      <h2>Testing and Prevention</h2>
-    </div>
-
-    <h3>How can I test my herd to see if BVD is already present?</h3>
-    <p>Calves less than 12 months old should be tested by sending a skin (ear notch) sample to our lab. Adult cattle can be tested with either a blood (serum) sample or a skin sample (ear notch) submitted to our lab.</p>
-
-    <h3>How can I keep BVD from entering my herd?</h3>
-    <p>Control and prevention of BVD in your herd involves a two-pronged attack: <strong>PI testing and proper vaccination</strong>. Once you have screened your cattle initially for PI, testing all future calves and purchased additions will prevent a PI BVD animal from physically entering your herd. Vaccinating your calves and open adults with several properly timed doses of Express FP10 vaccine will keep the virus from spreading within your herd should they ever be exposed. Call or <a href="mailto:info@dairydoctor.com">email us</a> for a specific testing and vaccination plan for your herd.</p>
+    <p>BVD PI testing is for cattle and bison. Goat and sheep herds: call the lab and ask about disease monitoring instead.</p>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">The program</p>
@@ -112,19 +85,20 @@
     </div>
     <p>PI testing pays off as a program, not a one-time check. This is how it runs in a herd that stays clean:</p>
     <figure class="figure-wide" data-reveal>
-      <img src="images/fig-calf.jpg" width="1280" height="853" alt="A Holstein cow standing over her newborn calf in straw" srcset="images/fig-calf-760.jpg 760w, images/fig-calf.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <img src="images/fig-calf.jpg" width="1280" height="853" alt="A Holstein cow standing over her newborn calf in straw" srcset="images/fig-calf-760.jpg 760w, images/fig-calf.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" fetchpriority="low" decoding="async">
       <figcaption>Every calf gets a notch at birth. That is the whole program in one habit.</figcaption>
     </figure>
     <ol class="steps">
       <li data-reveal style="--d:0s">Screen the herd once. Every animal gives an ear notch or a blood sample, so you know where you stand.</li>
       <li data-reveal style="--d:.08s">Notch every calf at birth. Batch the notches and send them weekly with the form.</li>
       <li data-reveal style="--d:.16s">Test every purchased addition before it joins the herd, bulls included.</li>
+      <li data-reveal style="--d:0s">If a calf tests positive, test the dam too. A PI dam always produces a PI calf.</li>
       <li data-reveal style="--d:0s">A positive animal is isolated and either retested or removed on Dr. Pearson's advice. He reads every result himself.</li>
       <li data-reveal style="--d:.08s">Vaccinate calves and open adults on a timed schedule, so the virus cannot spread if it ever arrives.</li>
     </ol>
     <p><a class="btn btn-outline" href="contact.html#new-client">Ask for a herd plan</a></p>
     <figure class="figure-wide" data-reveal>
-      <img src="images/fig-beef.jpg" width="1280" height="853" alt="Black beef cows and calves on green pasture" srcset="images/fig-beef-760.jpg 760w, images/fig-beef.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <img src="images/fig-beef.jpg" width="1280" height="853" alt="Black beef cows and calves on green pasture" srcset="images/fig-beef-760.jpg 760w, images/fig-beef.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" fetchpriority="low" decoding="async">
       <figcaption>Beef herds run the same program at weaning and at purchase. One notch per calf, one batch per week.</figcaption>
     </figure>
 
@@ -163,24 +137,52 @@
     </div>
 
     <div class="section-head" data-reveal>
+      <p class="eyebrow">The science</p>
+      <h2>Understanding BVD and persistent infection</h2>
+    </div>
+
+    <h3>What is Bovine Viral Diarrhea virus (BVD)?</h3>
+    <p>The BVD virus is one of the most economically significant viruses affecting both the dairy and beef industries in the U.S. It has been estimated that as many as 70% of BVD virus infections are sub-clinical. These infections may not be readily visible but can be costly by reducing growth, production and reproduction within a herd.</p>
+
+    <h3>How is BVD transmitted?</h3>
+    <p>Cattle infected with BVD can shed virus through virtually any bodily fluid, making it one of the most contagious diseases in U.S. cattle herds.</p>
+
+    <h3>What is a persistent BVD infection?</h3>
+    <p>Some calves are born persistently infected (PI) with BVD virus, posing a serious threat to the health of the herd. PI calves are born from a pregnant cow that is exposed to BVD virus during the first 5 months of gestation. These PI calves may be born weak, deformed, or may appear completely normal, yet they always shed large amounts of virus into their environment.</p>
+
+    <h3>What effect can a PI animal have on the rest of the herd?</h3>
+    <p>In a herd situation, a single PI animal can expose many other pregnant cows that may then produce PI calves of their own. Since a PI animal sheds vast amounts of BVD virus, it can cause a wide array of health problems within a herd or pen. Increased respiratory disease (pneumonia), diarrhea (scours), and reproductive failures (abortions, mummifications, congenital defects) are the main symptoms of cattle challenged with BVD virus.</p>
+
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Testing and prevention</p>
+      <h2>Testing and prevention</h2>
+    </div>
+
+    <h3>How can I test my herd to see if BVD is already present?</h3>
+    <p>Calves less than 12 months old should be tested by sending a skin (ear notch) sample to our lab. Adult cattle can be tested with either a blood (serum) sample or a skin sample (ear notch) submitted to our lab.</p>
+
+    <h3>How can I keep BVD from entering my herd?</h3>
+    <p>Control and prevention of BVD in your herd involves a two-pronged attack: <strong>PI testing and proper vaccination</strong>. Once you have screened your cattle initially for PI, testing all future calves and purchased additions will prevent a PI BVD animal from physically entering your herd. Vaccinating your calves and open adults with several properly timed doses of Express FP10 vaccine will keep the virus from spreading within your herd should they ever be exposed. Call or <a href="mailto:info@dairydoctor.com">email us</a> for a specific testing and vaccination plan for your herd.</p>
+
+    <div class="section-head" data-reveal>
       <p class="eyebrow">Pricing</p>
-      <h2>How Much Does the PI Test Cost?</h2>
+      <h2>How much does the PI test cost?</h2>
     </div>
     <p>BVD PI testing (skin or blood) is $6.95 per animal. Volume discounts are available by phone at <a href="tel:+17156532201">(715) 653-2201</a>. One published study showed that a single PI animal in a dairy herd resulted in further health-related losses of over $35.00 for every other cow in the herd.</p>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Collecting samples</p>
-      <h2>How Do I Obtain a Skin or Blood Sample?</h2>
+      <h2>How do I obtain a skin or blood sample?</h2>
     </div>
-    <p>A medium pig ear-notcher works best when used on the lower aspect of the ear, where the notch can be seen from a distance yet does not affect the function of the ear flap. Place each skin sample into a separate, labeled tube. Blood samples should be collected into a 3cc red-top tube using a new needle for each animal.</p>
+    <p>A medium pig ear-notcher works best on the lower aspect of the ear. The notch can be seen from a distance and does not affect the ear flap. Place each skin sample into a separate, labeled tube. Blood samples should be collected into a 3cc red-top tube using a new needle for each animal.</p>
 
     <h3>Getting started</h3>
-    <p>A small (2cc) sample of blood from adult cattle can be used in place of an ear notch if desired. Place ear notch or blood samples in an air-tight zip-loc bag prior to shipment. Include ice packs in the box to keep samples cool during transit. Complete the submission form and include it in the shipping box.</p>
+    <p>A small (2cc) sample of blood from adult cattle can be used in place of an ear notch if desired. Place ear notch or blood samples in an air-tight zip-lock bag prior to shipment. Include ice packs in the box to keep samples cool during transit. Complete the submission form and include it in the shipping box.</p>
     <p>See our <a href="shipping_test.html">shipping instructions</a> and download the test form to mail in with your blood sample or ear notch.</p>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Forms</p>
-      <h2>Download the BVD PI Test Form</h2>
+      <h2>Download the BVD PI test form</h2>
     </div>
     <div class="forms-grid">
       <div class="form-card" data-reveal>
@@ -189,13 +191,15 @@
         <p>For blood or ear notch samples</p>
         <a class="btn btn-outline" href="BVD_PI_Test.pdf">
           <svg class="icon-download" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>
-          Download PDF
+          Download PDF<span class="sr-only">, BVD PI test form</span>
         </a>
       </div>
     </div>
 
+    <p class="tool-actions"><a class="btn btn-outline" href="contact.html#new-client">Ask for a herd plan</a></p>
+
     <p class="mt-lg">Learn how you can adopt an inexpensive laboratory test for persistently infected (PI) animals, plus other proven biosecurity measures, to increase your herd's profitability through improved health management. Call us at <a href="tel:+17156532201">(715) 653-2201</a> or <a href="contact.html">contact us</a> for more information.</p>
-    <p class="badge">Ask about new client discounts</p>
+    <p><a class="badge" href="contact.html#new-client">Ask about new client discounts</a></p>
   </section>
 </main>
 
@@ -226,7 +230,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons, Kristenmacphee, RianHS, Agungtrinugroho, Gannu03 and Witia via Wikimedia Commons (CC BY-SA 4.0); Corey Coyle (CC BY 3.0); USDA; Carol M. Highsmith, Library of Congress; Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

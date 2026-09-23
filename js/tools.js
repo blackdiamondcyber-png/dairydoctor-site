@@ -330,6 +330,26 @@
     var prev = $(".stepper-prev", root);
     var next = $(".stepper-next", root);
     var fig = $(".stepper-figure", root);
+    if (!num || !text || !prev || !next) return;
+    var head = list.previousElementSibling;
+    if (!(head && head.classList.contains("section-head"))) head = null;
+    var nav = $(".stepper-nav", root);
+    if (nav) {
+      list.hidden = true;
+      if (head) head.hidden = true;
+      var toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "btn btn-outline";
+      toggle.textContent = "Show all steps";
+      on(toggle, "click", function () {
+        var show = list.hidden;
+        list.hidden = !show;
+        if (head) head.hidden = !show;
+        toggle.textContent = show ? "Hide the full list" : "Show all steps";
+        if (show && head) head.scrollIntoView({ block: "start" });
+      });
+      nav.appendChild(toggle);
+    }
     function render() {
       num.textContent = "Step " + (i + 1) + " of " + steps.length;
       text.innerHTML = steps[i];
@@ -387,10 +407,27 @@
         if (hit) shown++;
         if (q && hit) d.open = true;
       });
+      $all(".faq-group").forEach(function (g) {
+        var any = $all("details.faq-item", g).some(function (d) {
+          return !d.hidden;
+        });
+        $all(".section-head, figure", g).forEach(function (el) {
+          el.hidden = !!q && !any;
+        });
+      });
       if (count)
         count.textContent = q
           ? shown + " of " + items.length + " questions match"
           : items.length + " questions";
+      var empty = $(".faq-empty");
+      if (!empty) {
+        empty = document.createElement("p");
+        empty.className = "faq-empty";
+        empty.innerHTML =
+          'No questions match. Try a shorter word, or call <a href="tel:+17156532201">(715) 653-2201</a>.';
+        root.parentNode.insertBefore(empty, root.nextSibling);
+      }
+      empty.hidden = !(q && shown === 0);
     }
     on(input, "input", run);
     on(expand, "click", function () {
@@ -458,8 +495,22 @@
           btn.textContent = was;
         }, 1600);
       };
+      var live = $(".copy-live");
+      if (!live) {
+        live = document.createElement("span");
+        live.className = "sr-only copy-live";
+        live.setAttribute("aria-live", "polite");
+        document.body.appendChild(live);
+      }
+      var announce = function () {
+        live.textContent = "";
+        setTimeout(function () {
+          live.textContent = "Address copied to the clipboard";
+        }, 50);
+        done();
+      };
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, function () {
+        navigator.clipboard.writeText(text).then(announce, function () {
           window.prompt("Copy this address:", text);
         });
       } else {
@@ -468,7 +519,16 @@
     });
   });
 
-  /* ---------------- 9. Print buttons ---------------- */
+  /* ---------------- 9. Form redirect follows the current host ---------------- */
+  $all('form input[name="_next"]').forEach(function (inp) {
+    if (window.location.protocol.indexOf("http") !== 0) return;
+    inp.value =
+      window.location.origin +
+      window.location.pathname.replace(/[^\/]*$/, "") +
+      "thanks.html";
+  });
+
+  /* ---------------- 10. Print buttons ---------------- */
   $all("[data-print]").forEach(function (btn) {
     on(btn, "click", function () {
       window.print();

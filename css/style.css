@@ -187,7 +187,136 @@ b {
 }
 
 .section-head {
+  margin-top: 2.25rem;
   max-width: 68ch;
+}
+
+.section-head:first-child,
+h1 + .section-head,
+.page-band + .section-head {
+  margin-top: 1rem;
+}
+
+.lede {
+  font-size: 1.08rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.jump-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  align-items: center;
+  margin-top: 1rem;
+  max-width: none;
+  font-size: 0.9rem;
+}
+
+.jump-row a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  color: var(--teal);
+  background: #ffffff;
+}
+
+.jump-row a:hover,
+.jump-row a:focus-visible {
+  border-color: var(--teal);
+  text-decoration: underline;
+}
+
+a.badge {
+  text-decoration: none;
+}
+
+a.badge:hover,
+a.badge:focus-visible {
+  text-decoration: underline;
+}
+
+.band-figure {
+  margin: 0;
+}
+
+.faq-empty {
+  margin-top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.jump-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  align-items: center;
+  margin-top: 1rem;
+  max-width: none;
+  font-size: 0.9rem;
+}
+
+.jump-row a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  color: var(--teal);
+  background: #ffffff;
+}
+
+.jump-row a:hover,
+.jump-row a:focus-visible {
+  border-color: var(--teal);
+  text-decoration: underline;
+}
+
+a.badge {
+  text-decoration: none;
+}
+
+a.badge:hover,
+a.badge:focus-visible {
+  text-decoration: underline;
+}
+
+.band-figure {
+  margin: 0;
+}
+
+.faq-empty {
+  margin-top: 1rem;
+}
+
+.faq-group + .faq-group {
+  margin-top: 1.75rem;
 }
 
 .section-head h2 {
@@ -687,7 +816,7 @@ section + section {
   height: 100%;
   object-fit: cover;
   object-position: 60% 50%;
-  animation: ken-burns 26s ease-in-out infinite alternate;
+  animation: ken-burns 5s ease-out 1 both;
 }
 
 @keyframes ken-burns {
@@ -1465,7 +1594,6 @@ address p {
 .footer-heading {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1rem;
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1543,6 +1671,16 @@ address p {
 .js-motion [data-reveal].in {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Already on screen at load: no fade, no slide. */
+.js-motion [data-reveal].now {
+  transition: none;
+}
+
+/* Already on screen at load: no fade, no slide. */
+.js-motion [data-reveal].now {
+  transition: none;
 }
 
 /* -------------------- Reduced motion -------------------- */
@@ -2003,5 +2141,27 @@ address p {
   .faq-item > p,
   .faq-item > ul {
     display: block !important;
+  }
+}
+
+@media print {
+  #tail-steps[hidden],
+  #tail-steps-head[hidden] {
+    display: block !important;
+  }
+
+  .stepper {
+    display: none !important;
+  }
+}
+
+@media print {
+  #tail-steps[hidden],
+  #tail-steps-head[hidden] {
+    display: block !important;
+  }
+
+  .stepper {
+    display: none !important;
   }
 }
