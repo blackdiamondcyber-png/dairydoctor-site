@@ -21,6 +21,7 @@
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
+<script src="js/tools.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -109,6 +110,10 @@
       <h2 id="program">The whole-herd program</h2>
     </div>
     <p>PI testing pays off as a program, not a one-time check. This is how it runs in a herd that stays clean:</p>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-calf.jpg" width="1280" height="853" alt="A Holstein cow standing over her newborn calf in straw" srcset="images/fig-calf-760.jpg 760w, images/fig-calf.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>Every calf gets a notch at birth. That is the whole program in one habit.</figcaption>
+    </figure>
     <ol class="steps">
       <li data-reveal style="--d:0s">Screen the herd once. Every animal gives an ear notch or a blood sample, so you know where you stand.</li>
       <li data-reveal style="--d:.08s">Notch every calf at birth. Batch the notches and send them weekly with the form.</li>
@@ -117,9 +122,43 @@
       <li data-reveal style="--d:.08s">Vaccinate calves and open adults on a timed schedule, so the virus cannot spread if it ever arrives.</li>
     </ol>
     <p><a class="btn btn-outline" href="contact.html#new-client">Ask for a herd plan</a></p>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-beef.jpg" width="1280" height="853" alt="Black beef cows and calves on green pasture" srcset="images/fig-beef-760.jpg 760w, images/fig-beef.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>Beef herds run the same program at weaning and at purchase. One notch per calf, one batch per week.</figcaption>
+    </figure>
 
     <div class="info-block text-center" data-reveal>
       <p><strong>Inexpensive insurance.</strong> At $6.95 per sample, testing your herd for BVD PI has never been easier or more economical. Volume discounts are available, give us a call.</p>
+    </div>
+
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Plan it</p>
+      <h2 id="planner">BVD program planner</h2>
+    </div>
+    <div class="tool" data-tool="bvdplan" data-reveal>
+      <div class="tool-grid">
+        <div class="form-field">
+          <label for="bp-herd">Breeding females</label>
+          <input type="number" id="bp-herd" name="herd" min="1" max="20000" inputmode="numeric" value="120">
+        </div>
+        <div class="form-field">
+          <label for="bp-pattern">Calving</label>
+          <select id="bp-pattern" name="pattern">
+            <option value="year">Year-round (dairy)</option>
+            <option value="season">Seasonal (beef, about ten weeks)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="bp-status">Herd status</label>
+          <select id="bp-status" name="status">
+            <option value="never">Never screened</option>
+            <option value="clean">Screened clean, keeping it that way</option>
+          </select>
+        </div>
+      </div>
+      <div class="tool-out" aria-live="polite">
+        <p>Enter your herd size to see how many notches a week the program takes.</p>
+      </div>
     </div>
 
     <div class="section-head" data-reveal>
@@ -186,7 +225,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons (CC BY-SA 4.0), Virginia-Maryland College of Veterinary Medicine, USDA. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

@@ -21,6 +21,7 @@
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
+<script src="js/tools.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -90,10 +91,72 @@
       <li data-reveal style="--d:.16s">Use proper shipping labels (we can provide them) and write the following on the outside of the box: "BOVINE BLOOD and/or TISSUE SAMPLES."</li>
       <li data-reveal style="--d:0s">Ship samples via Priority Mail, FedEx or UPS so they reach our laboratory no later than Wednesday.</li>
     </ol>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-sampling2.jpg" width="1280" height="853" alt="Vacuum tubes of blood in a rack after collection" srcset="images/fig-sampling2-760.jpg 760w, images/fig-sampling2.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>Tubes labeled, capped and racked. Pad them well and they travel fine without ice.</figcaption>
+    </figure>
 
     <div class="info-block" data-reveal>
       <h3>Ear notches and BVD samples ship cold</h3>
       <p>Pregnancy blood tubes do not need ice. Ear notches and BVD blood samples do: refrigerate them before shipping, pack them with ice packs, and get them to the lab within 48 hours of collection. If a shipment cannot make it in 48 hours, call first for instructions.</p>
+    </div>
+
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Plan it</p>
+      <h2 id="planner">Ship-by planner</h2>
+    </div>
+    <div class="tool" data-tool="shipby" data-reveal>
+      <div class="tool-grid">
+        <div class="form-field">
+          <label for="sb-ship">Day you can ship</label>
+          <input type="date" id="sb-ship" name="ship">
+        </div>
+        <div class="form-field">
+          <label for="sb-transit">Shipping</label>
+          <select id="sb-transit" name="transit">
+            <option value="1">Arrives next day (UPS or FedEx overnight)</option>
+            <option value="2" selected>Arrives in 2 days (Priority Mail, ground)</option>
+            <option value="3">Arrives in 3 days</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="sb-kind">Samples</label>
+          <select id="sb-kind" name="kind">
+            <option value="preg">Pregnancy blood tubes</option>
+            <option value="bvd">BVD ear notches or blood</option>
+          </select>
+        </div>
+      </div>
+      <div class="tool-out" aria-live="polite">
+        <p>Samples that reach the lab by Wednesday are reported that Thursday. Pick a ship day to see which Thursday you get.</p>
+      </div>
+    </div>
+
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Which form</p>
+      <h2 id="chooser">Which form do I need?</h2>
+    </div>
+    <div class="tool" data-tool="chooser" data-reveal>
+      <div class="tool-grid">
+        <div class="form-field">
+          <label for="fc-species">Animals</label>
+          <select id="fc-species" name="species">
+            <option value="cattle">Cattle or bison</option>
+            <option value="small">Goats or sheep</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="fc-test">Test</label>
+          <select id="fc-test" name="test">
+            <option value="preg">Pregnancy</option>
+            <option value="bvd">BVD PI</option>
+            <option value="other">Johnes, Leukosis, Mycoplasma, other</option>
+          </select>
+        </div>
+      </div>
+      <div class="tool-out" aria-live="polite">
+        <p>Three forms cover everything: cattle and bison pregnancy, small ruminant pregnancy, and BVD PI. They are all below.</p>
+      </div>
     </div>
 
     <div class="section-head" data-reveal>
@@ -106,7 +169,12 @@
         <p>362 310th Avenue</p>
         <p>Frederic, WI 54837</p>
       </address>
+      <p class="tool-actions"><button type="button" class="btn btn-outline" data-copy="Advanced Dairy Diagnostics &amp; Consulting, LLC, 362 310th Avenue, Frederic, WI 54837">Copy the address</button> <a class="btn btn-outline" href="addc.vcf" download>Add the lab to your contacts</a></p>
     </div>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-microplate.jpg" width="1280" height="853" alt="A 96-well laboratory microplate with colored wells" srcset="images/fig-microplate-760.jpg 760w, images/fig-microplate.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>Within a day of arrival your samples are on a plate like this one, and the report goes out Thursday.</figcaption>
+    </figure>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Forms</p>
@@ -147,14 +215,24 @@
       <p class="eyebrow">Supplies</p>
       <h2 id="supplies">Supplies we can ship you</h2>
     </div>
-    <p>If you do not keep sampling supplies on hand, order them on the submission form and we ship them with your first order. Prices are printed on each form.</p>
-    <ul>
-      <li>Red-top blood tubes, 3cc or 5cc, box of 100</li>
-      <li>Bleeding needles, box of 100</li>
-      <li>Vacutainer needle holder</li>
-      <li>Ear notcher and BVD sample vials</li>
-      <li>Shipping labels, on request</li>
-    </ul>
+    <p>If you do not keep sampling supplies on hand, order them on the submission form and we ship them with your first order. Prices are printed on each form. Tick what you already have and print the rest.</p>
+    <div class="tool" data-tool="checklist" data-mode="need" data-reveal>
+      <div class="check-grid">
+        <label class="choice"><input type="checkbox" checked>Red-top blood tubes, 3cc or 5cc</label>
+        <label class="choice"><input type="checkbox" checked>Bleeding needles, one per animal</label>
+        <label class="choice"><input type="checkbox" checked>Vacutainer needle holder</label>
+        <label class="choice"><input type="checkbox">Ear notcher (BVD only)</label>
+        <label class="choice"><input type="checkbox">BVD sample vials (BVD only)</label>
+        <label class="choice"><input type="checkbox">Ice packs (BVD only)</label>
+        <label class="choice"><input type="checkbox" checked>Heavy zip-lock bags</label>
+        <label class="choice"><input type="checkbox" checked>Padded shipping box</label>
+        <label class="choice"><input type="checkbox" checked>Completed submission form</label>
+        <label class="choice"><input type="checkbox" checked>Payment, check payable to ADDC</label>
+        <label class="choice"><input type="checkbox">Shipping labels (we can send them)</label>
+      </div>
+      <div class="tool-out" aria-live="polite"></div>
+      <p class="tool-actions"><button type="button" class="btn btn-outline tool-print">Print this checklist</button></p>
+    </div>
 
     <p class="mt-lg">Learn how you can adopt this and other technologies to increase your herd's profitability through improved reproductive management. Call us at <a href="tel:+17156532201">(715) 653-2201</a> or <a href="mailto:info@dairydoctor.com">email us</a> for more information.</p>
     <p class="badge">Ask about new client discounts</p>
@@ -188,7 +266,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons (CC BY-SA 4.0), Virginia-Maryland College of Veterinary Medicine, USDA. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

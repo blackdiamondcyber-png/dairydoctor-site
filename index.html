@@ -23,6 +23,7 @@
 <link rel="preload" as="image" href="images/hero-vet.jpg" imagesrcset="images/hero-vet-800.jpg 800w, images/hero-vet.jpg 1600w" imagesizes="100vw">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
+<script src="js/tools.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -203,33 +204,39 @@
       <h2>Herds that draw their own samples</h2>
     </div>
     <p data-reveal>The lab was built for operations that sample on their own schedule and mail the tubes. That covers more kinds of herds than most people expect.</p>
-    <div class="card-grid cards-6">
+    <div class="card-grid cards-6 cards-photo">
       <article class="card" data-reveal style="--d:0s">
+        <img src="images/fig-beef.jpg" width="1280" height="853" alt="Black beef cows and calves on green pasture" srcset="images/fig-beef-760.jpg 760w, images/fig-beef.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async" class="card-img">
         <h3>Beef cow-calf herds</h3>
         <p>Check at weaning or a month after the bull comes out, and cull on the answer instead of wintering an open cow.</p>
         <a class="card-link" href="pregtest.html">Cattle pregnancy testing</a>
       </article>
       <article class="card" data-reveal style="--d:.06s">
+        <img src="images/fig-holstein.jpg" width="1280" height="853" alt="A black and white Holstein cow in a pasture" srcset="images/fig-holstein-760.jpg 760w, images/fig-holstein.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async" class="card-img">
         <h3>Dairies without a weekly herd check</h3>
         <p>Your own crew draws on your schedule. The open list is back before the next protocol day.</p>
         <a class="card-link" href="pregtest.html#large-herds">How the week runs</a>
       </article>
       <article class="card" data-reveal style="--d:.12s">
+        <img src="images/fig-heifers.jpg" width="1280" height="853" alt="Dairy heifers grazing a summer pasture" srcset="images/fig-heifers-760.jpg 760w, images/fig-heifers.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async" class="card-img">
         <h3>Custom heifer growers</h3>
         <p>Heifers test from 25 days after breeding. Off-site heifers get checked without a vet visit to the lot.</p>
         <a class="card-link" href="pregtest.html#heifers">Heifer testing</a>
       </article>
       <article class="card" data-reveal style="--d:.18s">
+        <img src="images/goats-nubian.jpg" width="1024" height="684" alt="Nubian dairy goats at a fence line" srcset="images/goats-nubian-760.jpg 760w, images/goats-nubian.jpg 1024w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async" class="card-img">
         <h3>Goat and sheep dairies</h3>
         <p>Wisconsin milks more goats than any other state. Goats and sheep test from 30 days after breeding on the same blood draw.</p>
         <a class="card-link" href="pregtest.html#goats">Goat and sheep testing</a>
       </article>
       <article class="card" data-reveal style="--d:.24s">
+        <img src="images/fig-bison-ranch.jpg" width="1280" height="853" alt="American bison grazing on a working ranch" srcset="images/fig-bison-ranch-760.jpg 760w, images/fig-bison-ranch.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async" class="card-img">
         <h3>Bison ranches</h3>
         <p>The assay is validated in bison, and nobody wants to palpate one. Draw at the handling system, mail the tubes.</p>
         <a class="card-link" href="pregtest.html#bison">Bison testing</a>
       </article>
       <article class="card" data-reveal style="--d:.3s">
+        <img src="images/fig-farm2.jpg" width="1280" height="853" alt="Holstein cows in front of a red Wisconsin dairy barn" srcset="images/fig-farm2-760.jpg 760w, images/fig-farm2.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async" class="card-img">
         <h3>Large herds</h3>
         <p>Heifer checks, BVD PI screening of every calf, disease monitoring, and Dairy Comp 305 records review with the veterinarian.</p>
         <a class="card-link" href="aboutus.html#consulting">Consulting and monitoring</a>
@@ -287,7 +294,42 @@
   </section>
 
   <section class="container">
-    <div class="about-teaser" data-reveal>
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Plan a draw</p>
+      <h2>When can I test?</h2>
+    </div>
+    <div class="tool" data-tool="timing" data-reveal>
+      <div class="tool-grid">
+        <div class="form-field">
+          <label for="hp-species">Animal</label>
+          <select id="hp-species" name="species">
+            <option value="cattle">Cow or bison (28 days after breeding)</option>
+            <option value="heifer">Virgin heifer (25 days)</option>
+            <option value="small">Goat or sheep (30 days)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="hp-bred">Breeding date</label>
+          <input type="date" id="hp-bred" name="bred">
+        </div>
+        <div class="form-field">
+          <label for="hp-transit">Shipping</label>
+          <select id="hp-transit" name="transit">
+            <option value="1">Arrives next day (UPS or FedEx overnight)</option>
+            <option value="2" selected>Arrives in 2 days (Priority Mail, ground)</option>
+            <option value="3">Arrives in 3 days</option>
+          </select>
+        </div>
+      </div>
+      <div class="tool-out" aria-live="polite">
+        <p>Cows and bison can be sampled 28 days after breeding, virgin heifers at 25, goats and sheep at 30. Samples that reach the lab by Wednesday are reported that Thursday.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="about-teaser about-teaser-photo" data-reveal>
+      <img src="images/fig-farm.jpg" width="1280" height="853" alt="A Wisconsin dairy farm with red barns and silos under a summer sky" srcset="images/fig-farm-760.jpg 760w, images/fig-farm.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async" class="about-img">
       <div class="section-head">
         <p class="eyebrow">About</p>
         <h2>About Advanced Dairy Diagnostics &amp; Consulting</h2>
@@ -326,7 +368,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons (CC BY-SA 4.0), Virginia-Maryland College of Veterinary Medicine, USDA. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

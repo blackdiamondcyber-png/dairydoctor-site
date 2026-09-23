@@ -21,6 +21,7 @@
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
+<script src="js/tools.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -67,6 +68,10 @@
   </nav>
 </header>
 
+<div class="page-band">
+  <img src="images/band-preg.jpg" width="1280" height="853" alt="A Holstein cow grazing knee-deep in summer pasture" srcset="images/band-preg-760.jpg 760w, images/band-preg.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" decoding="async" fetchpriority="high">
+</div>
+
 <main id="main">
   <section class="container">
     <h1>BioPRYN&reg; Blood Pregnancy Testing</h1>
@@ -92,6 +97,10 @@
     <p>The Enzyme-Linked Immuno-Sorbent Assay (ELISA) laboratory process detects the presence of a protein called Pregnancy Specific Protein B (PSPB). PSPB is produced by the developing placenta and begins circulating in the blood of pregnant cattle as early as 3 weeks of gestation. Since non-pregnant animals will not have this protein in their blood, the test is more than 99% accurate in detecting open cows.</p>
     <p>This high accuracy of open detection gives the test an "embryo safety factor" far surpassing older progesterone-based tests. With less than a 1% error rate in open detection, the test is more accurate, and safer, than palpation or ultrasound of early pregnancies.</p>
     <p>In addition, Early Embryonic Death (EED) can sometimes be detected by the blood test, since subnormal levels of PSPB may indicate a pregnancy in trouble.</p>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-microplate.jpg" width="1280" height="853" alt="A 96-well laboratory microplate with colored wells" srcset="images/fig-microplate-760.jpg 760w, images/fig-microplate.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>The assay runs on a 96-well plate like this one: each well is one animal, and the color tells the answer.</figcaption>
+    </figure>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Pricing</p>
@@ -112,6 +121,10 @@
       <h2 id="heifers">Heifers from 25 days</h2>
     </div>
     <p>Virgin heifers can be tested 25 days after breeding, three days earlier than cows. That makes blood testing the natural fit for heifers raised off-site: the grower's crew draws the samples on a day the heifers are already in the chute, and nobody has to schedule a veterinary visit to a lot two hours away. Open heifers go back on the breeding list before the next cycle.</p>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-heifers.jpg" width="1280" height="853" alt="Dairy heifers grazing a summer pasture" srcset="images/fig-heifers-760.jpg 760w, images/fig-heifers.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>Heifers at a grower can be drawn by the crew on hand; nobody has to schedule a veterinary visit.</figcaption>
+    </figure>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Goats and sheep</p>
@@ -144,6 +157,18 @@
       <h2 id="results">Pregnant, open, or recheck</h2>
     </div>
     <p>BioPRYN reports each animal as pregnant, open, or recheck. A recheck means the reading fell between the two ranges. It can point to a pregnancy in trouble, an animal sampled too early, or a cow still too close to calving. Dr. Pearson reads every plate himself and will tell you what a recheck means for that animal and when to sample her again.</p>
+    <figure class="report-mock" data-reveal>
+      <figcaption class="report-cap">What a report looks like. Illustration only, not a client's data.</figcaption>
+      <table class="report">
+        <thead><tr><th>Tube</th><th>Animal ID</th><th>Result</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>4412</td><td><span class="res res-p">Pregnant</span></td><td>Protein present. Keep her on the pregnant list.</td></tr>
+          <tr><td>2</td><td>4418</td><td><span class="res res-o">Open</span></td><td>No protein. Back on next week's breeding list.</td></tr>
+          <tr><td>3</td><td>4425</td><td><span class="res res-r">Recheck</span></td><td>Between the ranges. Dr. Pearson notes when to sample her again.</td></tr>
+          <tr><td>4</td><td>4431</td><td><span class="res res-p">Pregnant</span></td><td></td></tr>
+        </tbody>
+      </table>
+    </figure>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Getting started</p>
@@ -152,6 +177,42 @@
     <p>First, select cows at least 90 days since calving and 28 or more days from their last breeding. Samples can be collected with a syringe and needle or with the vacuum tube system.</p>
     <p>Ready to draw samples? See <a href="tailbleeding.html">how to tail bleed a cow</a>.</p>
     <p>Using a new needle for each cow, draw 2cc of whole blood into a new red-top tube clearly labeled with the animal ID. Package tubes in padding for safe delivery, then see our <a href="shipping_test.html">shipping instructions</a> and download the test form to mail in with your blood sample.</p>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-sampling.jpg" width="1280" height="853" alt="A blood sample being drawn from a cow into a vacuum tube" srcset="images/fig-sampling-760.jpg 760w, images/fig-sampling.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>A red-top tube, a new needle for every animal, and the tail vein. The how-to guide walks through it step by step.</figcaption>
+    </figure>
+
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Plan a draw</p>
+      <h2 id="timing">When can I test?</h2>
+    </div>
+    <div class="tool" data-tool="timing" data-reveal>
+      <div class="tool-grid">
+        <div class="form-field">
+          <label for="pt-species">Animal</label>
+          <select id="pt-species" name="species">
+            <option value="cattle">Cow or bison (28 days after breeding)</option>
+            <option value="heifer">Virgin heifer (25 days)</option>
+            <option value="small">Goat or sheep (30 days)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="pt-bred">Breeding date</label>
+          <input type="date" id="pt-bred" name="bred">
+        </div>
+        <div class="form-field">
+          <label for="pt-transit">Shipping</label>
+          <select id="pt-transit" name="transit">
+            <option value="1">Arrives next day (UPS or FedEx overnight)</option>
+            <option value="2" selected>Arrives in 2 days (Priority Mail, ground)</option>
+            <option value="3">Arrives in 3 days</option>
+          </select>
+        </div>
+      </div>
+      <div class="tool-out" aria-live="polite">
+        <p>Cows and bison can be sampled 28 days after breeding, virgin heifers at 25, goats and sheep at 30. Samples that reach the lab by Wednesday are reported that Thursday.</p>
+      </div>
+    </div>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Forms</p>
@@ -210,7 +271,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons (CC BY-SA 4.0), Virginia-Maryland College of Veterinary Medicine, USDA. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

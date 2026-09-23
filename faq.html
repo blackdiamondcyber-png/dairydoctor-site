@@ -21,6 +21,7 @@
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
+<script src="js/tools.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -74,37 +75,58 @@
 <main id="main">
   <section class="container">
     <h1>Frequently Asked Questions</h1>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-holstein.jpg" width="1280" height="853" alt="A black and white Holstein cow standing in a field of dandelions" srcset="images/fig-holstein-760.jpg 760w, images/fig-holstein.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>Most questions come down to three things: when to draw, how to ship, and what the report means.</figcaption>
+    </figure>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Questions</p>
       <h2>About BioPRYN&reg; and Pregnancy Testing</h2>
     </div>
 
-    <h3>What is BioPRYN?</h3>
+    <div class="tool faq-tools" data-tool="faqsearch" data-reveal>
+      <div class="form-field">
+        <label for="faq-q">Search the questions</label>
+        <input type="search" id="faq-q" placeholder="ice, heifers, recheck, goats">
+      </div>
+      <p class="tool-actions"><span class="tool-count muted"></span> <button type="button" class="btn btn-outline faq-expand">Expand all</button></p>
+    </div>
+
+    <details class="faq-item">
+      <summary>What is BioPRYN?</summary>
     <p>BioPRYN is a blood pregnancy test for cattle, bison, sheep and goats, and has specific appeal for the commercial U.S. dairy industry because it delivers fast, accurate, safe and economical pregnancy diagnostic results.</p>
-
-    <h3>Do you test goats and sheep?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>Do you test goats and sheep?</summary>
     <p>Yes. Goats and sheep test from the same 2cc blood draw as cattle, from 30 days after breeding, on the Small Ruminant Pregnancy Test Form. See <a href="pregtest.html#goats">goat and sheep testing</a>.</p>
-
-    <h3>What does the test name stand for?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>What does the test name stand for?</summary>
     <p>The test's name is a partial acronym for "Pregnant Ruminant Yes/No." This specific test uses ELISA technology, which produces fast results.</p>
-
-    <h3>How does BioPRYN detect pregnancies?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>How does BioPRYN detect pregnancies?</summary>
     <p>BioPRYN evaluates the blood, more specifically the serum or plasma, of ruminants for a protein called Pregnancy Specific Protein B (PSPB). PSPB is produced by the placenta, so pregnant animals will have the protein in their blood. This makes the test more accurate than earlier attempts at pregnancy diagnosis that evaluated blood or milk for progesterone or other hormones that can occur in normally cycling animals. The test uses enzyme-linked immunosorbent assay (ELISA) technology for processing, which contributes to its low cost and fast turnaround.</p>
-
-    <h3>How early in a pregnancy can animals be tested with BioPRYN?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>How early in a pregnancy can animals be tested with BioPRYN?</summary>
     <p>Adult cattle can be tested for pregnancy 28 or more days following insemination; virgin heifers can be tested 25 days or more after insemination. Animals that are detected open can then be immediately returned to time-saving re-synchronization protocols using products such as Estroplan and Gonabreed.</p>
-
-    <h3>Can heifers at a custom grower be tested?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>Can heifers at a custom grower be tested?</summary>
     <p>Yes. Heifers test from 25 days after breeding. The grower's crew draws the samples and ships them, and the report goes wherever you mark on the form. See <a href="pregtest.html#heifers">heifer testing</a>.</p>
-
-    <h3>What is the accuracy of BioPRYN?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>What is the accuracy of BioPRYN?</summary>
     <p>The test is more than 99 percent accurate in detecting open cows, with less than 1 percent showing false-open (false-negative) results. Correct open detection is very important when giving Estroplan or other synchronizing drugs.</p>
-
-    <h3>What does a "recheck" result mean?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>What does a "recheck" result mean?</summary>
     <p>BioPRYN reports each animal as pregnant, open, or recheck. A recheck means the reading fell between the two ranges: a pregnancy in trouble, an animal sampled too early, or a cow still too close to calving. Dr. Pearson reads every plate himself and will tell you what the recheck means for that animal and when to sample her again.</p>
-
-    <h3>What are the advantages of using blood testing versus other methods of pregnancy diagnosis?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>What are the advantages of using blood testing versus other methods of pregnancy diagnosis?</summary>
     <ul>
       <li>Producers incur less cost using BioPRYN compared to rectal palpation by a veterinarian, and much less cost than ultrasound.</li>
       <li>Blood testing allows producers to diagnose pregnancy at least 7 days sooner than rectal palpation, with no risk of damaging the fetus.</li>
@@ -112,13 +134,52 @@
       <li>The test is more convenient for dairies, because on-farm personnel can draw samples without locking up cows or waiting for the veterinarian to arrive, and then ship the blood samples.</li>
       <li>Eliminating rectal palpation also frees up the veterinarian to concentrate on higher-level issues with the dairy's management team.</li>
     </ul>
-
-    <h3>How long does it take to receive the test results?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>How long does it take to receive the test results?</summary>
     <p>Tests are run Monday through Thursday, and results are reported on Thursday. Samples that reach the lab by Wednesday go out in that week's Thursday report, faxed or emailed back to the dairy. If you need results earlier, call ahead and we can usually arrange it.</p>
     <p>We do not rush the assay. The test itself needs roughly 48 hours from laboratory setup to reporting, and accuracy is the priority here, not turnaround. Every result is read by the veterinarian who runs the lab.</p>
-
-    <h3>How should blood samples be prepared and shipped?</h3>
+    </details>
+    <details class="faq-item">
+      <summary>How should blood samples be prepared and shipped?</summary>
     <p>Dairy personnel need to draw blood samples from the tail vein, an easy-to-learn procedure. See <a href="tailbleeding.html">how to tail bleed a cow</a>. Blood samples of at least 2 mL per animal should be collected in individual vacuum tubes and labeled with each animal's identification number. It is important to draw samples using individual, disposable needles to avoid cross-contamination between animals. Tubes containing blood samples should not be opened, and should be packed in a well-padded box to avoid breakage. They do NOT need to be packed in ice. Samples may stay in transit for several days without compromising the results of the test. Fastest results, however, are achieved when samples are shipped via Federal Express, UPS overnight, DHL, Airborne Express, U.S. Postal Service overnight, or another overnight carrier.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do the samples need ice?</summary>
+    <p>Pregnancy blood tubes do not. Ear notches and BVD blood samples do: refrigerate them, pack them with ice packs, and get them to the lab within 48 hours of collection.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How soon after calving can a cow be tested?</summary>
+    <p>Cows should be at least 90 days since calving as well as 28 or more days from breeding, so the protein from the last pregnancy has cleared.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What tubes should I use?</summary>
+    <p>Red-top tubes, 3cc or 5cc, with at least 2cc of blood in each. We can ship tubes and needles with your first order; see the <a href="shipping_test.html#supplies">supplies list</a>.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do I need a veterinarian to draw the samples?</summary>
+    <p>No. Your own crew can draw from the tail vein. See <a href="tailbleeding.html">how to tail bleed a cow</a>, which walks through it one step at a time.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you test bison?</summary>
+    <p>Yes. The assay is validated in bison, at the same price as cattle, on the cattle and bison form.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How do I pay?</summary>
+    <p>Include payment with your samples; checks are payable to ADDC. The amount is on the submission form.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How are results sent?</summary>
+    <p>By email, fax or phone, whichever you mark on the form, on Thursday for samples that reach the lab by Wednesday.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you test for Johnes, Leukosis or Mycoplasma?</summary>
+    <p>Yes, as disease monitoring programs set up with Dr. Pearson. Call <a href="tel:+17156532201">(715) 653-2201</a> so the right samples go in the box.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What if a tube breaks in transit?</summary>
+    <p>Call the lab. We will tell you which animals need a new sample, and there is no charge for a sample we could not run.</p>
+    </details>
 
     <p class="mt-lg">Learn how you can adopt exciting new technologies to increase your herd's profitability through improved reproductive management. Call us at <a href="tel:+17156532201">(715) 653-2201</a> or <a href="contact.html">contact us</a> for more information.</p>
     <p class="badge">Ask about new client discounts</p>
@@ -152,7 +213,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons (CC BY-SA 4.0), Virginia-Maryland College of Veterinary Medicine, USDA. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

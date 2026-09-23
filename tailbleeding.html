@@ -21,6 +21,7 @@
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
+<script src="js/tools.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -77,11 +78,54 @@
     <p>Samples collected with this procedure are submitted on the ADDC Preg Submission Form. <a href="ADDC%20Preg%20Submission%20Form.pdf">Download the form (PDF)</a>.</p>
 
     <div class="section-head" data-reveal>
+      <p class="eyebrow">Walk through it</p>
+      <h2 id="guide">One step at a time</h2>
+    </div>
+    <div class="tool stepper" data-tool="stepper" data-steps="#tail-steps" hidden aria-label="Tail bleeding, step by step">
+      <svg class="stepper-figure" viewBox="0 0 640 260" role="img" aria-label="Diagram of the underside of a cow's tail showing the needle insertion point three to six inches from the base">
+        <rect x="0" y="0" width="640" height="260" fill="#f2f7f6"/>
+        <g data-step="3 4 5 6 7 8">
+          <path d="M40 60 C 120 40, 220 40, 300 70 S 470 120, 600 150" fill="none" stroke="#244949" stroke-width="42" stroke-linecap="round"/>
+          <path d="M40 60 C 120 40, 220 40, 300 70 S 470 120, 600 150" fill="none" stroke="#99cccc" stroke-width="4" stroke-dasharray="6 8" stroke-linecap="round"/>
+          <text x="36" y="118" font-size="14" fill="#244949" font-family="Arial, sans-serif">tail base</text>
+          <text x="300" y="34" font-size="14" fill="#244949" font-family="Arial, sans-serif">midline ridge, underside</text>
+          <line x1="70" y1="100" x2="230" y2="100" stroke="#b8430f" stroke-width="2"/>
+          <text x="90" y="128" font-size="14" fill="#b8430f" font-family="Arial, sans-serif">3 to 6 inches from the base</text>
+        </g>
+        <g data-step="1 2">
+          <rect x="400" y="180" width="150" height="26" rx="6" fill="#ffffff" stroke="#244949" stroke-width="2"/>
+          <rect x="550" y="186" width="60" height="14" rx="4" fill="#b8430f"/>
+          <line x1="610" y1="193" x2="632" y2="193" stroke="#244949" stroke-width="3"/>
+          <text x="400" y="228" font-size="14" fill="#244949" font-family="Arial, sans-serif">holder, tube, needle</text>
+        </g>
+        <g data-step="4 5 6">
+          <line x1="196" y1="150" x2="196" y2="88" stroke="#b8430f" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="196" cy="86" r="5" fill="#b8430f"/>
+          <text x="150" y="176" font-size="14" fill="#b8430f" font-family="Arial, sans-serif">about 1/2 inch, straight in</text>
+        </g>
+        <g data-step="9 10 11">
+          <rect x="60" y="190" width="22" height="50" rx="5" fill="#ffffff" stroke="#244949" stroke-width="2"/>
+          <rect x="60" y="190" width="22" height="10" rx="3" fill="#b8430f"/>
+          <text x="92" y="222" font-size="14" fill="#244949" font-family="Arial, sans-serif">label, chill, new needle next cow</text>
+        </g>
+      </svg>
+      <p class="stepper-num"></p>
+      <p class="stepper-text"></p>
+      <div class="stepper-bar" aria-hidden="true"><span></span></div>
+      <div class="stepper-nav">
+        <button type="button" class="btn btn-outline stepper-prev">Previous</button>
+        <button type="button" class="btn btn-outline stepper-next">Next step</button>
+        <button type="button" class="btn btn-outline" data-print>Print the checklist</button>
+      </div>
+      <p class="muted">Use the arrow keys to move through the steps.</p>
+    </div>
+
+    <div class="section-head" data-reveal>
       <p class="eyebrow">Steps</p>
       <h2>The Tail Bleeding Procedure</h2>
     </div>
 
-    <ol class="steps">
+    <ol class="steps" id="tail-steps">
       <li data-reveal style="--d:0s">Screw the Vacutainer needle onto the needle holder.</li>
       <li data-reveal style="--d:.08s">Insert the Vacutainer tube into the other end of the needle holder until the stopper touches the back portion of the needle. Do not puncture the stopper. Hold these assembled materials in one hand.</li>
       <li data-reveal style="--d:.16s">Lift the cow's tail with your other hand.</li>
@@ -94,8 +138,16 @@
       <li data-reveal style="--d:0s">Place the tube in an ice rack or refrigerator until shipment.</li>
       <li data-reveal style="--d:.08s">Discard the needle into a sharps container and re-use the needle holder. Use a new needle for each cow.</li>
     </ol>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-sampling.jpg" width="1280" height="853" alt="A blood sample being drawn from a cow into a vacuum tube" srcset="images/fig-sampling-760.jpg 760w, images/fig-sampling.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>Holder in one hand, tail in the other. Two cc is enough.</figcaption>
+    </figure>
 
     <p class="mt-lg">When your samples are ready, see our <a href="shipping_test.html">shipping instructions</a> and download the test form to mail in with your blood sample.</p>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-sampling2.jpg" width="1280" height="853" alt="A syringe drawing blood from the underside of a cow's tail" srcset="images/fig-sampling2-760.jpg 760w, images/fig-sampling2.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>With a syringe instead of a vacuum tube: same spot, same 2cc, then transfer to a red-top tube.</figcaption>
+    </figure>
     <p>Questions about the procedure? Call us at <a href="tel:+17156532201">(715) 653-2201</a> or <a href="mailto:info@dairydoctor.com">email us</a>.</p>
     <p class="badge">Ask about new client discounts</p>
   </section>
@@ -128,7 +180,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons (CC BY-SA 4.0), Virginia-Maryland College of Veterinary Medicine, USDA. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

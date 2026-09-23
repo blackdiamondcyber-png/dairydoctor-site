@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Pearson;Glenn;;Dr.;DVM
+FN:Dr. Glenn Pearson, DVM
+ORG:Advanced Dairy Diagnostics & Consulting, LLC
+TITLE:Veterinarian
+TEL;TYPE=WORK,VOICE:+1-715-653-2201
+TEL;TYPE=WORK,FAX:+1-715-653-4301
+EMAIL;TYPE=WORK:info@dairydoctor.com
+ADR;TYPE=WORK:;;362 310th Avenue;Frederic;WI;54837;USA
+URL:https://dairydoctor.com/
+NOTE:BioPRYN blood pregnancy testing and herd health consulting by mail. Samples in by Wednesday are reported Thursday.
+END:VCARD

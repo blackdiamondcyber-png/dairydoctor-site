@@ -21,6 +21,7 @@
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
+<script src="js/tools.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -81,6 +82,10 @@
       <h2 id="new-client">Become a new client</h2>
     </div>
     <p>Tell us about your herd and Dr. Pearson will get back to you directly. No obligation.</p>
+    <figure class="figure-wide" data-reveal>
+      <img src="images/fig-farm.jpg" width="1280" height="853" alt="A Wisconsin farm with a red barn and silos beyond a summer field" srcset="images/fig-farm-760.jpg 760w, images/fig-farm.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" decoding="async">
+      <figcaption>The lab is in Frederic, in Polk County, Wisconsin. Samples come by mail from every direction.</figcaption>
+    </figure>
 
     <form class="inquiry-form" action="https://formsubmit.co/info@dairydoctor.com" method="POST" data-reveal>
       <div class="form-field">
@@ -182,7 +187,34 @@
         <p>Frederic, WI 54837</p>
       </address>
       <p>Blood and ear notch samples are shipped to this same address. See our <a href="shipping_test.html">packaging and shipping instructions</a> before you send samples.</p>
-      <p><a href="https://www.google.com/maps/search/?api=1&amp;query=362+310th+Avenue+Frederic+WI+54837">Open in Google Maps</a></p>
+      <p class="tool-actions"><button type="button" class="btn btn-outline" data-copy="Advanced Dairy Diagnostics &amp; Consulting, LLC, 362 310th Avenue, Frederic, WI 54837">Copy the address</button> <a class="btn btn-outline" href="addc.vcf" download>Add to contacts</a> <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=362+310th+Avenue+Frederic+WI+54837">Open in Google Maps</a></p>
+    </div>
+
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Which form</p>
+      <h2 id="chooser">Which form do I need?</h2>
+    </div>
+    <div class="tool" data-tool="chooser" data-reveal>
+      <div class="tool-grid">
+        <div class="form-field">
+          <label for="cc-species">Animals</label>
+          <select id="cc-species" name="species">
+            <option value="cattle">Cattle or bison</option>
+            <option value="small">Goats or sheep</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="cc-test">Test</label>
+          <select id="cc-test" name="test">
+            <option value="preg">Pregnancy</option>
+            <option value="bvd">BVD PI</option>
+            <option value="other">Johnes, Leukosis, Mycoplasma, other</option>
+          </select>
+        </div>
+      </div>
+      <div class="tool-out" aria-live="polite">
+        <p>Three forms cover everything. Pick your animals and test to get the right one.</p>
+      </div>
     </div>
 
     <div class="section-head" data-reveal>
@@ -220,7 +252,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons (CC BY-SA 4.0), Virginia-Maryland College of Veterinary Medicine, USDA. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons and other Wikimedia Commons contributors (CC BY-SA 4.0, CC BY 3.0), USDA, Carol M. Highsmith, Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
   </div>
 </footer>
 </body>

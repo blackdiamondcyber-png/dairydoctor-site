@@ -1017,18 +1017,6 @@ section + section {
   }
 }
 
-/* "Who we work with": six audience cards, 1 / 2 / 3 across. */
-@media (min-width: 640px) {
-  .cards-6 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 960px) {
-  .cards-6 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
 /* -------------------- Numbered steps -------------------- */
 .steps {
@@ -1672,5 +1660,348 @@ address p {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* -------------------- On-page tools (js/tools.js) -------------------- */
+.tool {
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem 1.5rem;
+  margin-top: 1.25rem;
+  max-width: 68ch;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+}
+
+@media (min-width: 700px) {
+  .tool-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+.tool-out {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--ice);
+}
+
+.tool-out p:first-child {
+  margin-top: 0;
+}
+
+.tool-out ol,
+.tool-out ul {
+  margin-top: 0.5rem;
+}
+
+.tool-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.check-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.15rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .check-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.tool .choice {
+  display: flex;
+  align-items: center;
+  gap: 0.65em;
+  min-height: 44px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.tool .choice input[type='checkbox'] {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin: 0;
+  accent-color: var(--teal);
+}
+
+/* Step-through guide */
+.stepper[hidden] {
+  display: none;
+}
+
+.stepper-figure {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--ice);
+}
+
+.stepper-figure [data-step] {
+  transition: opacity 0.25s ease;
+}
+
+.stepper-num {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--rust);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stepper-text {
+  margin-top: 0.35rem;
+  font-size: 1.15rem;
+  min-height: 3.6em;
+}
+
+.stepper-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--mint);
+  border: 1px solid var(--ice);
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.stepper-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--teal);
+  transition: width 0.25s ease;
+}
+
+.stepper-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.stepper-nav .btn[disabled] {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+/* FAQ accordions */
+.faq-item {
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  background: var(--card);
+  margin-top: 0.75rem;
+  max-width: 68ch;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  padding: 0.85rem 1.25rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--teal-deep);
+  font-size: 1.05rem;
+  list-style: none;
+  position: relative;
+  padding-right: 2.6rem;
+  min-height: 44px;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 1.1rem;
+  top: 0.7rem;
+  font-size: 1.4rem;
+  color: var(--rust);
+  line-height: 1;
+}
+
+.faq-item[open] summary::after {
+  content: '\2212';
+}
+
+.faq-item > p,
+.faq-item > ul {
+  padding: 0 1.25rem 1rem;
+  margin-top: 0;
+}
+
+.faq-item > ul {
+  padding-left: 2.5rem;
+}
+
+.faq-tools .form-field {
+  max-width: 28rem;
+}
+
+/* Photo cards ("Who we work with") */
+.cards-photo .card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.cards-photo .card .card-img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.cards-photo .card h3,
+.cards-photo .card p,
+.cards-photo .card .card-link {
+  margin-inline: 1.5rem;
+}
+
+.cards-photo .card h3 {
+  margin-top: 1rem;
+}
+
+.cards-photo .card .card-link {
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .cards-6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .cards-6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* About teaser with a photo */
+.about-teaser-photo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  padding: 0;
+  overflow: hidden;
+}
+
+.about-teaser-photo .about-img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.about-teaser-photo .section-head,
+.about-teaser-photo > p {
+  margin-inline: 1.5rem;
+}
+
+.about-teaser-photo > p:last-child {
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 780px) {
+  .about-teaser-photo {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+  }
+  .about-teaser-photo .about-img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .about-teaser-photo .section-head {
+    margin-top: 1.5rem;
+  }
+}
+
+/* Sample report illustration */
+.report-mock {
+  margin-top: 1.5rem;
+  max-width: 68ch;
+}
+
+.report-cap {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.report {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  overflow: hidden;
+}
+
+.report th,
+.report td {
+  text-align: left;
+  padding: 0.55rem 0.8rem;
+  border-top: 1px solid var(--ice);
+  vertical-align: top;
+}
+
+.report th {
+  border-top: none;
+  background: var(--mint);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--teal-deep);
+}
+
+.res {
+  display: inline-block;
+  padding: 0.15em 0.6em;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.res-p {
+  background: #e3efed;
+  color: #244949;
+}
+
+.res-o {
+  background: #f8e8e0;
+  color: #8a300a;
+}
+
+.res-r {
+  background: #f6efdb;
+  color: #6b4b00;
+}
+
+@media print {
+  .tool-actions,
+  .stepper-nav,
+  .faq-tools {
+    display: none !important;
+  }
+  .faq-item {
+    border: none;
+  }
+  .faq-item > p,
+  .faq-item > ul {
+    display: block !important;
   }
 }
