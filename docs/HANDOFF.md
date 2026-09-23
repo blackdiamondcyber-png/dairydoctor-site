@@ -1,78 +1,96 @@
-# HANDOFF — dairydoctor-site
+# HANDOFF - dairydoctor-site
 
-**Updated 2026-09-22.** Read this first; the 2026-08-10 engagement record is in
+**Updated 2026-09-22 (late).** Read this first; the 2026-08-10 engagement record is in
 `SESSION-HANDOFF-2026-08-10-full-engagement.md` and is still accurate for history.
 
 ## State right now
 
-- Repo is **public again with Pages enabled** from `master` root (done 22 Sep via
-  `gh`). It had gone private a second time after 18 Sep, Pages off; cause unknown,
-  Erik is reading his account security log (`action:repo.access`). Preview:
-  https://blackdiamondcyber-png.github.io/dairydoctor-site/
+- Repo is **public with Pages enabled** from `master` root. It had gone private twice
+  (cause unknown; Erik is reading his account security log, `action:repo.access`).
+  Preview: https://blackdiamondcyber-png.github.io/dairydoctor-site/
 - `dairydoctor.com` still serves the 2006 site from the old host over http. The public
   site was never on Pages. **No DNS change until Glenn says so.**
-- 22 Sep: **Tier 1 repositioning built** (no new URLs, no price touched). Analysis and
-  plan: https://claude.ai/artifact/G6XM3qpezmjT1KbrxU6QRb
+- Three builds shipped 22 Sep, all on `master`:
+  1. `0a7e92a` Tier 1 repositioning (no new URLs, no price touched).
+  2. `a77348d` + `501a8e0` ten interactive tools + twelve Commons/USDA photographs.
+  3. `0725856` **ten-critic pass** (this handoff): every page reviewed by ten personas
+     (large dairy manager, beef rancher on a phone, goat dairy owner, bovine DVM,
+     WCAG auditor, performance engineer, copy editor, SEO, UX/Krug, compliance),
+     149 findings triaged, about 120 applied. Details below.
+- Live Lighthouse (mobile) after the critic pass: perf/a11y/BP/SEO: index 100/100/100/100 - pregtest 100/100/100/100 - bvdtest 100/100/100/100 - tailbleeding 100/100/100/100 - shipping_test 100/100/100/100 - faq 100/100/100/100 - aboutus 100/100/100/100 - contact 100/100/100/100 (run 22 Sep against 0725856)
+- Reports for Erik: repositioning https://claude.ai/artifact/G6XM3qpezmjT1KbrxU6QRb ;
+  field comparison + measured scores + critic summary
+  https://claude.ai/artifact/JfS9VoM1dW8XqFcn9pEaSX
 
-## What changed 22 Sep (Tier 1)
+## What the critic pass changed (commit 0725856)
 
-- `index.html`: eyebrow says place not year; shorter lede; stat card = Over 99% /
-  Read by the DVM / Four species; trust strip = BioPRYN affiliate / Disease monitoring /
-  1999 ("48 states" lives on About only); service cards rewritten (consulting CTA ->
-  `aboutus.html#consulting`, BVD -> `bvdtest.html#program`); **new "Who we work with"**
-  band, six `.card`s in `.cards-6`; step 4 reads as the weekly rhythm; about teaser and
-  tagline no longer repeat 1999.
-- `pregtest.html`: new `#heifers`, `#goats` (goat figure moved here), `#bison` (bison
-  figure moved here), `#large-herds`, `#results` (pregnant / open / recheck).
-- `bvdtest.html`: `#program`, five numbered steps + "Ask for a herd plan" button.
-- `aboutus.html`: `#consulting`, service names taken from the 2006 site's own list.
-- `contact.html`: "What do you need?" checkbox fieldset (`need_*` fields; FormSubmit's
-  table template prints them).
-- `shipping_test.html`: BVD samples ship cold / 48-hour rule; `#supplies` list, no prices.
-- `faq.html`: goats and sheep, heifers at a grower, what "recheck" means.
-- Nav on all 10 pages: Testing menu gains **Goats & Sheep** -> `pregtest.html#goats`.
-- `css/style.css`: `.stat-num-text`, `.cards-6`, `.form-choices` / `.choice`.
-- Verified 22 Sep in the Browser pane: 0px horizontal overflow on all 10 pages at
-  375px, every new anchor resolves, 0 broken internal links, tags balanced, 0 em-dashes.
+- **Species coverage.** Goats and sheep are drawn from the jugular vein (pregtest,
+  tailbleeding, FAQ); BVD page and shipping cold-note say cattle and bison only;
+  contact BVD checkbox labelled; box label offers CAPRINE/OVINE; titles on index and
+  pregtest name goats and sheep.
+- **Promises removed.** "Call ahead and we will arrange it" (index step 4, FAQ);
+  "no charge for a sample we could not run" (FAQ); personal-inbox wording on
+  contact and thanks; accuracy figures now say "BioTracking's published figure".
+- **Structure.** FAQ grouped into four sections (21 questions, new consulting Q) with
+  a lede, second photo, empty-state message, live match count; pregtest gains a jump
+  row and `#pricing` `#start` `#forms` anchors and reads collect -> ship -> interpret;
+  BVD program + planner moved above the science, test-the-dam step added; index gets
+  a closing call/new-client CTA and a shorter hero lede (CTA now above the fold at
+  375x812); tailbleeding gets restraint + stand-aside guidance, the needle step split
+  in two (12 steps; SVG `data-step` numbers shifted), and the duplicate static list
+  collapses behind a "Show all steps" toggle (prints in full via `@media print`).
+- **Accessibility.** Distinguishable "Download PDF" names (`.sr-only`), `aria-current`
+  on active menu triggers, stepper is `role=group` + `aria-describedby` + live text,
+  FAQ count `aria-live`, copy button live region, autocomplete on contact fields,
+  hero zoom is one 5 s pass, nav trigger opens on first press and follows its link on
+  the second, scroll-reveal skips the fade for elements already on screen (`.now`),
+  jump-row pills and badge links are 44px tall.
+- **Performance.** 1000w band exports (`band-*-1000.jpg`) with `sizes="100vw"`,
+  homepage card `sizes`, correct intrinsic dimensions (goats 900x601, bison 900x603,
+  contact band 1100x825), `logo-lockup-600.jpg`, every lazy image `fetchpriority=low`.
+- **Compliance.** `IMAGE-CREDITS.md` rows rebuilt from the Commons API (six were
+  truncated HTML); footer names every CC BY-SA / CC BY photographer; `llms.txt` prices
+  match the forms ($3.50 / $7.00 / $6.95); form `_next` is rewritten at runtime to the
+  current host (works on the preview and after cutover); Google Maps button removed
+  (lab closed to visitors); FormSubmit privacy note under the form; vCard NOTE folded.
+- **Copy.** Sentence-case h2/h3 site-wide (h1 stays Title Case); "Dr. Pearson"
+  everywhere on About; 2cc not "2 mL"/"Two cc"; Vacutainer vs vacuum tube settled;
+  carriers list drops Airborne/DHL; "its clientele"; supplies checklist starts unchecked.
 
-## The brief (Glenn, 15 Aug, via Erik 5 Sep: "take it or leave it")
+## Deliberately NOT changed (Glenn's rules or his own words)
 
-1. Off the price fixation. He sells trust, performance, experience, honesty.
-2. He is not competing nationally. Never benchmark him against a national scrape.
-3. He is a **veterinary consultant** (Erik). Imagery and copy show the vet, not a lab.
-4. **"Don't be moving anything"**: no DNS cutover, no domain move, until he says so.
-5. He rejects AI-generated business strategy. Anything he sees must read as Erik's
-   own work: no AI tells, no unrequested market analysis. Design and mechanics only.
+- No price moved anywhere; no price put above the fold (rancher critic wanted it).
+- Glenn's own claims stay: "first BioPRYN affiliate east of the Rockies", 70% subclinical,
+  $35/cow study, Express FP10, Estroplan/Gonabreed, 3 to 6 inches, "15 years" + 1999,
+  "Dr. Pearson is only a phone call away".
+- No response-time window invented; no geo coordinates or sameAs guessed in JSON-LD;
+  `VeterinaryCare` type kept (it is a veterinary practice).
 
-Facts he corrected that invalidate earlier analysis: BioTracking directory prices
-are >10 years stale for most labs (never benchmark on them); same-day results have
-no economic value in cattle resynch (never frame turnaround as an axis); Waupun's
-$2.75/same-day is not a real threat; BVD price comparisons need matching platform.
+## For Glenn (Erik asks by phone)
 
-## Still open
-
-- Glenn, by phone (Erik's words): Q1 which inbox (form + `_next` stay pending);
-  Q2 results format, spreadsheet by cow ID (then add a line to `#large-herds` and an
-  FAQ); Q3 Johnes / Leukosis / Mycoplasma in-house or sent out, and price (then a
-  section or leave as a mention); Q4 what consulting is and how it is paid (then the
-  "how it starts" lines on About); Q5 goat volume (gates Tier 2).
-- Tier 2 (`goats.html`, `consulting.html`) only with Erik's explicit OK; adds URLs.
-- Why the repo keeps flipping private.
-- Licensing: two photos are CC BY-SA 4.0. Attribution lives in `IMAGE-CREDITS.md`
-  and a footer credit on every page. Keep both if images change.
+1. Which inbox: the form posts to `info@dairydoctor.com` via FormSubmit; has the
+   one-time activation email been clicked? (Nothing arrives until it is.)
+2. **The PDF forms print `dairydoctor@reagan.com`** as the lab email (both pregnancy
+   forms); the BVD form has no email at all. Reissue or confirm that mailbox is read.
+3. Needle gauge and length he recommends for tail bleeding (page states none).
+4. Results format (spreadsheet by cow ID?) for the large-herd section and FAQ.
+5. Johnes / Leukosis / Mycoplasma: in-house or sent out, and pricing.
+6. What consulting is and how it is paid; goat volume (gates Tier 2 pages).
 
 ## Gotchas
 
-- Playwright MCP can be locked by another process; Brave headless captures are
-  reliable at desktop widths but lay out wide at phone widths (clipped-right
-  artifact). Measure mobile with Browser-pane JS or same-origin iframes.
-- `sharp-cli -o dir/` overwrites originals in place. Use PIL with explicit names.
+- Edit pages with a Python script run from Bash (assert exact matches, idempotent
+  helpers). The Prettier PostToolUse hook reformats any `.html`/`.md`/`.js` the
+  Write/Edit tools touch. The Bash tool mangles `$vars` and backslashes inside
+  heredocs, so scripts go in a `.py` file written with the Write tool.
+- Agent worktrees are cut from the session's cwd repo; if the session started in
+  `~/.claude`, `isolation: worktree` gives agents the config repo, not the site.
+  Pass the absolute path and no isolation.
 - Local preview: launch config `dairydoctor` in `~/.claude/launch.json`, port 8123.
+  Browser-pane screenshots time out unless taken right after `navigate`; lazy images
+  report `currentSrc` empty in the hidden pane, so test with `new Image()`.
+- Lighthouse: `CHROME_PATH` = Brave; local runs score a few points under live (no
+  gzip/CDN). `require('/c/...')` fails under node; `cd` into the folder and use `./`.
 - `.hero .hl` needs `box-decoration-break: clone`; `.nav-row` must never be an
-  overflow-x scroller; nav sizing tiers at <=430 and 431-699px.
-- Edit pages with a Python script run from Bash (assert exact matches). The Prettier
-  PostToolUse hook reformats any `.html` the Write/Edit tools touch and bloats the diff.
-- Playwright MCP is often locked by another session. The Browser pane works: batch
-  navigate + screenshot, and audit every page at once with same-origin iframes at 375px.
-- `html { scroll-behavior: smooth }` defeats scripted scrolling before a screenshot;
-  set `documentElement.style.scrollBehavior='auto'` first.
+  overflow-x scroller; `html { scroll-behavior: smooth }` defeats scripted scrolling.
+- `git add` explicit paths only; `git fetch` and count `HEAD..origin` before pushing.

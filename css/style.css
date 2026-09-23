@@ -258,63 +258,6 @@ a.badge:focus-visible {
   margin-top: 1rem;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.jump-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 0.5rem;
-  align-items: center;
-  margin-top: 1rem;
-  max-width: none;
-  font-size: 0.9rem;
-}
-
-.jump-row a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 0 0.8rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-pill);
-  text-decoration: none;
-  color: var(--teal);
-  background: #ffffff;
-}
-
-.jump-row a:hover,
-.jump-row a:focus-visible {
-  border-color: var(--teal);
-  text-decoration: underline;
-}
-
-a.badge {
-  text-decoration: none;
-}
-
-a.badge:hover,
-a.badge:focus-visible {
-  text-decoration: underline;
-}
-
-.band-figure {
-  margin: 0;
-}
-
-.faq-empty {
-  margin-top: 1rem;
-}
-
 .faq-group + .faq-group {
   margin-top: 1.75rem;
 }
@@ -1146,7 +1089,6 @@ section + section {
   }
 }
 
-
 /* -------------------- Numbered steps -------------------- */
 .steps {
   counter-reset: step;
@@ -1678,11 +1620,6 @@ address p {
   transition: none;
 }
 
-/* Already on screen at load: no fade, no slide. */
-.js-motion [data-reveal].now {
-  transition: none;
-}
-
 /* -------------------- Reduced motion -------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -2155,13 +2092,3 @@ address p {
   }
 }
 
-@media print {
-  #tail-steps[hidden],
-  #tail-steps-head[hidden] {
-    display: block !important;
-  }
-
-  .stepper {
-    display: none !important;
-  }
-}
