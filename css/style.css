@@ -877,6 +877,14 @@ section + section {
   font-size: 1.1rem;
 }
 
+/* A trust-strip headline that is words, not a number: smaller, and allowed to wrap. */
+.stat-num-text {
+  font-size: 1.35rem;
+  white-space: normal;
+  line-height: 1.2;
+  max-width: 14ch;
+}
+
 .stat-label {
   margin-top: 0.4rem;
   font-size: 0.95rem;
@@ -1005,6 +1013,19 @@ section + section {
 
 @media (min-width: 780px) {
   .cards-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* "Who we work with": six audience cards, 1 / 2 / 3 across. */
+@media (min-width: 640px) {
+  .cards-6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .cards-6 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -1347,6 +1368,42 @@ address p {
 .form-field textarea {
   min-height: unset;
   resize: vertical;
+}
+
+/* Checkbox group ("What do you need?") inside the inquiry form. */
+.form-choices {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.form-choices legend {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.95rem;
+  padding: 0;
+  margin-bottom: 0.2rem;
+}
+
+.form-field .choice {
+  display: flex;
+  align-items: center;
+  gap: 0.65em;
+  min-height: 44px;
+  font-weight: 400;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.form-field .choice input[type='checkbox'] {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  accent-color: var(--teal);
 }
 
 .form-field input:focus-visible,

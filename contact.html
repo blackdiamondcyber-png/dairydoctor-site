@@ -49,6 +49,7 @@
           <div class="nav-panel" id="nav-panel-testing">
             <a href="pregtest.html" class="nav-panel-link">Pregnancy Testing</a>
             <a href="bvdtest.html" class="nav-panel-link">BVD Testing</a>
+            <a href="pregtest.html#goats" class="nav-panel-link">Goats &amp; Sheep</a>
           </div>
         </div>
         <div class="nav-group">
@@ -112,6 +113,13 @@
           <option value="A mix">A mix</option>
         </select>
       </div>
+      <fieldset class="form-field form-choices">
+        <legend>What do you need?</legend>
+        <label class="choice" for="f-need-preg"><input type="checkbox" id="f-need-preg" name="need_pregnancy_testing" value="Yes">Pregnancy testing</label>
+        <label class="choice" for="f-need-bvd"><input type="checkbox" id="f-need-bvd" name="need_bvd_pi_testing" value="Yes">BVD PI testing</label>
+        <label class="choice" for="f-need-monitor"><input type="checkbox" id="f-need-monitor" name="need_disease_monitoring" value="Yes">Disease monitoring (Johnes, Leukosis, Mycoplasma)</label>
+        <label class="choice" for="f-need-consult"><input type="checkbox" id="f-need-consult" name="need_herd_consulting" value="Yes">Herd health consulting</label>
+      </fieldset>
       <div class="form-field">
         <label for="f-herd-size">Roughly how many head?</label>
         <input type="text" id="f-herd-size" name="herd_size" inputmode="numeric">
