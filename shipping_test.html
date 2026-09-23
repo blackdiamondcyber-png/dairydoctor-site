@@ -19,6 +19,7 @@
 <link rel="apple-touch-icon" href="favicon-180.png">
 <!-- Google Analytics 4: paste GA4 snippet here after creating the property. See docs/FREE-RESOURCES playbook. -->
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="images/band-shipping.jpg" imagesrcset="images/band-shipping-760.jpg 760w, images/band-shipping.jpg 1280w" imagesizes="(max-width: 800px) 100vw, 1024px">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
 <script src="js/tools.js" defer></script>
@@ -69,7 +70,7 @@
 </header>
 
 <div class="page-band">
-  <img src="images/band-shipping.jpg" width="1280" height="960" alt="Aerial view of a Wisconsin dairy farm among rolling fields" decoding="async" srcset="images/band-shipping-760.jpg 760w, images/band-shipping.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px">
+  <img src="images/band-shipping.jpg" width="1280" height="960" alt="Aerial view of a Wisconsin dairy farm among rolling fields" decoding="async" fetchpriority="high" srcset="images/band-shipping-760.jpg 760w, images/band-shipping.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px">
 </div>
 
 <main id="main">
