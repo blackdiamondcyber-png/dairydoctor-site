@@ -29,6 +29,7 @@
   --link: #006666;
   --rust: #b8430f;
   --ice: #99cccc;
+  --line-strong: #6b8f8f;
   --mint: #f2f7f6;
   --card: #ffffff;
   --ink: #1b2727;
@@ -226,9 +227,9 @@ h1 + .section-head,
 .jump-row a {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 0.8rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-pill);
   text-decoration: none;
   color: var(--teal);
@@ -242,6 +243,7 @@ h1 + .section-head,
 }
 
 a.badge {
+  min-height: 44px;
   text-decoration: none;
 }
 
@@ -256,6 +258,34 @@ a.badge:focus-visible {
 
 .faq-empty {
   margin-top: 1rem;
+}
+
+/* The hidden attribute always wins over a display rule (the tail-steps list is a grid). */
+[hidden] {
+  display: none !important;
+}
+
+/* Figures whose largest source is 900px wide never upscale (beats .figure-wide's max-width: none). */
+.figure-wide.figure-max900 {
+  max-width: 900px;
+}
+
+.credits-table td {
+  white-space: normal;
+  vertical-align: top;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+/* Stepper in list mode: the one-step view steps aside for the full list. */
+.stepper.is-list .stepper-figure,
+.stepper.is-list .stepper-num,
+.stepper.is-list .stepper-text,
+.stepper.is-list .stepper-bar,
+.stepper.is-list .stepper-prev,
+.stepper.is-list .stepper-next,
+.stepper.is-list #stepper-hint {
+  display: none;
 }
 
 .faq-group + .faq-group {
@@ -402,6 +432,67 @@ section + section {
 
 .icon-phone {
   flex: none;
+}
+
+/* Narrow phones: the header must not eat a quarter of the screen. The call
+   button becomes a round icon (its number stays for screen readers) so the
+   brand row fits on one line, and the legal name folds away once scrolled. */
+@media (max-width: 479px) {
+  .brand-row {
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+  }
+  .call-button {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .call-button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .call-button .icon-phone {
+    width: 22px;
+    height: 22px;
+  }
+  .brand-sub {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 719px) {
+  .brand-row {
+    transition: padding 0.2s ease;
+  }
+  .brand-sub {
+    max-height: 3rem;
+    overflow: hidden;
+    transition:
+      max-height 0.2s ease,
+      opacity 0.2s ease,
+      margin-top 0.2s ease;
+  }
+  .site-header.scrolled .brand-row {
+    padding-block: 0.5rem;
+  }
+  .site-header.scrolled .brand-sub {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-row,
+  .brand-sub {
+    transition: none;
+  }
 }
 
 .site-nav {
@@ -689,6 +780,20 @@ section + section {
   transform: translateY(-4px);
 }
 
+/* Filled button for a white page (the stepper's one primary action). */
+.btn-solid {
+  background: var(--teal);
+  color: #ffffff;
+  border-color: var(--teal);
+}
+
+.btn-solid:hover,
+.btn-solid:focus-visible {
+  background: var(--teal-deep);
+  color: #ffffff;
+  border-color: var(--teal-deep);
+}
+
 .btn-block {
   width: 100%;
 }
@@ -943,10 +1048,6 @@ section + section {
   color: var(--teal-deep);
   line-height: 1;
   white-space: nowrap;
-}
-
-.stat-suffix {
-  font-size: 1.1rem;
 }
 
 /* A trust-strip headline that is words, not a number: smaller, and allowed to wrap. */
@@ -1269,37 +1370,8 @@ address p {
 }
 
 /* -------------------- Trust badges row on cards / misc -------------------- */
-.pill-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  background: var(--mint);
-  border: 1px solid var(--ice);
-  border-radius: var(--radius-pill);
-  padding: 0.5em 1em;
-  font-size: 0.95rem;
-  color: var(--teal-deep);
-  font-weight: 600;
-}
 
 /* -------------------- Figures / photography -------------------- */
-.aside-figure {
-  float: right;
-  margin: 0.25rem 0 1rem 1.25rem;
-  max-width: 121px;
-  text-align: center;
-}
-
-.aside-figure img {
-  border-radius: 6px;
-  border: 1px solid var(--ice);
-}
-
-.aside-figure figcaption {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-top: 0.4rem;
-}
 
 .figure-wide {
   margin-top: 1.5rem;
@@ -1316,25 +1388,6 @@ address p {
   margin-top: 0.5rem;
   font-size: 0.9rem;
   color: var(--muted);
-}
-
-.figure-caption-card {
-  margin-top: 1.5rem;
-  max-width: 24rem;
-}
-
-.figure-caption-card img {
-  width: 100%;
-  border-radius: var(--radius);
-  border: 1px solid var(--ice);
-}
-
-.figure-caption-card figcaption {
-  margin-top: 0.6rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--teal-deep);
 }
 
 .figure-round {
@@ -1417,7 +1470,7 @@ address p {
   font-size: 1rem;
   padding: 0.7em 0.9em;
   min-height: 44px;
-  border: 2px solid var(--ice);
+  border: 2px solid var(--line-strong);
   border-radius: 8px;
   background: var(--card);
   color: var(--ink);
@@ -2082,9 +2135,11 @@ address p {
 }
 
 @media print {
-  #tail-steps[hidden],
   #tail-steps-head[hidden] {
     display: block !important;
+  }
+  #tail-steps[hidden] {
+    display: grid !important;
   }
 
   .stepper {
@@ -2092,3 +2147,27 @@ address p {
   }
 }
 
+/* Print one tool (or one list) on its own: js/tools.js adds .print-focus to
+   <body> and .print-target to what the button names, then removes both after
+   printing. Browsers without :has() print the whole page as before. */
+@media print {
+  body.print-focus .hero,
+  body.print-focus .site-footer,
+  body.print-focus main > *:not(:has(.print-target)),
+  body.print-focus main :has(.print-target) > *:not(.print-target):not(:has(.print-target)) {
+    display: none !important;
+  }
+  body.print-focus main::before {
+    content: attr(data-print-title);
+    display: block;
+    font-family: var(--font-display);
+    font-size: 16pt;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  body.print-focus .print-target {
+    max-width: none;
+    border: none;
+    padding: 0;
+  }
+}

@@ -164,7 +164,7 @@
       var days = parseInt(transit.value, 10);
       var arrival = addDays(d, days);
       var report = reportThursday(arrival);
-      var late = arrival.getDay() >= 4 || arrival.getDay() === 0;
+      var late = arrival.getDay() >= 4;
       var bvd = kind && kind.value === "bvd";
       var html =
         "<p><strong>Arrives:</strong> " +
@@ -183,7 +183,7 @@
           "<p><strong>Ear notches and BVD blood ship cold.</strong> Refrigerate before shipping and pack with ice packs." +
           (days > 2
             ? " This transit is longer than 48 hours: call the lab first for instructions."
-            : " Aim for arrival within 48 hours of collection.") +
+            : " Sample on the day you ship, so the box arrives within 48 hours of collection.") +
           "</p>";
       } else {
         html +=
@@ -301,7 +301,7 @@
       html +=
         "<li><strong>Purchases:</strong> test every purchased animal, bulls included, before it joins the herd.</li>";
       html +=
-        "<li><strong>Positives:</strong> isolate the animal; Dr. Pearson will tell you whether to retest or remove it, and will want the dam tested too.</li>";
+        "<li><strong>Positives:</strong> isolate the animal; the lab's veterinarian advises whether to retest or remove it, and will want the dam tested too.</li>";
       html +=
         "<li><strong>Vaccination:</strong> calves and open adults on a timed schedule he sets for your herd.</li>";
       html +=
@@ -341,11 +341,15 @@
       toggle.type = "button";
       toggle.className = "btn btn-outline";
       toggle.textContent = "Show all steps";
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-controls", (head && head.id ? head.id + " " : "") + list.id);
       on(toggle, "click", function () {
         var show = list.hidden;
         list.hidden = !show;
         if (head) head.hidden = !show;
-        toggle.textContent = show ? "Hide the full list" : "Show all steps";
+        root.classList.toggle("is-list", show);
+        toggle.setAttribute("aria-expanded", show ? "true" : "false");
+        toggle.textContent = show ? "Back to one step at a time" : "Show all steps";
         if (show && head) head.scrollIntoView({ block: "start" });
       });
       nav.appendChild(toggle);
@@ -423,24 +427,67 @@
       if (!empty) {
         empty = document.createElement("p");
         empty.className = "faq-empty";
+        empty.setAttribute("role", "status");
         empty.innerHTML =
           'No questions match. Try a shorter word, or call <a href="tel:+17156532201">(715) 653-2201</a>.';
         root.parentNode.insertBefore(empty, root.nextSibling);
       }
-      empty.hidden = !(q && shown === 0);
+      var showEmpty = !!q && shown === 0;
+      if (showEmpty && empty.hidden) {
+        /* Re-insert the text after it is visible so the status region announces it. */
+        var msg = empty.innerHTML;
+        empty.hidden = false;
+        empty.innerHTML = "";
+        setTimeout(function () {
+          empty.innerHTML = msg;
+        }, 50);
+      } else if (!showEmpty) {
+        empty.hidden = true;
+      }
     }
     on(input, "input", run);
     on(expand, "click", function () {
-      var anyClosed = items.some(function (d) {
+      var live = items.filter(function (d) {
+        return !d.hidden;
+      });
+      var anyClosed = live.some(function (d) {
         return !d.open;
       });
-      items.forEach(function (d) {
+      live.forEach(function (d) {
         d.open = anyClosed;
       });
       expand.textContent = anyClosed ? "Collapse all" : "Expand all";
     });
     run();
   });
+
+  /* Print one block on its own (css: body.print-focus / .print-target). */
+  function printFocus(targets) {
+    var main = $("main") || document.body;
+    var els = (targets || []).filter(Boolean);
+    if (!els.length) {
+      window.print();
+      return;
+    }
+    main.setAttribute(
+      "data-print-title",
+      document.title.replace(/\s*\|.*$/, "") + " - The Dairy Doctor - (715) 653-2201"
+    );
+    document.body.classList.add("print-focus");
+    els.forEach(function (el) {
+      el.classList.add("print-target");
+    });
+    function done() {
+      document.body.classList.remove("print-focus");
+      els.forEach(function (el) {
+        el.classList.remove("print-target");
+      });
+      window.removeEventListener("afterprint", done);
+    }
+    window.addEventListener("afterprint", done);
+    window.print();
+    setTimeout(done, 2000);
+  }
 
   /* ---------------- 7. Checklist (supplies, records) ---------------- */
   $all('[data-tool="checklist"]').forEach(function (root) {
@@ -455,7 +502,7 @@
       });
       if (mode === "have") {
         out.innerHTML = missing.length
-          ? '<p><strong>Have ready:</strong></p><ul class="tight">' +
+          ? '<p><strong>Still to gather:</strong></p><ul class="tight">' +
             missing
               .map(function (b) {
                 return "<li>" + b.parentNode.textContent.trim() + "</li>";
@@ -479,7 +526,7 @@
       on(b, "change", run);
     });
     on(print, "click", function () {
-      window.print();
+      printFocus([root]);
     });
     run();
   });
@@ -531,7 +578,8 @@
   /* ---------------- 10. Print buttons ---------------- */
   $all("[data-print]").forEach(function (btn) {
     on(btn, "click", function () {
-      window.print();
+      var sel = btn.getAttribute("data-print");
+      printFocus(sel ? $all(sel) : [btn.closest(".tool")]);
     });
   });
 })();

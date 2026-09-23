@@ -11,9 +11,9 @@
 <meta property="og:description" content="Step by step instructions for drawing a tail vein blood sample from a cow for BioPRYN pregnancy testing or BVD PI testing. Printable procedure guide.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dairydoctor.com/tailbleeding.html">
-<meta property="og:image" content="https://dairydoctor.com/images/hero-holsteins.jpg">
-<meta property="og:image:width" content="1024">
-<meta property="og:image:height" content="683">
+<meta property="og:image" content="https://dairydoctor.com/images/band-tailbleed.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="853">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -30,7 +30,7 @@
   <div class="container brand-row">
     <div class="brand">
       <a href="index.html">
-        <img class="brand-mark" src="images/header-mark.png" width="70" height="56" alt="Advanced Dairy Diagnostics and Consulting badge: an engraved Holstein cow with the letters ADDC">
+        <img class="brand-mark" src="images/header-mark-140.png" srcset="images/header-mark-140.png 1x, images/header-mark.png 2x" width="70" height="56" alt="Advanced Dairy Diagnostics and Consulting badge: an engraved Holstein cow with the letters ADDC">
         <div class="brand-text">
           <p class="brand-name">The Dairy Doctor</p>
           <p class="brand-sub">Advanced Dairy Diagnostics &amp; Consulting, LLC</p>
@@ -76,8 +76,8 @@
 <main id="main">
   <section class="container">
     <h1>How to Tail Bleed a Cow</h1>
-    <p>This is the cattle and bison procedure; the samples go in on the <a href="ADDC%20Preg%20Submission%20Form.pdf">ADDC Preg Submission Form (PDF)</a>. Goats and sheep are drawn from the jugular vein instead, and their samples go in on the <a href="Farm%20Pregnancy%20Test.pdf">goat and sheep form (PDF)</a>.</p>
-    <p>Before you start, restrain the cow in a chute, headgate or stanchion, and stand to the side of her hindquarters rather than directly behind her.</p>
+    <p>This is the cattle and bison procedure; the samples ship with the <a href="ADDC%20Preg%20Submission%20Form.pdf">ADDC Preg Submission Form (PDF)</a>. Goats and sheep are drawn from the jugular vein instead, and their samples ship with the <a href="Farm%20Pregnancy%20Test.pdf">goat and sheep form (PDF)</a>. Blood for BVD PI testing is drawn from cattle the same way but ships cold; see <a href="shipping_test.html">packaging and shipping</a>.</p>
+    <p>Before you start, restrain the cow in a chute, headgate or stanchion, and stand to the side of her hindquarters rather than directly behind her. Wear gloves when handling needles and tubes.</p>
 
     <div class="section-head" data-reveal>
       <p class="eyebrow">Walk through it</p>
@@ -100,7 +100,7 @@
           <line x1="610" y1="193" x2="632" y2="193" stroke="#244949" stroke-width="3"/>
           <text x="400" y="228" font-size="14" fill="#244949" font-family="Arial, sans-serif">holder, tube, needle</text>
         </g>
-        <g data-step="4 5 6 7">
+        <g data-step="4 5 6 7 8 9">
           <line x1="196" y1="150" x2="196" y2="88" stroke="#b8430f" stroke-width="3" stroke-linecap="round"/>
           <circle cx="196" cy="86" r="5" fill="#b8430f"/>
           <text x="150" y="176" font-size="14" fill="#b8430f" font-family="Arial, sans-serif">about 1/2 inch, straight in</text>
@@ -111,23 +111,24 @@
           <text x="92" y="222" font-size="14" fill="#244949" font-family="Arial, sans-serif">label, chill, new needle next cow</text>
         </g>
       </svg>
-      <p class="stepper-num"></p>
+      <p class="stepper-num" aria-live="polite"></p>
       <p class="stepper-text" aria-live="polite"></p>
       <div class="stepper-bar" aria-hidden="true"><span></span></div>
-      <p class="muted" id="stepper-hint">Tap Next step to continue, or use the arrow keys on a keyboard.</p>
       <div class="stepper-nav">
         <button type="button" class="btn btn-outline stepper-prev">Previous</button>
-        <button type="button" class="btn btn-outline stepper-next">Next step</button>
-        <button type="button" class="btn btn-outline" data-print>Print the checklist</button>
+        <button type="button" class="btn btn-solid stepper-next">Next step</button>
+        <button type="button" class="btn btn-outline" data-print="#tail-steps-head, #tail-steps">Print the checklist</button>
       </div>
+      <p class="muted" id="stepper-hint">Tap Next step to continue, or use the arrow keys on a keyboard.</p>
     </div>
 
-    <div class="section-head" data-reveal id="tail-steps-head">
+    <noscript><style>#tail-steps-head[hidden] { display: block !important; } #tail-steps[hidden] { display: grid !important; }</style></noscript>
+    <div class="section-head" data-reveal id="tail-steps-head" hidden>
       <p class="eyebrow">Steps</p>
       <h2>The tail bleeding procedure</h2>
     </div>
 
-    <ol class="steps" id="tail-steps">
+    <ol class="steps" id="tail-steps" hidden>
       <li data-reveal style="--d:0s">Screw the Vacutainer needle onto the needle holder.</li>
       <li data-reveal style="--d:.08s">Insert the Vacutainer tube into the other end of the needle holder until the stopper touches the back portion of the needle. Do not puncture the stopper. Hold these assembled materials in one hand.</li>
       <li data-reveal style="--d:.16s">Lift the cow's tail with your other hand.</li>
@@ -138,9 +139,16 @@
       <li data-reveal style="--d:0s">Collect 2cc or more of blood.</li>
       <li data-reveal style="--d:.08s">Withdraw the needle from the skin and remove the tube from the tube holder.</li>
       <li data-reveal style="--d:.16s">Label the tube with the animal identification.</li>
-      <li data-reveal style="--d:0s">Place the tube in an ice rack or refrigerator until shipment. Pregnancy tubes ship without ice; chilling only keeps them fresh until the box goes out.</li>
+      <li data-reveal style="--d:0s">Place the tube in an ice rack or refrigerator until shipment. Pregnancy tubes ship without ice; chilling only keeps them fresh until the box goes out. BVD blood is the exception: it ships with ice packs and must reach the lab within 48 hours.</li>
       <li data-reveal style="--d:.08s">Discard the needle into a sharps container and re-use the needle holder. Use a new needle for each cow.</li>
     </ol>
+
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Goats and sheep</p>
+      <h2 id="goats">Goats and sheep: the jugular vein</h2>
+    </div>
+    <p>Goats and sheep are not tail bled. The sample comes from the jugular vein on the side of the neck. Have a helper hold the animal against a wall or in a stanchion with the head raised and turned slightly away. Press a thumb into the jugular groove low on the neck so the vein fills, slide a new needle into the raised vein at a shallow angle, draw 2cc into the same red-top tube, and release the thumb before you withdraw. Label the tube and use a new needle for every animal.</p>
+    <p>If your crew has not drawn from the neck before, ask your veterinarian to show them once; it takes minutes to learn. The samples ship with the <a href="Farm%20Pregnancy%20Test.pdf">goat and sheep form (PDF)</a> and need no ice.</p>
     <figure class="figure-wide" data-reveal>
       <img src="images/fig-sampling.jpg" width="1280" height="853" alt="A blood sample being drawn from a cow into a vacuum tube" srcset="images/fig-sampling-760.jpg 760w, images/fig-sampling.jpg 1280w" sizes="(max-width: 800px) 100vw, 1024px" loading="lazy" fetchpriority="low" decoding="async">
       <figcaption>Holder in one hand, tail in the other. 2cc is enough.</figcaption>
@@ -183,7 +191,7 @@
       <p>Fax: (715) 653-4301</p>
       <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons, Kristenmacphee, RianHS, Agungtrinugroho, Gannu03 and Witia via Wikimedia Commons (CC BY-SA 4.0); Corey Coyle (CC BY 3.0); USDA; Carol M. Highsmith, Library of Congress; Virginia-Maryland College of Veterinary Medicine. <a href="IMAGE-CREDITS.md">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons, Kristenmacphee, RianHS, Agungtrinugroho, Gannu03 and Witia via Wikimedia Commons (CC BY-SA 4.0); Corey Coyle (CC BY 3.0); USDA; Carol M. Highsmith, Library of Congress; Virginia-Maryland College of Veterinary Medicine. <a href="credits.html">Full image credits</a>.</p>
   </div>
 </footer>
 </body>
