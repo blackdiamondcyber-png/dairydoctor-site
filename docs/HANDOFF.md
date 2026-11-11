@@ -5,13 +5,18 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
 ## START HERE (11 Nov 2026)
 
 - Constraints: `CLAUDE.md`, "Hard constraints". Plan: `docs/plans/2026-11-11-full-pass.md`.
-- State: `master` is the 23 Sep build plus docs. A full pass is in progress: field research, a
-  baseline review and photo sourcing first, then the build. Working files live in `.work/` on
-  the G7 only (git-ignored). If it exists, read `.work/2026-11-11/STATE.md` before anything else.
-- Decisions (Erik, 11 Nov): photo-led and brighter; up to four new pages; push to the preview
-  when it passes review; one live check of about 10 page loads allowed after the push.
-- Next: read `.work/2026-11-11/plan/FINDINGS.md` and `.work/2026-11-11/photos/SELECTION.md`,
-  fill in the task list in the plan, build, review, push.
+- State: `master` is the 23 Sep build plus docs; no page has changed yet in this pass. Field
+  research, the baseline review (three reviewers, fixed 100-point rubric) and photo sourcing are
+  finished. Build specs are being written now; the build follows. Working files live in `.work/`
+  on the G7 only (git-ignored). If it exists, read `.work/2026-11-11/STATE.md` before anything
+  else: it holds the decisions, the file map and the next steps.
+- Decisions (Erik, 11 Nov): photo-led and brighter; up to four new pages (`goats.html`,
+  `beef.html`, `consulting.html`, `results.html`); push to the preview when it passes review;
+  one live check of about 10 page loads allowed after the push.
+- Next: read the specs in `.work/2026-11-11/plan/`, build from them, capture the pages on
+  localhost, send them back to the same three reviewers, repeat until each scores 95 or more.
+- Lighthouse on this machine: call the cached CLI with `node` (see STATE.md); `npx
+  --no-install lighthouse` exits without writing a report.
 
 ## History
 
