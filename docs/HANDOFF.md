@@ -1,5 +1,20 @@
 # HANDOFF - dairydoctor-site
 
+Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass started 11 Nov 2026).
+
+## START HERE (11 Nov 2026)
+
+- Constraints: `CLAUDE.md`, "Hard constraints". Plan: `docs/plans/2026-11-11-full-pass.md`.
+- State: `master` is the 23 Sep build plus docs. A full pass is in progress: field research, a
+  baseline review and photo sourcing first, then the build. Working files live in `.work/` on
+  the G7 only (git-ignored). If it exists, read `.work/2026-11-11/STATE.md` before anything else.
+- Decisions (Erik, 11 Nov): photo-led and brighter; up to four new pages; push to the preview
+  when it passes review; one live check of about 10 page loads allowed after the push.
+- Next: read `.work/2026-11-11/plan/FINDINGS.md` and `.work/2026-11-11/photos/SELECTION.md`,
+  fill in the task list in the plan, build, review, push.
+
+## History
+
 **Updated 2026-09-23.** Read this first; the 2026-08-10 engagement record is in
 `SESSION-HANDOFF-2026-08-10-full-engagement.md` and is still accurate for history.
 
