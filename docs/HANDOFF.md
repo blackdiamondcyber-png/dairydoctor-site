@@ -5,11 +5,14 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
 ## START HERE (11 Nov 2026)
 
 - Constraints: `CLAUDE.md`, "Hard constraints". Plan: `docs/plans/2026-11-11-full-pass.md`.
-- State: `master` is the 23 Sep build plus docs; no page has changed yet in this pass. Field
-  research, the baseline review (three reviewers, fixed 100-point rubric) and photo sourcing are
-  finished. Build specs are being written now; the build follows. Working files live in `.work/`
-  on the G7 only (git-ignored). If it exists, read `.work/2026-11-11/STATE.md` before anything
-  else: it holds the decisions, the file map and the next steps.
+- State: `master` is the 23 Sep build plus docs. All work of this pass is on branch `full-pass`;
+  `master` (the public preview) changes only when the review gate passes. On `full-pass` so far:
+  the corrected brand lockup and every photograph for the new look, already exported into
+  `images/` (pages do not use them yet). Research, the baseline review (three reviewers, fixed
+  100-point rubric), photo selection and the build specs are finished or finishing. Working
+  files live in `.work/` on the G7 only (git-ignored). If it exists, read
+  `.work/2026-11-11/STATE.md` before anything else, starting at "RUNNING STATE 2": it holds the
+  decisions, the file map and the next steps.
 - Decisions (Erik, 11 Nov): photo-led and brighter; up to four new pages (`goats.html`,
   `beef.html`, `consulting.html`, `results.html`); push to the preview when it passes review;
   one live check of about 10 page loads allowed after the push.
