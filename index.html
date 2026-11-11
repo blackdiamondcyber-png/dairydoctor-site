@@ -3,71 +3,105 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cattle, Goats &amp; Sheep Pregnancy Blood Testing | The Dairy Doctor</title>
-<meta name="description" content="BioPRYN blood pregnancy testing for cattle, bison, goats and sheep by mail, plus BVD and disease monitoring, from Dr. Glenn Pearson, DVM in Frederic, Wisconsin.">
+<title>Cattle, goat and sheep pregnancy testing | The Dairy Doctor</title>
+<meta name="description" content="Blood pregnancy testing for cattle, bison, goats and sheep, BVD PI testing and herd health consulting by mail from Dr. Glenn Pearson, DVM, Frederic, Wisconsin.">
 <link rel="canonical" href="https://dairydoctor.com/">
 <meta name="theme-color" content="#336666">
-<meta property="og:title" content="Cattle, Goats &amp; Sheep Pregnancy Blood Testing | The Dairy Doctor">
-<meta property="og:description" content="BioPRYN blood pregnancy testing for cattle, bison, goats and sheep by mail, plus BVD and disease monitoring, from Dr. Glenn Pearson, DVM in Frederic, Wisconsin.">
+<meta property="og:site_name" content="The Dairy Doctor">
+<meta property="og:title" content="Cattle, goat and sheep pregnancy testing | The Dairy Doctor">
+<meta property="og:description" content="Blood pregnancy testing for cattle, bison, goats and sheep, BVD PI testing and herd health consulting by mail from Dr. Glenn Pearson, DVM, Frederic, Wisconsin.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dairydoctor.com/">
-<meta property="og:image" content="https://dairydoctor.com/images/hero-vet.jpg">
-<meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="1066">
+<meta property="og:image" content="https://dairydoctor.com/images/og-home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A farmer on a four-wheeler and an adviser talk in a pasture, with a beef herd behind them.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
-<!-- Google Analytics 4: paste GA4 snippet here after creating the property. See docs/FREE-RESOURCES playbook. -->
 <link rel="preload" href="fonts/sora-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/sora-800.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="images/hero-vet.jpg" imagesrcset="images/hero-vet-800.jpg 800w, images/hero-vet.jpg 1600w" imagesizes="100vw">
+<link rel="preload" as="image" type="image/webp" media="(max-width: 639px)" imagesrcset="images/hero-columbia-m-640.webp 640w, images/hero-columbia-m-750.webp 750w, images/hero-columbia-m-960.webp 960w, images/hero-columbia-m-1344.webp 1344w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" media="(min-width: 640px)" imagesrcset="images/hero-columbia-800.webp 800w, images/hero-columbia-1200.webp 1200w, images/hero-columbia-1600.webp 1600w, images/hero-columbia-2100.webp 2100w" imagesizes="(min-width: 960px) 55vw, 100vw" fetchpriority="high">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/site.js" defer></script>
 <script src="js/tools.js" defer></script>
+<noscript><style>.tool-grid, .needs-js { display: none; }</style></noscript>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "VeterinaryCare",
-  "name": "Advanced Dairy Diagnostics & Consulting, LLC",
-  "alternateName": [
-    "The Dairy Doctor",
-    "ADDC",
-    "Dairy Pharm Services",
-    "Advanced Dairy Diagnostic Services, LLC"
-  ],
-  "url": "https://dairydoctor.com/",
-  "email": "info@dairydoctor.com",
-  "telephone": "+17156532201",
-  "faxNumber": "+17156534301",
-  "foundingDate": "1999",
-  "founder": {
-    "@type": "Person",
-    "name": "Dr. Glenn Pearson, DVM"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "362 310th Avenue",
-    "addressLocality": "Frederic",
-    "addressRegion": "WI",
-    "postalCode": "54837",
-    "addressCountry": "US"
-  },
-  "areaServed": "48 contiguous United States",
-  "priceRange": "$",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-    "opens": "08:00",
-    "closes": "16:00"
-  },
-  "publicAccess": false,
-  "knowsAbout": [
-    "BioPRYN blood pregnancy testing for cattle, bison, goats and sheep",
-    "BVD PI testing",
-    "Johnes disease monitoring",
-    "Bovine Leukosis monitoring",
-    "Mycoplasma monitoring"
+  "@graph": [
+    {
+      "@type": "VeterinaryCare",
+      "@id": "https://dairydoctor.com/#lab",
+      "name": "Advanced Dairy Diagnostics & Consulting, LLC",
+      "alternateName": ["The Dairy Doctor", "ADDC", "Dairy Pharm Services"],
+      "url": "https://dairydoctor.com/",
+      "logo": "https://dairydoctor.com/images/logo-512.png",
+      "image": "https://dairydoctor.com/images/og-home.jpg",
+      "email": "info@dairydoctor.com",
+      "telephone": "+17156532201",
+      "faxNumber": "+17156534301",
+      "foundingDate": "1999",
+      "founder": { "@id": "https://dairydoctor.com/#glenn-pearson" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "362 310th Avenue",
+        "addressLocality": "Frederic",
+        "addressRegion": "WI",
+        "postalCode": "54837",
+        "addressCountry": "US"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "16:00"
+      },
+      "publicAccess": false,
+      "knowsAbout": [
+        "BioPRYN blood pregnancy testing for cattle, bison, goats and sheep",
+        "BVD PI testing for cattle and bison",
+        "Johne's disease monitoring",
+        "Bovine Leukosis monitoring",
+        "Mycoplasma monitoring",
+        "Dairy Comp 305 records consulting",
+        "Biosecurity program design"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://dairydoctor.com/#glenn-pearson",
+      "name": "Glenn Pearson",
+      "honorificPrefix": "Dr.",
+      "honorificSuffix": "DVM",
+      "jobTitle": "Veterinarian",
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "University of Illinois College of Veterinary Medicine" },
+      "worksFor": { "@id": "https://dairydoctor.com/#lab" },
+      "url": "https://dairydoctor.com/aboutus.html"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://dairydoctor.com/#website",
+      "url": "https://dairydoctor.com/",
+      "name": "The Dairy Doctor",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://dairydoctor.com/#lab" }
+    }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://dairydoctor.com/#webpage",
+  "url": "https://dairydoctor.com/",
+  "name": "One blood sample tells you which cows are open.",
+  "isPartOf": { "@id": "https://dairydoctor.com/#website" },
+  "about": { "@id": "https://dairydoctor.com/#lab" },
+  "primaryImageOfPage": "https://dairydoctor.com/images/og-home.jpg"
 }
 </script>
 </head>
@@ -77,70 +111,117 @@
   <div class="container brand-row">
     <div class="brand">
       <a href="index.html">
-        <img class="brand-mark" src="images/header-mark-140.png" srcset="images/header-mark-140.png 1x, images/header-mark.png 2x" width="70" height="56" alt="Advanced Dairy Diagnostics and Consulting badge: an engraved Holstein cow with the letters ADDC">
-        <div class="brand-text">
-          <p class="brand-name">The Dairy Doctor</p>
-          <p class="brand-sub">Advanced Dairy Diagnostics &amp; Consulting, LLC</p>
-        </div>
+        <img class="brand-mark" src="images/header-mark-140.png" srcset="images/header-mark-140.png 140w, images/header-mark.png 280w" sizes="(min-width: 600px) 70px, 45px" width="70" height="56" alt="">
+        <span class="brand-text"><span class="brand-name">The Dairy Doctor</span></span>
       </a>
     </div>
-    <a class="call-button" href="tel:+17156532201">
+    <nav class="site-nav" aria-label="Primary">
+      <div class="nav-row">
+        <details class="nav-group">
+          <summary class="nav-link">Tests<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="nav-panel">
+            <a class="nav-panel-link" href="pregtest.html">Pregnancy testing</a>
+            <a class="nav-panel-link" href="bvdtest.html">BVD PI testing</a>
+            <a class="nav-panel-link" href="results.html">How results are read</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary class="nav-link">Your herd<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="nav-panel">
+            <a class="nav-panel-link" href="beef.html">Beef and bison herds</a>
+            <a class="nav-panel-link" href="goats.html">Goats and sheep</a>
+            <a class="nav-panel-link" href="consulting.html">Herd health consulting</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary class="nav-link">Sending samples<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="nav-panel">
+            <a class="nav-panel-link" href="tailbleeding.html">How to tail bleed</a>
+            <a class="nav-panel-link" href="shipping_test.html">Packing and shipping</a>
+            <a class="nav-panel-link" href="faq.html">Common questions</a>
+          </div>
+        </details>
+        <details class="nav-group">
+          <summary class="nav-link is-active">The practice<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="nav-panel">
+            <a class="nav-panel-link" href="index.html" aria-current="page">Home</a>
+            <a class="nav-panel-link" href="aboutus.html">About Dr. Pearson</a>
+            <a class="nav-panel-link" href="contact.html">Contact and new clients</a>
+          </div>
+        </details>
+      </div>
+      <details class="nav-menu">
+        <summary class="nav-menu-toggle">Menu</summary>
+        <div class="nav-menu-panel">
+          <div class="nav-menu-group">
+            <p class="nav-menu-heading">Tests</p>
+            <ul class="nav-menu-list">
+              <li><a class="nav-panel-link" href="pregtest.html">Pregnancy testing</a></li>
+              <li><a class="nav-panel-link" href="bvdtest.html">BVD PI testing</a></li>
+              <li><a class="nav-panel-link" href="results.html">How results are read</a></li>
+            </ul>
+          </div>
+          <div class="nav-menu-group">
+            <p class="nav-menu-heading">Your herd</p>
+            <ul class="nav-menu-list">
+              <li><a class="nav-panel-link" href="beef.html">Beef and bison herds</a></li>
+              <li><a class="nav-panel-link" href="goats.html">Goats and sheep</a></li>
+              <li><a class="nav-panel-link" href="consulting.html">Herd health consulting</a></li>
+            </ul>
+          </div>
+          <div class="nav-menu-group">
+            <p class="nav-menu-heading">Sending samples</p>
+            <ul class="nav-menu-list">
+              <li><a class="nav-panel-link" href="tailbleeding.html">How to tail bleed</a></li>
+              <li><a class="nav-panel-link" href="shipping_test.html">Packing and shipping</a></li>
+              <li><a class="nav-panel-link" href="faq.html">Common questions</a></li>
+            </ul>
+          </div>
+          <div class="nav-menu-group">
+            <p class="nav-menu-heading">The practice</p>
+            <ul class="nav-menu-list">
+              <li><a class="nav-panel-link" href="index.html" aria-current="page">Home</a></li>
+              <li><a class="nav-panel-link" href="aboutus.html">About Dr. Pearson</a></li>
+              <li><a class="nav-panel-link" href="contact.html">Contact and new clients</a></li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </nav>
+    <a class="call-button" href="tel:+17156532201" aria-label="Call (715) 653-2201">
       <svg class="icon-phone" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
-      <span>(715) 653-2201</span>
+      <span class="call-label">(715) 653-2201</span>
     </a>
   </div>
-  <nav class="site-nav" aria-label="Primary">
-    <div class="container">
-      <div class="nav-row">
-        <a href="index.html" class="nav-link" aria-current="page">Home</a>
-        <div class="nav-group">
-          <a href="pregtest.html" class="nav-link nav-group-trigger" aria-expanded="false" aria-controls="nav-panel-testing">Testing<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <div class="nav-panel" id="nav-panel-testing">
-            <a href="pregtest.html" class="nav-panel-link">Pregnancy Testing</a>
-            <a href="bvdtest.html" class="nav-panel-link">BVD Testing</a>
-            <a href="pregtest.html#goats" class="nav-panel-link">Goats &amp; Sheep</a>
-          </div>
-        </div>
-        <div class="nav-group">
-          <a href="tailbleeding.html" class="nav-link nav-group-trigger" aria-expanded="false" aria-controls="nav-panel-guides">Guides<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <div class="nav-panel" id="nav-panel-guides">
-            <a href="tailbleeding.html" class="nav-panel-link">Tail Bleeding</a>
-            <a href="shipping_test.html" class="nav-panel-link">Shipping &amp; Forms</a>
-            <a href="faq.html" class="nav-panel-link">FAQs</a>
-          </div>
-        </div>
-        <a href="aboutus.html" class="nav-link">About</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-      </div>
-    </div>
-  </nav>
 </header>
 
-<main id="main">
-
-  <section class="hero">
-    <img class="hero-img" src="images/hero-vet.jpg" srcset="images/hero-vet-800.jpg 800w, images/hero-vet.jpg 1600w" sizes="100vw" width="1600" height="1066" alt="A veterinarian listens to a calf's heart with a stethoscope while a colleague steadies it, the cow looking on from the foreground" fetchpriority="high" decoding="async">
-    <div class="hero-scrim" aria-hidden="true"></div>
-    <div class="container">
-      <p class="eyebrow hero-eyebrow">BioPRYN&reg; Affiliate Lab &middot; Frederic, Wisconsin</p>
-      <h1>One blood sample tells you <span class="hl">which cows are open</span>.</h1>
-      <p class="lede">Blood pregnancy testing and herd health consulting by mail, run by a working dairy and beef veterinarian in Frederic, Wisconsin.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="tel:+17156532201">
-          <svg class="icon-phone" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
-          Call (715) 653-2201
-        </a>
-        <a class="btn btn-secondary" href="contact.html#new-client">
-          Become a new client
-          <svg class="cta-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+<main id="main" class="main-flush">
+  <section class="hero hero-split" aria-labelledby="hero-title">
+    <figure class="hero-photo">
+      <picture>
+        <source media="(max-width: 639px)" type="image/webp" srcset="images/hero-columbia-m-640.webp 640w, images/hero-columbia-m-750.webp 750w, images/hero-columbia-m-960.webp 960w, images/hero-columbia-m-1344.webp 1344w" sizes="100vw">
+        <source media="(max-width: 639px)" srcset="images/hero-columbia-m-640.jpg 640w, images/hero-columbia-m-750.jpg 750w, images/hero-columbia-m-960.jpg 960w, images/hero-columbia-m-1344.jpg 1344w" sizes="100vw">
+        <source type="image/webp" srcset="images/hero-columbia-800.webp 800w, images/hero-columbia-1200.webp 1200w, images/hero-columbia-1600.webp 1600w, images/hero-columbia-2100.webp 2100w" sizes="(min-width: 960px) 55vw, 100vw">
+        <img class="hero-img" src="images/hero-columbia-1600.jpg" srcset="images/hero-columbia-800.jpg 800w, images/hero-columbia-1200.jpg 1200w, images/hero-columbia-1600.jpg 1600w, images/hero-columbia-2100.jpg 2100w" sizes="(min-width: 960px) 55vw, 100vw" width="2100" height="1500" alt="A farmer on a four-wheeler and an adviser talk in a pasture, with a beef herd behind them." fetchpriority="high" decoding="async">
+      </picture>
+      <figcaption class="photo-credit">Columbia County, Wisconsin. USDA photo.</figcaption>
+    </figure>
+    <div class="hero-panel on-dark">
+      <div class="hero-panel-inner">
+        <p class="eyebrow hero-eyebrow">BioPRYN&reg; affiliate lab &middot; Frederic, Wisconsin</p>
+        <h1 id="hero-title">One blood sample tells you <span class="hl">which cows are open</span>.</h1>
+        <p class="lede">Blood pregnancy testing and herd health consulting by mail, run by a working dairy and beef veterinarian in Frederic, Wisconsin.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="tel:+17156532201"><svg class="icon-phone" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>Call (715) 653-2201</a>
+          <a class="btn btn-secondary" href="contact.html#new-client">Become a new client<svg class="cta-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
       </div>
     </div>
   </section>
 
   <div class="hero-stats-wrap">
     <div class="container">
-      <div class="hero-stats-card" data-reveal style="--d:.1s">
+      <div class="hero-stats-card">
         <div class="hero-stat">
           <span class="hero-stat-num">Over 99%</span>
           <span class="hero-stat-label">accurate on open animals, per BioTracking</span>
@@ -157,108 +238,69 @@
     </div>
   </div>
 
-  <section class="trust-strip">
-    <div class="container trust-grid">
-      <div class="stat-block affiliate-badge" data-reveal style="--d:0s">
-        <img class="affiliate-logo" src="images/biopryn-logo.gif" width="136" height="76" alt="BioPRYN" loading="lazy" fetchpriority="low" decoding="async">
-        <p class="stat-label">Affiliate lab of BioTracking's BioPRYN program</p>
-      </div>
-      <div class="stat-block" data-reveal style="--d:.08s">
-        <p class="stat-num stat-num-text">Disease monitoring</p>
-        <p class="stat-label">BVD, Johnes, Leukosis and Mycoplasma programs</p>
-      </div>
-      <div class="stat-block" data-reveal style="--d:.16s">
-        <p class="stat-num">1999</p>
-        <p class="stat-label">Serving herds since</p>
-      </div>
+  <section class="container" aria-labelledby="herds">
+    <div class="section-head">
+      <h2 id="herds">Herds that draw their own samples</h2>
     </div>
+    <p>The lab was built for operations that sample on their own schedule and mail the tubes. That covers more kinds of herds than most people expect.</p>
+    <ul class="door-grid is-compact" data-reveal>
+      <li class="door-card">
+        <picture>
+          <source type="image/webp" srcset="images/fig-beef-240.webp 240w, images/fig-beef-380.webp 380w, images/fig-beef-760.webp 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px">
+          <img class="door-img" src="images/fig-beef-760.jpg" srcset="images/fig-beef-240.jpg 240w, images/fig-beef-380.jpg 380w, images/fig-beef-760.jpg 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px" width="760" height="507" alt="Black beef cows and calves on green pasture" loading="lazy" decoding="async">
+        </picture>
+        <h3 class="door-title"><a class="door-link" href="beef.html">Beef cow-calf herds<svg class="door-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+        <p class="door-text">Check at weaning or a month after the bull comes out, and cull on the answer instead of wintering an open cow.</p>
+      </li>
+      <li class="door-card">
+        <picture>
+          <source type="image/webp" srcset="images/door-dairy-240.webp 240w, images/door-dairy-380.webp 380w, images/door-dairy-760.webp 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px">
+          <img class="door-img" src="images/door-dairy-760.jpg" srcset="images/door-dairy-240.jpg 240w, images/door-dairy-380.jpg 380w, images/door-dairy-760.jpg 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px" width="760" height="507" alt="A dairy worker milks a Holstein in a tie-stall barn" loading="lazy" decoding="async">
+        </picture>
+        <h3 class="door-title"><a class="door-link" href="pregtest.html#large-herds">Dairies without a weekly herd check<svg class="door-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+        <p class="door-text">Your own crew draws on your schedule. The open list is back before the next protocol day.</p>
+      </li>
+      <li class="door-card">
+        <picture>
+          <source type="image/webp" srcset="images/fig-heifers-240.webp 240w, images/fig-heifers-380.webp 380w, images/fig-heifers-760.webp 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px">
+          <img class="door-img" src="images/fig-heifers-760.jpg" srcset="images/fig-heifers-240.jpg 240w, images/fig-heifers-380.jpg 380w, images/fig-heifers-760.jpg 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px" width="760" height="507" alt="Tagged dairy heifers crowding toward the camera on summer pasture" loading="lazy" decoding="async">
+        </picture>
+        <h3 class="door-title"><a class="door-link" href="pregtest.html#heifers">Custom heifer growers<svg class="door-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+        <p class="door-text">Heifers test from 25 days after breeding. Off-site heifers get checked without a vet visit to the lot.</p>
+      </li>
+      <li class="door-card">
+        <picture>
+          <source type="image/webp" srcset="images/door-goats-240.webp 240w, images/door-goats-380.webp 380w, images/door-goats-760.webp 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px">
+          <img class="door-img" src="images/door-goats-760.jpg" srcset="images/door-goats-240.jpg 240w, images/door-goats-380.jpg 380w, images/door-goats-760.jpg 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px" width="760" height="507" alt="Two Nubian dairy does with ear tags at a wooden feed rail" loading="lazy" decoding="async">
+        </picture>
+        <h3 class="door-title"><a class="door-link" href="goats.html">Goat and sheep dairies<svg class="door-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+        <p class="door-text">Wisconsin milks more goats than any other state. Goats and sheep test from 30 days after breeding on the same blood test.</p>
+      </li>
+      <li class="door-card">
+        <picture>
+          <source type="image/webp" srcset="images/fig-bison-ranch-240.webp 240w, images/fig-bison-ranch-380.webp 380w, images/fig-bison-ranch-760.webp 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px">
+          <img class="door-img" src="images/fig-bison-ranch-760.jpg" srcset="images/fig-bison-ranch-240.jpg 240w, images/fig-bison-ranch-380.jpg 380w, images/fig-bison-ranch-760.jpg 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px" width="760" height="507" alt="Two bison on a fenced ranch pasture" loading="lazy" decoding="async">
+        </picture>
+        <h3 class="door-title"><a class="door-link" href="beef.html#bison">Bison ranches<svg class="door-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+        <p class="door-text">The assay is validated in bison, and nobody wants to palpate one. Draw at the handling system, mail the tubes.</p>
+      </li>
+      <li class="door-card">
+        <picture>
+          <source type="image/webp" srcset="images/door-large-240.webp 240w, images/door-large-380.webp 380w, images/door-large-760.webp 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px">
+          <img class="door-img" src="images/door-large-760.jpg" srcset="images/door-large-240.jpg 240w, images/door-large-380.jpg 380w, images/door-large-760.jpg 760w" sizes="(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px" width="760" height="507" alt="Holstein cows on a rotary milking parlor" loading="lazy" decoding="async">
+        </picture>
+        <h3 class="door-title"><a class="door-link" href="consulting.html">Large herds<svg class="door-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+        <p class="door-text">Heifer checks, BVD PI screening of every calf, disease monitoring, and Dairy Comp 305 records review with the veterinarian.</p>
+      </li>
+    </ul>
   </section>
 
-  <section class="container">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Services</p>
-      <h2>Our services</h2>
+  <section class="container" aria-labelledby="how-it-works">
+    <div class="section-head">
+      <h2 id="how-it-works">How it works</h2>
     </div>
-    <div class="card-grid cards-3">
-      <article class="card" data-reveal style="--d:0s">
-        <h3>Pregnancy testing</h3>
-        <p>BioPRYN blood pregnancy testing finds open animals with over 99% accuracy (BioTracking's published figure). Cattle from 28 days after breeding, heifers from 25, goats and sheep from 30.</p>
-        <a class="card-link" href="pregtest.html">Learn about pregnancy testing</a>
-      </article>
-      <article class="card" data-reveal style="--d:.1s">
-        <h3>BVD PI testing</h3>
-        <p>Find and remove persistently infected (PI) animals before they cost your herd in scours, pneumonia and lost calves. Screen once, then test every calf and every purchase.</p>
-        <a class="card-link" href="bvdtest.html#program">See the whole-herd program</a>
-      </article>
-      <article class="card" data-reveal style="--d:.2s">
-        <h3>Herd health consulting</h3>
-        <p>Records review and analysis, customized preventive programs and treatment plans, Dairy Comp 305 records consulting, biosecurity program design, and Johnes, Leukosis and Mycoplasma monitoring.</p>
-        <a class="card-link" href="aboutus.html#consulting">Talk to Dr. Pearson about your herd</a>
-      </article>
-    </div>
-  </section>
-
-  <section class="container">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Who we work with</p>
-      <h2>Herds that draw their own samples</h2>
-    </div>
-    <p data-reveal>The lab was built for operations that sample on their own schedule and mail the tubes. That covers more kinds of herds than most people expect.</p>
-    <div class="card-grid cards-6 cards-photo">
-      <article class="card" data-reveal style="--d:0s">
-        <img src="images/fig-beef.jpg" width="1280" height="853" alt="Black beef cows and calves on green pasture" srcset="images/fig-beef-760.jpg 760w, images/fig-beef.jpg 1280w" sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 333px" loading="lazy" fetchpriority="low" decoding="async" class="card-img">
-        <h3>Beef cow-calf herds</h3>
-        <p>Check at weaning or a month after the bull comes out, and cull on the answer instead of wintering an open cow.</p>
-        <a class="card-link" href="pregtest.html">Cattle pregnancy testing</a>
-      </article>
-      <article class="card" data-reveal style="--d:.06s">
-        <img src="images/fig-holstein.jpg" width="1280" height="853" alt="A black and white Holstein cow in a pasture" srcset="images/fig-holstein-760.jpg 760w, images/fig-holstein.jpg 1280w" sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 333px" loading="lazy" fetchpriority="low" decoding="async" class="card-img">
-        <h3>Dairies without a weekly herd check</h3>
-        <p>Your own crew draws on your schedule. The open list is back before the next protocol day.</p>
-        <a class="card-link" href="pregtest.html#large-herds">How the week runs</a>
-      </article>
-      <article class="card" data-reveal style="--d:.12s">
-        <img src="images/fig-heifers.jpg" width="1280" height="853" alt="Dairy heifers grazing a summer pasture" srcset="images/fig-heifers-760.jpg 760w, images/fig-heifers.jpg 1280w" sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 333px" loading="lazy" fetchpriority="low" decoding="async" class="card-img">
-        <h3>Custom heifer growers</h3>
-        <p>Heifers test from 25 days after breeding. Off-site heifers get checked without a vet visit to the lot.</p>
-        <a class="card-link" href="pregtest.html#heifers">Heifer testing</a>
-      </article>
-      <article class="card" data-reveal style="--d:.18s">
-        <img src="images/goats-nubian.jpg" width="900" height="601" alt="Nubian dairy goats at a fence line" srcset="images/goats-nubian-760.jpg 760w, images/goats-nubian.jpg 900w" sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 333px" loading="lazy" fetchpriority="low" decoding="async" class="card-img">
-        <h3>Goat and sheep dairies</h3>
-        <p>Wisconsin milks more goats than any other state. Goats and sheep test from 30 days after breeding on the same blood test.</p>
-        <a class="card-link" href="pregtest.html#goats">Goat and sheep testing</a>
-      </article>
-      <article class="card" data-reveal style="--d:.24s">
-        <img src="images/fig-bison-ranch.jpg" width="1280" height="853" alt="American bison grazing on a working ranch" srcset="images/fig-bison-ranch-760.jpg 760w, images/fig-bison-ranch.jpg 1280w" sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 333px" loading="lazy" fetchpriority="low" decoding="async" class="card-img">
-        <h3>Bison ranches</h3>
-        <p>The assay is validated in bison, and nobody wants to palpate one. Draw at the handling system, mail the tubes.</p>
-        <a class="card-link" href="pregtest.html#bison">Bison testing</a>
-      </article>
-      <article class="card" data-reveal style="--d:.3s">
-        <img src="images/fig-farm2.jpg" width="1280" height="853" alt="Holstein cows in front of a red Wisconsin dairy barn" srcset="images/fig-farm2-760.jpg 760w, images/fig-farm2.jpg 1280w" sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 333px" loading="lazy" fetchpriority="low" decoding="async" class="card-img">
-        <h3>Large herds</h3>
-        <p>Heifer checks, BVD PI screening of every calf, disease monitoring, and Dairy Comp 305 records review with the veterinarian.</p>
-        <a class="card-link" href="aboutus.html#consulting">Consulting and monitoring</a>
-      </article>
-    </div>
-  </section>
-
-  <section class="tagline-band" data-reveal>
-    <svg class="tagline-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><text x="50" y="85" font-family="Georgia, serif" font-size="140" text-anchor="middle" fill="currentColor">&#8220;</text></svg>
-    <div class="container tagline-inner">
-      <p class="tagline-text">Bringing greater value to your dairy.</p>
-      <p class="tagline-sub">The lab's promise to every herd it serves.</p>
-    </div>
-  </section>
-
-  <section class="container">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Four steps</p>
-      <h2>How it works</h2>
-    </div>
-    <ol class="steps steps-4">
-      <li data-reveal style="--d:0s">
+    <ol class="steps steps-4" data-reveal>
+      <li>
         <span class="step-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v11a2 2 0 0 0 2 2 2 2 0 0 0 2-2V3"/><path d="M10 10.5h4"/></svg>
         </span>
@@ -266,16 +308,17 @@
         <h3>Collect samples</h3>
         <p>Draw a blood sample from the tail vein (goats and sheep: the jugular vein) with a new needle for each animal. See the <a href="tailbleeding.html">tail bleeding how-to guide</a>.</p>
       </li>
-      <li data-reveal style="--d:.1s">
+      <li>
         <span class="step-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6a1 1 0 0 1 1 1v1H8V4a1 1 0 0 1 1-1z"/><path d="M8 11h8M8 15h8M8 19h5"/></svg>
         </span>
         <p class="step-num">Step 2</p>
         <h3>Fill out the right form</h3>
+        <p class="first-box-note"><strong>First box?</strong> Please call our office before your first submission, at <a href="tel:+17156532201">(715) 653-2201</a>, or <a href="contact.html#new-client">send the new client form</a>. A call settles which supplies you need.</p>
         <p>Download the form that matches your samples:</p>
-        <p class="tool-actions"><a class="btn btn-outline" href="ADDC%20Preg%20Submission%20Form.pdf">Cattle/Bison Pregnancy Form</a> <a class="btn btn-outline" href="Farm%20Pregnancy%20Test.pdf">Goat/Sheep Pregnancy Form</a> <a class="btn btn-outline" href="BVD_PI_Test.pdf">BVD PI Test Form</a></p>
+        <p class="tool-actions"><a class="btn btn-outline" href="ADDC%20Preg%20Submission%20Form.pdf" type="application/pdf">Cattle and bison form<span class="sr-only"> (PDF)</span></a> <a class="btn btn-outline" href="Farm%20Pregnancy%20Test.pdf" type="application/pdf">Goat and sheep form<span class="sr-only"> (PDF)</span></a> <a class="btn btn-outline" href="BVD_PI_Test.pdf" type="application/pdf">BVD PI form<span class="sr-only"> (PDF)</span></a></p>
       </li>
-      <li data-reveal style="--d:.2s">
+      <li>
         <span class="step-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-4 9 4-9 4-9-4z"/><path d="M3 8v9l9 4 9-4V8"/><path d="M12 12v9"/></svg>
         </span>
@@ -283,7 +326,7 @@
         <h3>Ship by midweek</h3>
         <p>Pack your samples and form well, and ship so they reach our lab no later than Wednesday. Full <a href="shipping_test.html">shipping instructions</a> here.</p>
       </li>
-      <li data-reveal style="--d:.3s">
+      <li>
         <span class="step-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2C10.5 20 4 13.5 4 6a2 2 0 0 1 1-2z"/></svg>
         </span>
@@ -294,51 +337,134 @@
     </ol>
   </section>
 
-  <section class="container">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Plan a draw</p>
-      <h2>When can I test?</h2>
+  <section class="container" aria-labelledby="when-to-test">
+    <div class="section-head">
+      <h2 id="when-to-test">When can I test?</h2>
     </div>
     <div class="tool" data-tool="timing" data-reveal>
       <div class="tool-grid">
         <div class="form-field">
           <label for="hp-species">Animal</label>
-          <select id="hp-species" name="species">
-            <option value="cattle">Cow or bison (28 days after breeding)</option>
-            <option value="heifer">Virgin heifer (25 days)</option>
-            <option value="small">Goat or sheep (30 days)</option>
+          <select id="hp-species" name="species" aria-describedby="hp-species-hint">
+            <option value="cattle">Cow or bison</option>
+            <option value="heifer">Virgin heifer</option>
+            <option value="small">Goat or sheep</option>
           </select>
+          <p class="muted" id="hp-species-hint">Cows and bison from 28 days after breeding, virgin heifers from 25, goats and sheep from 30.</p>
         </div>
         <div class="form-field">
           <label for="hp-bred">Breeding date</label>
           <input type="date" id="hp-bred" name="bred">
         </div>
+        <div class="form-field" data-calving>
+          <label for="hp-calved">Calving date (optional)</label>
+          <input type="date" id="hp-calved" name="calved" aria-describedby="hp-calved-hint">
+          <p class="muted" id="hp-calved-hint">For a cow that has calved. Cows should be at least 90 days since calving.</p>
+        </div>
         <div class="form-field">
           <label for="hp-transit">Shipping</label>
-          <select id="hp-transit" name="transit">
-            <option value="1">Arrives next day (UPS or FedEx overnight)</option>
-            <option value="2" selected>Arrives in 2 days (Priority Mail)</option>
-            <option value="3">Arrives in 3 days</option>
+          <select id="hp-transit" name="transit" aria-describedby="hp-transit-hint">
+            <option value="1">Overnight</option>
+            <option value="2" selected>Priority Mail, 2 days</option>
+            <option value="3">3 days</option>
           </select>
+          <p class="muted" id="hp-transit-hint">Days from shipping to arrival at the lab. Overnight means UPS or FedEx next day.</p>
         </div>
       </div>
       <div class="tool-out" aria-live="polite">
-        <p>Cows and bison can be sampled 28 days after breeding, virgin heifers at 25, goats and sheep at 30. Cows should also be at least 90 days since calving. Samples that reach the lab by Wednesday are reported that Thursday.</p>
+        <p>Cows and bison can be sampled 28 days after breeding, virgin heifers at 25, goats and sheep at 30. Cows should also be at least 90 days since calving. Samples that reach the lab by Wednesday are reported Thursday.</p>
       </div>
     </div>
   </section>
 
-  <section class="container">
-    <div class="about-teaser about-teaser-photo" data-reveal>
-      <img src="images/fig-farm.jpg" width="1280" height="853" alt="A Wisconsin dairy farm with red barns and silos under a summer sky" srcset="images/fig-farm-760.jpg 760w, images/fig-farm.jpg 1280w" sizes="(max-width: 799px) 100vw, 560px" loading="lazy" fetchpriority="low" decoding="async" class="about-img">
-      <div class="section-head">
-        <p class="eyebrow">About</p>
-        <h2>About Advanced Dairy Diagnostics &amp; Consulting</h2>
+  <section class="container" aria-labelledby="vet-reads-home">
+    <div class="section-head">
+      <h2 id="vet-reads-home">The vet reads your results</h2>
+    </div>
+    <p class="lede">Samples that reach the lab by Wednesday are reported Thursday by email, fax or phone, whichever you mark on the form.</p>
+    <div class="report-block" data-reveal>
+      <div class="report-explain">
+        <h3>What Thursday's report shows</h3>
+        <ul class="result-key">
+          <li><span class="res res-p">Pregnant</span><span>Protein present on the day she was sampled.</span></li>
+          <li><span class="res res-o">Open</span><span>No protein. She can go back on next week's breeding list.</span></li>
+          <li><span class="res res-r">Recheck</span><span>The reading fell between the two ranges. It can point to a pregnancy in trouble, an animal sampled too early, or a cow still too close to calving.</span></li>
+        </ul>
+        <h3>What the veterinarian adds</h3>
+        <ul class="vet-adds">
+          <li>Every plate is read by the lab's veterinarian, Dr. Glenn Pearson.</li>
+          <li>A recheck usually comes with a note on when to sample her again.</li>
+          <li>Every testing client gets Dr. Pearson's troubleshooting and support with their results. He is only an email or phone call away.</li>
+        </ul>
       </div>
-      <p>Dr. Glenn Pearson, DVM has practiced dairy and beef production medicine for more than 40 years. He opened the practice in 1999 and in 2005 made it the first BioPRYN affiliate lab east of the Rockies. Every result comes from a lab built and overseen by a working dairy veterinarian.</p>
-      <p><a href="aboutus.html">Read more about Dr. Pearson</a></p>
-      <p class="tool-actions"><a class="btn btn-primary" href="tel:+17156532201">Call (715) 653-2201</a> <a class="btn btn-outline" href="contact.html#new-client">Become a new client</a></p>
-      <p><a class="badge" href="contact.html#new-client">Ask about new client discounts</a></p>
+      <figure class="report-sample" aria-labelledby="report-cap-home">
+        <span class="report-stamp">Illustration</span>
+        <p class="report-sample-lab">Advanced Dairy Diagnostics &amp; Consulting, LLC</p>
+        <p class="report-sample-title">Pregnancy test results</p>
+        <dl class="report-sample-meta">
+          <div><dt>Herd</dt><dd>Your farm</dd></div>
+          <div><dt>Samples in</dt><dd>Wednesday</dd></div>
+          <div><dt>Reported</dt><dd>Thursday</dd></div>
+        </dl>
+        <table class="report">
+          <caption class="sr-only">Illustrated results for four animals</caption>
+          <thead><tr><th scope="col">Tube</th><th scope="col">Animal ID</th><th scope="col">Result</th><th scope="col">Note</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Tube">1</td><td data-label="Animal ID">4412</td><td data-label="Result"><span class="res res-p">Pregnant</span></td><td data-label="Note">Protein present on the day sampled.</td></tr>
+            <tr><td data-label="Tube">2</td><td data-label="Animal ID">4418</td><td data-label="Result"><span class="res res-o">Open</span></td><td data-label="Note">No protein. Back on the breeding list.</td></tr>
+            <tr><td data-label="Tube">3</td><td data-label="Animal ID">4425</td><td data-label="Result"><span class="res res-r">Recheck</span></td><td data-label="Note">Between the ranges. See the note on when to sample her again.</td></tr>
+            <tr><td data-label="Tube">4</td><td data-label="Animal ID">4431</td><td data-label="Result"><span class="res res-p">Pregnant</span></td><td data-label="Note">Protein present on the day sampled.</td></tr>
+          </tbody>
+        </table>
+        <figcaption id="report-cap-home">An illustration of what a report tells you. It is not a copy of the lab's report and not a client's data.</figcaption>
+      </figure>
+    </div>
+    <p class="mt-lg"><a href="results.html">See what each result means, and the limits of the test</a></p>
+  </section>
+
+  <section class="container" aria-labelledby="services">
+    <div class="section-head">
+      <h2 id="services">What the lab does for your herd</h2>
+    </div>
+    <div class="card-grid cards-3" data-reveal>
+      <article class="card">
+        <h3>Pregnancy testing</h3>
+        <p>BioPRYN blood pregnancy testing finds open animals with over 99% accuracy (BioTracking's published figure). Cattle from 28 days after breeding, heifers from 25, goats and sheep from 30.</p>
+        <a class="card-link" href="pregtest.html">Learn about pregnancy testing</a>
+      </article>
+      <article class="card">
+        <h3>BVD PI testing</h3>
+        <p>Find and remove persistently infected (PI) animals before they cost your herd in scours, pneumonia and lost calves. Screen once, then test every calf and every purchase.</p>
+        <a class="card-link" href="bvdtest.html#program">See the whole-herd program</a>
+      </article>
+      <article class="card">
+        <h3>Herd health consulting</h3>
+        <p>Records review and analysis, customized preventive programs and treatment plans, Dairy Comp 305 records consulting, biosecurity program design, and Johne's, Leukosis and Mycoplasma monitoring.</p>
+        <a class="card-link" href="consulting.html">Talk to Dr. Pearson about your herd</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="container" aria-labelledby="about">
+    <div class="about-teaser about-teaser-photo" data-reveal>
+      <picture>
+        <source type="image/webp" srcset="images/fig-farm2-760.webp 760w, images/fig-farm2.webp 1280w" sizes="(min-width: 780px) 500px, 100vw">
+        <img class="about-img" src="images/fig-farm2.jpg" srcset="images/fig-farm2-760.jpg 760w, images/fig-farm2.jpg 1280w" sizes="(min-width: 780px) 500px, 100vw" width="1280" height="853" alt="Holstein cows grazing in front of a red barn on a Wisconsin dairy farm" loading="lazy" decoding="async">
+      </picture>
+      <div class="about-body">
+        <h2 id="about">About Advanced Dairy Diagnostics &amp; Consulting</h2>
+        <p>Dr. Glenn Pearson, DVM has practiced dairy and beef production medicine for more than 40 years. He opened the practice in 1999 and in 2005 made it the first BioPRYN affiliate lab east of the Rockies. Every result comes from a lab built and overseen by a working dairy veterinarian.</p>
+        <p class="biosecurity-line"><svg class="biosecurity-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span><strong>Our lab is closed to the public.</strong> For the biosecurity of every herd we test, we do not allow visitors into the laboratory. Samples come to us by mail.</span></p>
+        <p class="about-actions"><a class="btn btn-solid" href="tel:+17156532201">Call (715) 653-2201</a> <a class="btn btn-outline" href="aboutus.html">Read more about Dr. Pearson</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" aria-labelledby="next-step">
+    <div class="next-step">
+      <h2 id="next-step">Ready to send your first box?</h2>
+      <p>Call before the first box goes out, or tell us about your herd and the lab will get back to you.</p>
+      <p class="next-actions"><a class="btn btn-solid" href="contact.html#new-client">Become a new client</a> <a href="tel:+17156532201">or call (715) 653-2201</a></p>
     </div>
   </section>
 
@@ -346,32 +472,41 @@
 
 <footer class="site-footer">
   <div class="container footer-grid">
-    <div>
+    <div class="footer-brand-col">
+      <img class="footer-lockup" src="images/logo-lockup-600.jpg" srcset="images/logo-lockup-600.jpg 600w, images/logo-lockup.jpg 1200w" sizes="220px" width="600" height="394" alt="" loading="lazy" decoding="async">
       <p class="footer-brand">Advanced Dairy Diagnostics &amp; Consulting, LLC</p>
-      <p class="footer-tagline">Bringing greater value to your dairy since 1999.</p>
+      <p class="footer-tagline">Serving herds since 1999.</p>
     </div>
-    <div>
-      <p class="footer-heading">Quick links</p>
+    <nav class="footer-nav" aria-label="All pages">
+      <p class="footer-heading">Pages</p>
       <ul class="footer-links">
+        <li><a href="pregtest.html">Pregnancy testing</a></li>
+        <li><a href="bvdtest.html">BVD PI testing</a></li>
+        <li><a href="results.html">How results are read</a></li>
+        <li><a href="beef.html">Beef and bison herds</a></li>
+        <li><a href="goats.html">Goats and sheep</a></li>
+        <li><a href="consulting.html">Herd health consulting</a></li>
+        <li><a href="tailbleeding.html">How to tail bleed</a></li>
+        <li><a href="shipping_test.html">Packing and shipping</a></li>
+        <li><a href="faq.html">Common questions</a></li>
+        <li><a href="aboutus.html">About Dr. Pearson</a></li>
+        <li><a href="contact.html">Contact and new clients</a></li>
         <li><a href="index.html">Home</a></li>
-        <li><a href="pregtest.html">Pregnancy Testing</a></li>
-        <li><a href="bvdtest.html">BVD Testing</a></li>
-        <li><a href="tailbleeding.html">Tail Bleeding How-To</a></li>
-        <li><a href="shipping_test.html">Shipping</a></li>
-        <li><a href="faq.html">FAQs</a></li>
-        <li><a href="aboutus.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
       </ul>
-    </div>
-    <div>
+    </nav>
+    <div class="footer-contact">
       <p class="footer-heading">Contact</p>
-      <p>Glenn Pearson, DVM</p>
-      <p>362 310th Avenue, Frederic, WI 54837</p>
-      <p>Phone: <a href="tel:+17156532201">(715) 653-2201</a></p>
-      <p>Fax: (715) 653-4301</p>
-      <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
+      <address>
+        <p>Glenn Pearson, DVM</p>
+        <p>362 310th Avenue, Frederic, WI 54837</p>
+        <p>Phone: <a href="tel:+17156532201">(715) 653-2201</a></p>
+        <p>Fax: (715) 653-4301</p>
+        <p>Email: <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a></p>
+        <p>Staffed Monday to Friday, 8 a.m. to 4 p.m. Central.</p>
+      </address>
+      <p class="footer-biosecurity">The lab is closed to visitors for biosecurity. Samples come by mail.</p>
     </div>
-    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC<br>Photography: Carolyn Parsons, Kristenmacphee, RianHS, Agungtrinugroho, Gannu03 and Witia via Wikimedia Commons (CC BY-SA 4.0); Corey Coyle (CC BY 3.0); USDA; Carol M. Highsmith, Library of Congress; Virginia-Maryland College of Veterinary Medicine. <a href="credits.html">Full image credits</a>.</p>
+    <p class="footer-copy">&copy; 2026 Advanced Dairy Diagnostics &amp; Consulting, LLC. Photographs are public domain or used under Creative Commons licenses. <a href="credits.html">Photo and font credits</a>.</p>
   </div>
 </footer>
 </body>

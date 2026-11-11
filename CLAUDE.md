@@ -42,3 +42,6 @@ Pearson, DVM, Frederic, Wisconsin. Plain HTML pages, one stylesheet (`css/style.
     written reason.
 
 Added later:
+
+15. 2026-11-11 (Erik): keep going until all three reviewers score 95 or more. No round cap and
+    no stopping to ask between rounds; change approach if a round stalls.

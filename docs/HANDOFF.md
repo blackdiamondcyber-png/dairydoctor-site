@@ -2,24 +2,31 @@
 
 Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass started 11 Nov 2026).
 
-## START HERE (11 Nov 2026)
+## START HERE (11 Nov 2026, afternoon)
 
-- Constraints: `CLAUDE.md`, "Hard constraints". Plan: `docs/plans/2026-11-11-full-pass.md`.
-- State: `master` is the 23 Sep build plus docs. All work of this pass is on branch `full-pass`;
-  `master` (the public preview) changes only when the review gate passes. On `full-pass` so far:
-  the corrected brand lockup and every photograph for the new look, already exported into
-  `images/` (pages do not use them yet). Research, the baseline review (three reviewers, fixed
-  100-point rubric), photo selection and the build specs are finished or finishing. Working
-  files live in `.work/` on the G7 only (git-ignored). If it exists, read
-  `.work/2026-11-11/STATE.md` before anything else, starting at "RUNNING STATE 2": it holds the
-  decisions, the file map and the next steps.
-- Decisions (Erik, 11 Nov): photo-led and brighter; up to four new pages (`goats.html`,
-  `beef.html`, `consulting.html`, `results.html`); push to the preview when it passes review;
-  one live check of about 10 page loads allowed after the push.
-- Next: read the specs in `.work/2026-11-11/plan/`, build from them, capture the pages on
-  localhost, send them back to the same three reviewers, repeat until each scores 95 or more.
-- Lighthouse on this machine: call the cached CLI with `node` (see STATE.md); `npx
-  --no-install lighthouse` exits without writing a report.
+- Constraints: `CLAUDE.md`, "Hard constraints" (15 items). Plan: `docs/plans/2026-11-11-full-pass.md`.
+- State: branch `full-pass` holds the rebuilt site. `master` (the public preview) is still the
+  23 Sep build plus docs and changes only when the review gate passes.
+- On `full-pass`: 15 pages (new: `goats.html`, `beef.html`, `consulting.html`, `results.html`),
+  a rebuilt stylesheet and both scripts, one-row header with four menus, the photo-led look
+  (hero and a photo band per page, credits on `credits.html`), six inline drawings, the
+  corrected lockup, a lighter header mark, 33 retired images removed, `_config.yml` in place of
+  `.nojekyll` so internal files are not published.
+- Local checks at the last commit: site check 15 pages, 0 problems; tool tests 113 of 113;
+  behaviour checks 406 of 406 (scroll reveal, JavaScript off, menus, keyboard, FAQ search,
+  print); axe 0 violations at 375 and 1280 px; Lighthouse on a local server that compresses
+  like GitHub Pages: performance 99 to 100, accessibility 100, best practices 100, SEO 100
+  (`thanks.html` and `404.html` are noindex on purpose).
+- Working files live in `.work/` on the G7 only (git-ignored). If it exists, read
+  `.work/2026-11-11/STATE.md` first, from "RUNNING STATE 4": decisions, file map, next steps.
+- Next: review round 1 with the same three reviewers on the fixed rubric, fix what they find,
+  repeat until each scores 95 or more (constraint 15). Then fast-forward `master`, push, and
+  run the one live check (about 10 page loads).
+- Capturing pages: take slices by scrolling inside the viewport. Capturing beyond the viewport
+  makes the browser pick `<picture>` sources again and the art-directed photos come out blank.
+- Lighthouse on this machine: call the cached CLI with `node`; `npx --no-install lighthouse`
+  exits without writing a report. The plain preview server sends no gzip and `no-store`, which
+  costs two flags that GitHub Pages does not have.
 
 ## History
 

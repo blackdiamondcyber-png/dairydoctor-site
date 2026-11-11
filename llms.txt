@@ -1,16 +1,34 @@
-# Advanced Dairy Diagnostics & Consulting, LLC (The Dairy Doctor)
+# The Dairy Doctor: Advanced Dairy Diagnostics & Consulting, LLC
 
-## Who we are
-Advanced Dairy Diagnostics & Consulting, LLC, doing business as The Dairy Doctor, is a mail-in veterinary diagnostic laboratory owned and operated by Dr. Glenn Pearson, DVM, in Frederic, Wisconsin. Founded in 1999 as Dairy Pharm Services, the practice became a BioPRYN affiliate lab in 2005, the first east of the Rockies, and serves dairy, beef, goat and sheep producers across all 48 contiguous United States.
+> A mail-in veterinary diagnostic lab and herd health consulting practice run by Dr. Glenn Pearson, DVM, in Frederic, Wisconsin. BioPRYN blood pregnancy testing for cattle, bison, goats and sheep, BVD PI testing for cattle and bison, and herd health consulting.
 
-## Services and pricing
-BioPRYN blood pregnancy testing for cattle and bison costs $3.50 per test. BioPRYN blood pregnancy testing for goats and sheep costs $7.00 per test. BVD PI (persistent infection) testing, run from either a blood sample or an ear notch, costs $6.95 per animal. Herd health consulting is also available, covering Johnes disease, Bovine Leukosis and Mycoplasma monitoring, Dairy Comp 305 records consulting, and biosecurity program design. New client discounts are available on all services; ask by phone or email.
+The practice opened in 1999 as Dairy Pharm Services and in 2005 became the first BioPRYN affiliate lab east of the Rockies. Every plate is read by the lab's veterinarian. Samples that reach the lab by Wednesday are reported Thursday by email, fax or phone, whichever you mark on the form. Tests run Monday through Thursday. The lab is staffed Monday to Friday, 8 a.m. to 4 p.m. Central. The lab is closed to visitors for biosecurity; samples come by mail. There is no online ordering: farms draw their own samples, fill in the paper submission form and mail the box.
 
-## Location
-362 310th Avenue, Frederic, WI 54837, United States. This address is both the business mailing address and the address customers ship blood and ear notch samples to.
+Mail and samples: 362 310th Avenue, Frederic, WI 54837. Phone (715) 653-2201. Fax (715) 653-4301. Email info@dairydoctor.com.
 
-## Contact
-Phone: (715) 653-2201. Fax: (715) 653-4301. Email: info@dairydoctor.com.
+## Tests
 
-## How ordering works
-There is no online store or checkout. Customers collect blood or ear notch samples on their own farm (a step-by-step tail-bleeding guide is published on the site), complete the PDF submission form that matches their species and test (separate forms exist for cattle/bison pregnancy testing, goat/sheep pregnancy testing, and BVD PI testing), package the samples with the completed form, and ship them by Priority Mail, FedEx or UPS timed to arrive no later than Wednesday. Samples that reach the lab by Wednesday are reported that Thursday by email, fax or phone, whichever the form marks. Phone and email support are available throughout for questions about testing or forms.
+- [Pregnancy testing](https://dairydoctor.com/pregtest.html): BioPRYN blood test. Cows and bison from 28 days after breeding, virgin heifers from 25 days, goats and sheep from 30 days; cows at least 90 days after calving. Prices are on this page.
+- [BVD PI testing](https://dairydoctor.com/bvdtest.html): ear notch or blood, cattle and bison only, shipped cold. Prices are on this page.
+- [How results are read](https://dairydoctor.com/results.html): pregnant, open and recheck, what the veterinarian adds, and the limits of the test.
+
+## Your herd
+
+- [Beef and bison herds](https://dairydoctor.com/beef.html): testing at the chute or handling system, by mail.
+- [Goats and sheep](https://dairydoctor.com/goats.html): pregnancy testing from 30 days after breeding, jugular-drawn.
+- [Herd health consulting](https://dairydoctor.com/consulting.html): records review, Dairy Comp 305 records consulting, preventive programs, biosecurity design, and Johne's, Leukosis and Mycoplasma monitoring.
+
+## Sending samples
+
+- [How to tail bleed a cow](https://dairydoctor.com/tailbleeding.html): step-by-step tail-vein draw, and the jugular draw for goats and sheep.
+- [Packing and shipping](https://dairydoctor.com/shipping_test.html): packing steps, forms, supplies and a ship-by planner.
+- [Common questions](https://dairydoctor.com/faq.html): timing, samples, results and payment.
+
+## The practice
+
+- [About Dr. Glenn Pearson, DVM](https://dairydoctor.com/aboutus.html): background and the BioPRYN history.
+- [Contact and new clients](https://dairydoctor.com/contact.html): phone, fax, email, address and the new client form.
+
+## Optional
+
+- [Image and font credits](https://dairydoctor.com/credits.html)

@@ -1,5 +1,5 @@
 /* =================================================================
-   Advanced Dairy Diagnostic & Consulting, LLC ("The Dairy Doctor")
+   Advanced Dairy Diagnostics & Consulting, LLC ("The Dairy Doctor")
    Single stylesheet. No build step, no external requests.
    Mobile-first; enhanced at wider breakpoints.
    Progressive enhancement: everything below is visible and usable
@@ -22,8 +22,10 @@
   font-display: swap;
 }
 
+/* -------------------- 3.2 Tokens, base and layout -------------------- */
+
 :root {
-  /* Brand palette */
+  /* Brand palette (constraint 9). No orange anywhere: rust #b8430f is the only warm accent. */
   --teal: #336666;
   --teal-deep: #244949;
   --link: #006666;
@@ -34,17 +36,44 @@
   --card: #ffffff;
   --ink: #1b2727;
   --muted: #536969;
-
+  /* Result chips (kept from the report illustration) */
+  --res-p-bg: #e3efed;
+  --res-p-ink: #244949;
+  --res-o-bg: #f8e8e0;
+  --res-o-ink: #8a300a;
+  --res-r-bg: #f6efdb;
+  --res-r-ink: #6b4b00;
   /* Type */
   --font-display: 'Sora', -apple-system, 'Segoe UI', Arial, sans-serif;
   --font-body: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-
-  /* Shape / elevation */
-  --radius: 10px;
+  --tint: rgba(51, 102, 102, 0.07); /* teal wash for notices; reads on white and on mint */
+  /* Shape and elevation: one radius for every box, card, figure and drawing */
+  --radius: 12px;
   --radius-pill: 999px;
   --shadow-sm: 0 1px 3px rgba(27, 39, 39, 0.14);
   --shadow-md: 0 10px 28px rgba(27, 39, 39, 0.2);
   --focus-ring: var(--teal-deep);
+  /* Layout */
+  --gutter: 1rem;          /* 16 px side gutter on phones */
+  --header-h: 68px;        /* phone header row */
+  --content-max: 1080px;
+  /* One reading measure: text, lists, steps, tools, notices, figures and rules share one right edge. */
+  --measure: 44rem;
+  /* One gap between the page's top-level sections. */
+  --section-gap: 3rem;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --gutter: 1.25rem;
+    --header-h: 80px;
+  }
+}
+
+@media (min-width: 900px) {
+  :root {
+    --section-gap: 4rem;
+  }
 }
 
 /* -------------------- Reset -------------------- */
@@ -107,7 +136,11 @@ body {
 main {
   display: block;
   flex: 1 0 auto;
-  padding-block: 2rem 3rem;
+  padding-block: 2rem var(--section-gap);
+}
+
+main.main-flush {
+  padding-top: 0;
 }
 
 h1,
@@ -117,12 +150,19 @@ h4 {
   font-family: var(--font-display);
   font-weight: 600;
   line-height: 1.22;
-  text-wrap: balance;
+  text-wrap: pretty;
   color: var(--teal);
 }
 
 h1 {
   font-size: 1.9rem;
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  h1 {
+    font-size: 2.25rem;
+  }
 }
 
 h2 {
@@ -140,13 +180,13 @@ h3 {
 
 p {
   margin-top: 0.85rem;
-  max-width: 68ch;
+  max-width: var(--measure);
 }
 
 main ul,
 main ol {
   margin-top: 0.85rem;
-  max-width: 68ch;
+  max-width: var(--measure);
 }
 
 main li + li {
@@ -163,6 +203,11 @@ a:hover {
   color: var(--rust);
 }
 
+/* A phone number never breaks across two lines. */
+a[href^='tel:'] {
+  white-space: nowrap;
+}
+
 strong,
 b {
   font-weight: 700;
@@ -173,7 +218,7 @@ b {
 }
 
 [id] {
-  scroll-margin-top: 8rem;
+  scroll-margin-top: calc(var(--header-h) + 1rem);
 }
 
 /* -------------------- Eyebrows -------------------- */
@@ -181,7 +226,7 @@ b {
   display: block;
   color: var(--rust);
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   margin-bottom: 0.4rem;
@@ -189,7 +234,7 @@ b {
 
 .section-head {
   margin-top: 2.25rem;
-  max-width: 68ch;
+  max-width: var(--measure);
 }
 
 .section-head:first-child,
@@ -242,20 +287,6 @@ h1 + .section-head,
   text-decoration: underline;
 }
 
-a.badge {
-  min-height: 44px;
-  text-decoration: none;
-}
-
-a.badge:hover,
-a.badge:focus-visible {
-  text-decoration: underline;
-}
-
-.band-figure {
-  margin: 0;
-}
-
 .faq-empty {
   margin-top: 1rem;
 }
@@ -263,18 +294,6 @@ a.badge:focus-visible {
 /* The hidden attribute always wins over a display rule (the tail-steps list is a grid). */
 [hidden] {
   display: none !important;
-}
-
-/* Figures whose largest source is 900px wide never upscale (beats .figure-wide's max-width: none). */
-.figure-wide.figure-max900 {
-  max-width: 900px;
-}
-
-.credits-table td {
-  white-space: normal;
-  vertical-align: top;
-  font-size: 0.9rem;
-  overflow-wrap: anywhere;
 }
 
 /* Stepper in list mode: the one-step view steps aside for the full list. */
@@ -305,10 +324,20 @@ button:focus-visible,
   border-radius: 4px;
 }
 
+button {
+  font: inherit;
+}
+
+/* Focus: dark ring on light surfaces, white ring on teal and deep teal surfaces. */
 .site-header :focus-visible,
 .site-footer :focus-visible,
-.hero :focus-visible {
+.on-dark :focus-visible {
   outline-color: #ffffff;
+}
+
+.nav-panel :focus-visible,
+.nav-menu-panel :focus-visible {
+  outline-color: var(--focus-ring);
 }
 
 /* -------------------- Skip link -------------------- */
@@ -331,330 +360,200 @@ button:focus-visible,
 }
 
 /* -------------------- Layout -------------------- */
+
 .container {
   width: 100%;
-  max-width: 1080px;
+  max-width: var(--content-max);
   margin-inline: auto;
-  padding-inline: 1.25rem;
+  padding-inline: var(--gutter);
 }
 
 section + section {
   margin-top: 2.5rem;
 }
 
-/* -------------------- Header -------------------- */
+/* Vertical rhythm: every top-level block of a page (section, bare container,
+   the stat strip) sits one --section-gap below the one before it, and the
+   first thing inside a top-level container adds no margin of its own. */
+main > :is(section, .container, .hero-stats-wrap) + :is(section, .container) {
+  margin-top: var(--section-gap);
+}
+
+main > .container > :first-child {
+  margin-top: 0;
+}
+
+/* -------------------- 3.3 Header and navigation -------------------- */
+
 .site-header {
-  background: var(--teal);
   position: sticky;
   top: 0;
   z-index: 40;
+  background: var(--teal);
 }
 
 .site-header.scrolled {
-  background: rgba(51, 102, 102, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 14px rgba(18, 30, 30, 0.28);
 }
 
-@supports not (backdrop-filter: blur(10px)) {
-  .site-header.scrolled {
-    background: var(--teal);
-  }
+/* js/site.js adds this marker at the top of the page and watches it to
+   know when the page has scrolled (the header shadow above). */
+.scroll-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 8px;
+  pointer-events: none;
 }
 
 .brand-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-block: 0.85rem;
-  flex-wrap: wrap;
+  gap: 8px;
+  min-height: var(--header-h);
+  padding-block: 12px;
+}
+
+.brand {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .brand a {
-  text-decoration: none;
-  color: inherit;
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 8px;
+  min-height: 44px;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .brand-mark {
   flex: none;
-  width: 70px;
-  height: 56px;
+  width: 45px;
+  height: 36px;
+}
+
+.brand-text {
+  display: block;
+  min-width: 0;
 }
 
 .brand-name {
+  display: block;
   font-family: var(--font-display);
-  color: #ffffff;
-  font-size: 1.5rem;
   font-weight: 600;
+  font-size: 1rem;
   line-height: 1.15;
-}
-
-.brand-sub {
   color: #ffffff;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  line-height: 1.35;
-  text-transform: uppercase;
-  margin-top: 0.3rem;
-  text-wrap: balance;
 }
 
-.call-button {
+.site-nav {
+  flex: none;
+}
+
+/* Phone and tablet: the Menu disclosure */
+.nav-row {
+  display: none;
+}
+
+.nav-menu > summary,
+.nav-group > summary {
+  list-style: none;
+}
+
+.nav-menu > summary::-webkit-details-marker,
+.nav-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-menu-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.55em;
-  background: var(--teal);
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  padding: 0.6em 1.15em;
+  gap: 6px;
   min-height: 44px;
+  padding: 0 10px;
+  border: 2px solid #ffffff;
   border-radius: var(--radius-pill);
-  font-weight: 700;
-  font-size: 1rem;
-  text-decoration: none;
-  box-shadow: var(--shadow-sm);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1;
   white-space: nowrap;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+  user-select: none;
 }
 
-.call-button:hover,
-.call-button:focus-visible {
+.nav-menu-toggle::after {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.nav-menu[open] > .nav-menu-toggle {
   background: #ffffff;
   color: var(--teal-deep);
 }
 
-.icon-phone {
-  flex: none;
+.nav-menu[open] > .nav-menu-toggle::after {
+  transform: translateY(2px) rotate(225deg);
 }
 
-/* Narrow phones: the header must not eat a quarter of the screen. The call
-   button becomes a round icon (its number stays for screen readers) so the
-   brand row fits on one line, and the legal name folds away once scrolled. */
-@media (max-width: 479px) {
-  .brand-row {
-    flex-wrap: nowrap;
-    gap: 0.75rem;
-  }
-  .call-button {
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    justify-content: center;
-    border-radius: 50%;
-  }
-  .call-button span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
-  .call-button .icon-phone {
-    width: 22px;
-    height: 22px;
-  }
-  .brand-sub {
-    font-size: 0.72rem;
-  }
-}
-
-@media (max-width: 719px) {
-  .brand-row {
-    transition: padding 0.2s ease;
-  }
-  .brand-sub {
-    max-height: 3rem;
-    overflow: hidden;
-    transition:
-      max-height 0.2s ease,
-      opacity 0.2s ease,
-      margin-top 0.2s ease;
-  }
-  .site-header.scrolled .brand-row {
-    padding-block: 0.5rem;
-  }
-  .site-header.scrolled .brand-sub {
-    max-height: 0;
-    opacity: 0;
-    margin-top: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .brand-row,
-  .brand-sub {
-    transition: none;
-  }
-}
-
-.site-nav {
-  background: var(--card);
-  border-bottom: 1px solid var(--ice);
-}
-
-/* The nav never scrolls sideways. It used to be an overflow-x scroller,
-   which pushed "Contact" out of sight behind a visible scrollbar at any
-   width where the five items did not fit. It now wraps to a second row
-   instead, and the sizing rules below keep it on one row on phones. */
-.nav-row {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.15rem;
-  overflow-x: visible;
-}
-
-/* Narrow phones: tighten the nav so all five items fit without the last one
-   ("Contact") scrolling out of sight. Keeps the 44px touch target.
-   Selectors are scoped to .site-nav so they outrank the base .nav-link rule
-   defined further down this stylesheet. */
-@media (max-width: 430px) {
-  .site-nav > .container {
-    padding-inline: 0.35rem;
-  }
-
-  .site-nav .nav-row {
-    gap: 0;
-    justify-content: space-evenly;
-  }
-
-  .site-nav .nav-row .nav-link {
-    padding: 0.5em 0.25em;
-    font-size: 0.8rem;
-    letter-spacing: -0.01em;
-    gap: 0.2em;
-  }
-
-  .site-nav .nav-row .nav-link::after {
-    left: 0.25em;
-    right: 0.25em;
-  }
-}
-
-/* Large phones and small tablets: still one row, just less cramped than the
-   narrow-phone tier above. Without this the full-size links need about
-   418px of run and would wrap to a second row. */
-@media (min-width: 431px) and (max-width: 699px) {
-  .site-nav .nav-row {
-    gap: 0;
-    justify-content: space-evenly;
-  }
-
-  .site-nav .nav-row .nav-link {
-    padding: 0.5em 0.45em;
-    font-size: 0.9rem;
-  }
-
-  .site-nav .nav-row .nav-link::after {
-    left: 0.45em;
-    right: 0.45em;
-  }
-}
-
-.nav-group {
-  flex: none;
-  position: static;
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-link {
-  flex: none;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  min-height: 44px;
-  padding: 0.5em 0.8em;
-  color: var(--teal);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  left: 0.8em;
-  right: 0.8em;
-  bottom: 0.3em;
-  height: 2px;
-  background: var(--rust);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.18s ease;
-}
-
-.nav-link:hover::after,
-.nav-link:focus-visible::after,
-.nav-link.is-active::after,
-.nav-link[aria-current='page']::after {
-  transform: scaleX(1);
-}
-
-.nav-link[aria-current='page'],
-.nav-link.is-active {
-  color: var(--rust);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nav-link::after {
-    transition: none;
-  }
-}
-
-.nav-chevron {
-  flex: none;
-  transition: transform 0.18s ease;
-}
-
-.nav-group-trigger[aria-expanded='true'] .nav-chevron {
-  transform: rotate(180deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nav-chevron {
-    transition: none;
-  }
-}
-
-.nav-panel {
-  display: none;
+/* Positioned against .site-header (sticky elements are containing blocks).
+   .brand-row, .site-nav and .nav-menu must NOT be positioned. */
+.nav-menu-panel {
   position: absolute;
   left: 0;
   right: 0;
   top: 100%;
+  display: grid;
+  gap: 0 1.5rem;
+  padding: 0.25rem var(--gutter) 1rem;
   background: #ffffff;
   border-top: 1px solid var(--ice);
   box-shadow: var(--shadow-md);
-  padding: 0.4rem 1.25rem 0.6rem;
-  z-index: 1;
+  max-height: calc(100dvh - var(--header-h));
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-.nav-panel.is-open {
-  display: block;
+.nav-menu-heading {
+  margin: 0.9rem 0 0.15rem;
+  max-width: none;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.nav-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu-list li + li {
+  margin-top: 0;
 }
 
 .nav-panel-link {
   display: flex;
   align-items: center;
   min-height: 44px;
-  padding: 0.5em 0.25em;
-  color: var(--ink);
-  text-decoration: none;
-  font-size: 0.92rem;
-  font-weight: 500;
+  padding: 0.25rem 0.5rem;
   border-radius: 6px;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
 }
 
 .nav-panel-link:hover,
@@ -668,52 +567,174 @@ section + section {
   font-weight: 700;
 }
 
-@media (min-width: 700px) {
-  .nav-row {
-    flex-wrap: wrap;
-    overflow-x: visible;
+/* Call button: a 44 px round icon on phones, a pill with the number from 600 px */
+.call-button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.call-button:hover,
+.call-button:focus-visible {
+  background: #ffffff;
+  color: var(--teal-deep);
+}
+
+.call-button .icon-phone {
+  flex: none;
+  width: 22px;
+  height: 22px;
+}
+
+.call-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .brand a {
+    gap: 10px;
+  }
+  .brand-mark {
+    width: 70px;
+    height: 56px;
+  }
+  .brand-name {
+    font-size: 1.25rem;
+  }
+  .call-button {
+    width: auto;
+    height: auto;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: var(--radius-pill);
+  }
+  .call-button .icon-phone {
+    width: 20px;
+    height: 20px;
+  }
+  .call-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+  .nav-menu-panel {
+    grid-template-columns: 1fr 1fr;
+    padding: 0.5rem var(--gutter) 1.25rem;
   }
 }
 
-@media (min-width: 900px) {
+/* Desktop: four group menus on the header row */
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 10px;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 6px;
+  height: 2px;
+  background: #ffffff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.18s ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-group[open] > .nav-link::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav-chevron {
+  flex: none;
+  width: 10px;
+  height: 6px;
+  transition: transform 0.18s ease;
+}
+
+.nav-group[open] .nav-chevron {
+  transform: rotate(180deg);
+}
+
+@media (min-width: 1100px) {
   .brand-row {
-    flex-wrap: nowrap;
+    gap: 24px;
   }
-
+  .brand {
+    flex: 0 1 auto;
+  }
+  .site-nav {
+    margin-left: auto;
+  }
+  .nav-menu {
+    display: none;
+  }
   .nav-row {
-    gap: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
-
-  .nav-link {
-    padding-inline: 0;
-  }
-
-  .nav-link::after {
-    left: 0;
-    right: 0;
-  }
-
   .nav-group {
     position: relative;
   }
-
   .nav-panel {
+    position: absolute;
     left: 0;
-    right: auto;
-    top: calc(100% + 0.5rem);
-    min-width: 230px;
-    border-top: none;
-    border-radius: 16px;
+    top: calc(100% + 8px);
+    z-index: 1;
+    display: grid;
+    min-width: 15rem;
     padding: 0.5rem;
-    margin: 0;
-  }
-
-  .nav-panel-link {
-    padding-inline: 0.75rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
   }
 }
 
-/* -------------------- Buttons -------------------- */
+/* Kept from the old header block: the hero call button and other .icon-phone uses need flex: none. */
+.icon-phone {
+  flex: none;
+}
+
+/* -------------------- 3.4 Buttons -------------------- */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -721,28 +742,50 @@ section + section {
   gap: 0.5em;
   min-height: 44px;
   padding: 0.7em 1.3em;
-  border-radius: var(--radius-pill);
-  font-weight: 700;
-  font-size: 1rem;
-  text-decoration: none;
   border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease,
-    transform 0.18s ease;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
-.btn-primary {
+/* Primary is solid teal on every light surface. On a dark surface (.on-dark)
+   it turns white. This is the fix for the invisible About-card button. */
+.btn-primary,
+.btn-solid {
+  background: var(--teal);
+  color: #ffffff;
+  border-color: var(--teal);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible,
+.btn-solid:hover,
+.btn-solid:focus-visible {
+  background: var(--teal-deep);
+  color: #ffffff;
+  border-color: var(--teal-deep);
+}
+
+.on-dark .btn-primary {
   background: #ffffff;
   color: var(--teal-deep);
   border-color: #ffffff;
 }
 
-.btn-primary:hover,
-.btn-primary:focus-visible {
+.on-dark .btn-primary:hover,
+.on-dark .btn-primary:focus-visible {
   background: var(--mint);
   color: var(--teal-deep);
+  border-color: var(--mint);
 }
 
+/* Secondary is for dark surfaces only. */
 .btn-secondary {
   background: transparent;
   color: #ffffff;
@@ -755,16 +798,6 @@ section + section {
   color: #ffffff;
 }
 
-.cta-arrow {
-  flex: none;
-  transition: transform 0.18s ease;
-}
-
-.btn-secondary:hover .cta-arrow,
-.btn-secondary:focus-visible .cta-arrow {
-  transform: translateX(3px);
-}
-
 .btn-outline {
   background: var(--card);
   color: var(--teal);
@@ -774,23 +807,7 @@ section + section {
 .btn-outline:hover,
 .btn-outline:focus-visible {
   background: var(--mint);
-  color: var(--rust);
-  border-color: var(--rust);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-4px);
-}
-
-/* Filled button for a white page (the stepper's one primary action). */
-.btn-solid {
-  background: var(--teal);
-  color: #ffffff;
-  border-color: var(--teal);
-}
-
-.btn-solid:hover,
-.btn-solid:focus-visible {
-  background: var(--teal-deep);
-  color: #ffffff;
+  color: var(--teal-deep);
   border-color: var(--teal-deep);
 }
 
@@ -798,176 +815,140 @@ section + section {
   width: 100%;
 }
 
+.cta-arrow,
 .icon-download {
   flex: none;
 }
 
-/* -------------------- Badge -------------------- */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  background: var(--rust);
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 700;
-  padding: 0.55em 1.05em;
-  border-radius: var(--radius-pill);
-}
+/* -------------------- 3.5 Split hero (index only) -------------------- */
 
-/* -------------------- Page band (compact photo banner, 6 inner pages) -------------------- */
-.page-band {
-  position: relative;
-  height: clamp(180px, 28vw, 280px);
-  overflow: hidden;
-}
-
-.page-band img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.page-band::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(242, 247, 246, 0) 55%, var(--mint) 100%);
-  pointer-events: none;
-}
-
-.band-caption {
-  text-align: right;
-  font-size: 0.85rem;
-  color: var(--muted);
-  max-width: 1080px;
-  margin-inline: auto;
-  padding: 0.5rem 1.25rem 0;
-}
-
-/* -------------------- Hero (index only): full-bleed photo -------------------- */
-.hero {
-  position: relative;
-  overflow: hidden;
-  min-height: 30rem;
-  display: flex;
-  align-items: center;
-  color: #ffffff;
+.hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'photo'
+    'panel';
   background: var(--teal-deep);
 }
 
-.hero-img {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 60% 50%;
-  animation: ken-burns 5s ease-out 1 both;
-}
-
-@keyframes ken-burns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.06);
-  }
-}
-
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to bottom, rgba(8, 18, 18, 0) 68%, rgba(8, 18, 18, 0.32) 100%),
-    linear-gradient(100deg, rgba(18, 42, 42, 0.9) 0%, rgba(31, 77, 77, 0.74) 46%, rgba(31, 77, 77, 0.18) 100%);
-}
-
-.hero .container {
+.hero-photo {
+  grid-area: photo;
   position: relative;
-  z-index: 2;
-  padding-block: 3.5rem;
+  margin: 0;
+  background: var(--teal-deep);
+}
+
+.hero-photo picture {
+  display: block;
+}
+
+.hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.photo-credit {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  max-width: calc(100% - 1.5rem);
+  margin: 0;
+  padding: 0.3rem 0.6rem;
+  background: var(--teal-deep);
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  border-radius: 6px;
+}
+
+.hero-panel {
+  grid-area: panel;
+  padding: 1.75rem var(--gutter) 2rem;
+  background: var(--teal-deep);
+  color: #ffffff;
+}
+
+.hero-panel-inner {
+  max-width: 36rem;
 }
 
 .hero-eyebrow {
   color: #ffffff;
-  opacity: 0.92;
+  margin-bottom: 0.5rem;
 }
 
-.hero h1 {
+.hero-panel h1 {
+  max-width: 20ch;
   color: #ffffff;
   font-weight: 800;
+  font-size: clamp(2rem, 1.2rem + 1.9vw, 3rem);
+  line-height: 1.12;
   letter-spacing: -0.01em;
-  font-size: 2rem;
-  max-width: 22ch;
 }
 
-.hero .hl {
-  box-shadow: inset 0 -0.18em 0 0 rgba(214, 94, 40, 0.6);
+.hero-panel .hl {
+  box-shadow: inset 0 -0.16em 0 0 var(--rust);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
-.hero .lede {
-  color: #ffffff;
-  font-size: 1.1rem;
-  max-width: 58ch;
+.hero-panel .lede {
+  max-width: 46ch;
   margin-top: 1rem;
+  color: #ffffff;
+  font-size: 1.0625rem;
 }
 
-.hero .cta-row {
+.hero-panel .cta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
-  margin-top: 1.6rem;
-  align-items: center;
-}
-
-.hero .badge {
-  margin-top: 1.4rem;
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-eyebrow,
-.hero h1,
-.hero .lede,
-.hero .cta-row {
-  animation: fade-up 0.7s ease both;
-}
-
-.hero-eyebrow {
-  animation-delay: 0s;
-}
-.hero h1 {
-  animation-delay: 0.12s;
-}
-.hero .lede {
-  animation-delay: 0.24s;
-}
-.hero .cta-row {
-  animation-delay: 0.36s;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
 }
 
 @media (min-width: 640px) {
-  .hero {
-    min-height: 34rem;
+  .hero-img {
+    aspect-ratio: 16 / 9;
+    object-position: 50% 60%;
   }
-  .hero h1 {
-    font-size: 2.8rem;
+  .hero-panel {
+    padding: 2.5rem var(--gutter) 2.75rem;
   }
 }
 
+@media (min-width: 960px) {
+  .hero-split {
+    grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+    grid-template-areas: 'panel photo';
+    min-height: clamp(30rem, 42vw, 40rem);
+  }
+  .hero-photo picture {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-img {
+    height: 100%;
+    aspect-ratio: auto;
+    object-position: 15% 60%;
+  }
+  .hero-panel {
+    display: flex;
+    align-items: center;
+    padding-block: 3.5rem;
+    padding-inline-start: max(var(--gutter), calc((100vw - var(--content-max)) / 2 + var(--gutter)));
+    padding-inline-end: 2.5rem;
+  }
+}
+
+.hero-stats-wrap {
+  margin-top: 1.5rem;
+}
+
+/* Hero stat strip (stats card): kept, no longer overlaps the photo. */
 /* Floating hero stat card: normal strip on mobile, overlaps hero edge on desktop */
 .hero-stats-wrap {
   position: relative;
@@ -976,7 +957,7 @@ section + section {
 
 .hero-stats-card {
   background: var(--card);
-  border-radius: 16px;
+  border-radius: var(--radius);
   box-shadow: var(--shadow-md);
   display: grid;
   grid-template-columns: 1fr;
@@ -1010,7 +991,6 @@ section + section {
 @media (min-width: 900px) {
   .hero-stats-card {
     grid-template-columns: repeat(3, 1fr);
-    margin-top: -3.5rem;
   }
   .hero-stat {
     border-top: none;
@@ -1021,119 +1001,952 @@ section + section {
   }
 }
 
-/* -------------------- Trust strip: 3 stat blocks (no dupe of hero stat card) -------------------- */
-.trust-strip {
-  background: var(--card);
-  border-top: 3px solid var(--teal);
+/* -------------------- 3.6 Page band (interior pages) -------------------- */
+
+.page-band {
+  margin: 0;
 }
 
-.trust-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  padding-block: 2rem;
-  text-align: center;
+.page-band picture {
+  display: block;
 }
 
-.stat-block {
-  display: flex;
-  flex-direction: column;
+.page-band img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: 50% 50%;
+  background: var(--ice);
+}
+
+.band-caption {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: 0.5rem var(--gutter) 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--muted);
+  text-align: right;
+}
+
+@media (min-width: 640px) {
+  .page-band img {
+    aspect-ratio: 3 / 1;
+    max-height: 35rem;
+  }
+}
+
+.page-intro {
+  padding-top: 0;
+}
+
+.main-flush .page-intro {
+  padding-top: 1.75rem;
+}
+
+.page-intro .lede {
+  margin-top: 0.75rem;
+}
+
+/* Link lists on the 404 page get 44 px targets on a phone (3.15b h). */
+.page-intro ul a {
+  display: inline-flex;
   align-items: center;
+  min-height: 44px;
 }
 
-.stat-num {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 2rem;
+/* -------------------- 3.7 Herd-type door cards (home) -------------------- */
+
+.door-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+  max-width: none;
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.door-grid > li + li {
+  margin-top: 0;
+}
+
+.door-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.door-card picture {
+  display: block;
+}
+
+.door-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.door-title {
+  margin: 0.75rem 1.25rem 0;
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+/* Inline, so the arrow stays beside the last word when a title wraps. The
+   ::after below makes the whole card the tap target. */
+.door-link {
+  display: inline;
   color: var(--teal-deep);
-  line-height: 1;
+  text-decoration: none;
+}
+
+.door-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+.door-link:focus-visible {
+  outline: none;
+}
+
+.door-card:focus-within {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.door-card:hover,
+.door-card:focus-within {
+  border-color: var(--teal);
+  box-shadow: var(--shadow-md);
+}
+
+.door-card:hover .door-link {
+  color: var(--rust);
+}
+
+/* The arrow hangs into the title's right padding (negative right margin), so
+   it never wraps onto a line of its own. */
+.door-title {
+  padding-right: calc(18px + 0.35em);
+}
+
+.door-arrow {
+  display: inline-block;
+  margin-left: 0.35em;
+  margin-right: calc(-18px - 0.35em);
+  vertical-align: -0.15em;
+}
+
+.door-text {
+  margin: 0.25rem 1.25rem 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 640px) {
+  .door-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  /* Room for two lines, so card text starts at one height across a row. */
+  .door-title {
+    min-height: 2.5em;
+  }
+}
+
+@media (min-width: 960px) {
+  .door-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Fallback only (FINDINGS E-06): compact rows on phones. Added to the
+   <ul> as class "is-compact" by the lead if home is still too long in r1.
+   When it is added, change each door image's sizes to
+   "(max-width: 639px) 112px, (max-width: 959px) 50vw, 340px". */
+@media (max-width: 639px) {
+  .door-grid.is-compact .door-card {
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 1rem;
+    align-items: start;
+    padding: 0.6rem;
+    overflow: visible;
+  }
+  .door-grid.is-compact .door-card picture {
+    grid-row: 1 / span 2;
+  }
+  .door-grid.is-compact .door-img {
+    width: 112px;
+    border-radius: 8px;
+  }
+  .door-grid.is-compact .door-title {
+    margin: 0.1rem 0 0;
+    font-size: 1.05rem;
+  }
+  .door-grid.is-compact .door-text {
+    margin: 0.3rem 0 0;
+  }
+}
+
+/* -------------------- 3.8 The vet reads your results, with an illustrated sample report -------------------- */
+
+.report-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.75rem;
+  margin-top: 1.25rem;
+}
+
+.report-explain h3 {
+  margin-top: 0;
+}
+
+.report-explain h3 + ul {
+  margin-top: 0.5rem;
+}
+
+.report-explain ul + h3 {
+  margin-top: 1.5rem;
+}
+
+.result-key {
+  list-style: none;
+  padding: 0;
+  max-width: 60ch;
+}
+
+.result-key li {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: baseline;
+  margin: 0;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--ice);
+}
+
+.result-key li:last-child {
+  border-bottom: 1px solid var(--ice);
+}
+
+.res {
+  display: inline-block;
+  padding: 0.15em 0.6em;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.875rem;
   white-space: nowrap;
 }
 
-/* A trust-strip headline that is words, not a number: smaller, and allowed to wrap. */
-.stat-num-text {
-  font-size: 1.35rem;
-  white-space: normal;
-  line-height: 1.2;
-  max-width: 14ch;
+.res-p { background: var(--res-p-bg); color: var(--res-p-ink); }
+.res-o { background: var(--res-o-bg); color: var(--res-o-ink); }
+.res-r { background: var(--res-r-bg); color: var(--res-r-ink); }
+
+.report-sample {
+  position: relative;
+  max-width: 34rem;
+  margin: 0;
+  padding: 1.25rem;
+  background: #ffffff;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  box-shadow: var(--shadow-md);
 }
 
-.stat-label {
-  margin-top: 0.4rem;
-  font-size: 0.95rem;
+.report-stamp {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--rust);
+  border-radius: 4px;
+  color: var(--rust);
+  font-family: var(--font-display);
   font-weight: 600;
-  color: var(--ink);
-  max-width: 24ch;
-  margin-inline: auto;
-  text-wrap: balance;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.affiliate-logo {
-  filter: grayscale(1);
-  transition: filter 0.18s ease;
-  margin-inline: auto;
+.report-sample-lab {
+  margin: 0;
+  padding-right: 8.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--muted);
 }
 
-.affiliate-badge:hover .affiliate-logo,
-.affiliate-logo:focus-visible {
-  filter: grayscale(0);
+.report-sample-title {
+  margin-top: 0.2rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--teal-deep);
 }
 
-@media (min-width: 640px) {
-  .trust-grid {
-    grid-template-columns: repeat(3, 1fr);
+.report-sample-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0.6rem 0 0.9rem;
+  font-size: 0.9rem;
+}
+
+.report-sample-meta div {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.report-sample-meta dt {
+  color: var(--muted);
+}
+
+.report-sample-meta dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Phones: one meta item per line instead of an uneven two-and-one wrap. */
+@media (max-width: 479px) {
+  .report-sample-meta {
+    display: grid;
+    gap: 0.1rem;
   }
 }
 
-/* -------------------- Tagline moment -------------------- */
-.tagline-band {
-  background: var(--teal-deep);
-  color: #ffffff;
-  position: relative;
+.report-sample figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.report {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
   overflow: hidden;
+}
+
+.report th,
+.report td {
+  padding: 0.55rem 0.8rem;
+  border-top: 1px solid var(--ice);
+  text-align: left;
+  vertical-align: top;
+}
+
+.report th {
+  border-top: none;
+  background: var(--mint);
+  color: var(--teal-deep);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Phones: each row becomes a small stacked block (CUST-22, BRAN-18, TECH-21). */
+@media (max-width: 479px) {
+  .report thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .report,
+  .report tbody,
+  .report tr,
+  .report td {
+    display: block;
+    width: 100%;
+  }
+  .report tr {
+    padding: 0.6rem 0.8rem;
+    border-top: 1px solid var(--ice);
+  }
+  .report tr:first-child {
+    border-top: none;
+  }
+  .report td {
+    padding: 0.1rem 0;
+    border-top: none;
+  }
+  .report td[data-label]::before {
+    content: attr(data-label) ': ';
+    font-weight: 700;
+    color: var(--teal-deep);
+  }
+}
+
+@media (min-width: 900px) {
+  .report-block {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* -------------------- 3.8b Honest-limits block -------------------- */
+
+.limits-block {
+  max-width: var(--measure);
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.4rem 1.25rem;
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-left: 4px solid var(--teal);
+  border-radius: var(--radius);
+}
+
+.limits-block h3 {
+  margin-top: 0;
+  font-size: 1.15rem;
+}
+
+.limits-block ul {
+  margin-top: 0.5rem;
+}
+
+/* -------------------- 3.8c Plain biosecurity line -------------------- */
+
+/* A notice, not a footnote: body-size text, a teal rule and a visible wash
+   on both white cards and the mint page. */
+.biosecurity-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+  padding: 0.85rem 1rem;
+  background: var(--tint);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  line-height: 1.55;
+}
+
+.biosecurity-line span {
+  flex: 1;
+  min-width: 0;
+}
+
+.biosecurity-icon {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--teal);
+}
+
+/* -------------------- 3.9 Repaired About card (home) -------------------- */
+
+.about-teaser {
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.about-teaser-photo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0;
+  overflow: hidden;
+}
+
+.about-teaser-photo picture {
+  display: block;
+}
+
+.about-teaser-photo .about-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: 45% 55%;
+}
+
+.about-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.about-body h2 {
+  margin-top: 0;
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  max-width: none;
+}
+
+@media (min-width: 780px) {
+  .about-teaser-photo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: stretch;
+  }
+  .about-teaser-photo picture {
+    height: 100%;
+  }
+  .about-teaser-photo .about-img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .about-body {
+    align-self: center;
+    padding: 2rem;
+  }
+}
+
+/* -------------------- 3.10 Figures, captions, the result plate and drawn diagrams -------------------- */
+
+.figure,
+.figure-wide {
+  max-width: var(--measure);
+  margin: 1.5rem 0 0;
+}
+
+.figure img,
+.figure-wide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.figure figcaption,
+.figure-wide figcaption {
+  max-width: none;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* A numbered list inside a caption (3.15b g). */
+.figure figcaption ol {
+  margin: 0.4rem 0 0;
+  padding-left: 1.4rem;
+}
+
+.figure figcaption li + li {
+  margin-top: 0.15rem;
+}
+
+.credit {
+  color: var(--muted);
+}
+
+.figure-portrait {
+  max-width: 22rem;
+}
+
+@media (min-width: 900px) {
+  .figure-side {
+    float: right;
+    width: 40%;
+    margin: 0.35rem 0 1rem 1.75rem;
+  }
+  /* The portrait sits just right of the reading measure, not at the far
+     edge of the container (the margin is 0 when the container is narrower). */
+  .figure-side.figure-portrait {
+    width: 18rem;
+    margin-right: max(0px, calc(100% - var(--measure) - 1.75rem - 18rem));
+  }
+}
+
+/* A floated figure (side figure from 900 px, result plate from 700 px) never
+   runs past the next heading or rule. */
+.section-head,
+main h2,
+.engraved-rule {
+  clear: both;
+}
+
+/* FAQ intro (3.15b e): the photo beside the intro and the search on a wide screen. */
+@media (min-width: 900px) {
+  .faq-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40%;
+    column-gap: 1.75rem;
+    align-items: start;
+  }
+  .faq-intro > * {
+    grid-column: 1;
+  }
+  .faq-intro > .figure-side {
+    grid-column: 2;
+    grid-row: 1 / span 5;
+    float: none;
+    width: auto;
+    margin: 0.35rem 0 0;
+  }
+}
+
+.figure-plate {
+  width: 234px;
+  max-width: 100%;
+  margin: 1.5rem 0 0;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.figure-plate img {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: 50%;
+}
+
+.figure-plate figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--muted);
   text-align: center;
-  padding-block: 3.5rem;
 }
 
-.tagline-mark {
-  position: absolute;
-  top: -3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 260px;
-  height: 260px;
-  opacity: 0.07;
-  color: #ffffff;
-  pointer-events: none;
+@media (min-width: 700px) {
+  .figure-plate {
+    float: right;
+    margin: 0.25rem 0 1rem 1.5rem;
+    /* Just right of the reading measure, not at the far edge of the container. */
+    margin-right: max(0px, calc(100% - var(--measure) - 1.5rem - 234px));
+  }
 }
 
-.tagline-inner {
-  position: relative;
-  z-index: 1;
+/* Drawn diagrams: inline SVG, brand colours, labels never under 14 px on a phone.
+   Capped at the drawings' own 480-unit width so labels never outgrow the headings. */
+.diagram {
+  max-width: 30rem;
 }
 
-.tagline-text {
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+}
+
+.diagram .dg-line {
+  fill: none;
+  stroke: var(--teal-deep);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.diagram .dg-dash {
+  fill: none;
+  stroke: var(--teal-deep);
+  stroke-width: 2;
+  stroke-dasharray: 8 6;
+}
+
+.diagram .dg-accent {
+  fill: none;
+  stroke: var(--rust);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.diagram .dg-fill-mint { fill: var(--mint); }
+.diagram .dg-fill-white { fill: #ffffff; }
+.diagram .dg-fill-ice { fill: var(--ice); }
+.diagram .dg-fill-teal { fill: var(--teal); }
+.diagram .dg-fill-rust { fill: var(--rust); }
+.diagram .dg-fill-blood { fill: var(--res-o-ink); }
+
+.diagram .dg-label {
   font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -0.01em;
-  font-size: 1.7rem;
-  color: #ffffff;
-  max-width: 18ch;
-  margin-inline: auto;
-  text-wrap: balance;
+  font-size: 22px;
+  fill: var(--teal-deep);
 }
 
-.tagline-sub {
-  margin-top: 0.85rem;
-  color: var(--ice);
+.diagram .dg-label-sm {
+  font-size: 20px;
+}
+
+.diagram .dg-label-accent {
+  fill: var(--rust);
+}
+
+.diagram .dg-label-white {
+  fill: #ffffff;
+}
+
+/* Result colours in drawings (3.15b f). */
+.diagram .dg-fill-res-o { fill: var(--res-o-bg); }
+.diagram .dg-fill-res-r { fill: var(--res-r-bg); }
+.diagram .dg-fill-res-p { fill: var(--res-p-bg); }
+.diagram .dg-label-res-o { fill: var(--res-o-ink); }
+.diagram .dg-label-res-r { fill: var(--res-r-ink); }
+.diagram .dg-label-res-p { fill: var(--res-p-ink); }
+
+.pricing-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.pricing-badge-row img {
+  flex: none;
+}
+
+/* BioPRYN mark stacks above the price note on a narrow phone (3.15b i). */
+@media (max-width: 479px) {
+  .pricing-badge-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.figure-lockup {
+  max-width: 520px;
+  margin: 1.5rem auto;
+}
+
+.figure-lockup img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--ice);
+}
+
+/* -------------------- 3.11 Steps as ruled lists -------------------- */
+
+.steps {
+  counter-reset: step;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+  padding-left: 0;
+}
+
+.steps > li {
+  counter-increment: step;
+  position: relative;
+  max-width: none;
+  margin: 0;
+  padding: 0.9rem 0 0.9rem 3rem;
+  border-top: 1px solid var(--ice);
+}
+
+.steps > li:last-child {
+  border-bottom: 1px solid var(--ice);
+}
+
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.steps > li > :first-child {
+  margin-top: 0;
+}
+
+.steps-4 {
+  gap: 1rem;
+  max-width: none;
+}
+
+.steps-4 > li {
+  padding: 1.6rem 1.35rem 1.35rem;
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+}
+
+.steps-4 > li:last-child {
+  border-bottom: 1px solid var(--ice);
+}
+
+.steps-4 > li::before {
+  content: none;
+}
+
+/* Form buttons inside a narrow step card stack full width (CUST-19 lopsided pills). */
+.steps-4 .tool-actions .btn {
+  width: 100%;
+}
+
+.step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.85rem;
+  border-radius: 50%;
+  background: var(--mint);
+  color: var(--teal);
+}
+
+.step-num {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+/* Two by two from 780 px. Four narrow columns left three cards mostly empty
+   beside step 2 (which holds the form buttons) and wrapped those buttons. */
+@media (min-width: 780px) {
+  .steps-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* -------------------- 3.12 Next step, first-box note, BioPRYN mark -------------------- */
+
+.next-step {
+  max-width: var(--measure);
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-top: 4px solid var(--rust);
+  border-radius: var(--radius);
+}
+
+.next-step h2 {
+  margin-top: 0;
+  font-size: 1.35rem;
+}
+
+.next-step p {
+  margin-top: 0.5rem;
+}
+
+.next-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1rem;
+  max-width: none;
+}
+
+.next-actions a:not(.btn) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  white-space: normal; /* a longer "or call ... for a herd plan" link may wrap on a phone */
+}
+
+.first-box-note {
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+  padding: 0.8rem 1rem;
+  background: var(--card);
+  border-left: 4px solid var(--rust);
+  border-radius: 0 var(--radius) var(--radius) 0;
   font-size: 1rem;
 }
 
-@media (min-width: 640px) {
-  .tagline-text {
-    font-size: 2.3rem;
-  }
+.affiliate-mark {
+  display: inline-flex;
+  flex: none;
+  padding: 0.4rem 0.6rem;
+  background: #ffffff;
+  border: 1px solid var(--ice);
+  border-radius: 8px;
 }
+
+/* -------------------- 3.12b Engraved rule -------------------- */
+
+.engraved-rule {
+  height: 5px;
+  max-width: var(--measure);
+  margin: 2.5rem 0 0;
+  border: 0;
+  background:
+    linear-gradient(var(--teal-deep), var(--teal-deep)) top / 100% 1px no-repeat,
+    linear-gradient(var(--teal-deep), var(--teal-deep)) bottom / 100% 1px no-repeat;
+  opacity: 0.55;
+}
+
+/* -------------------- 3.13 Credits list (credits page) -------------------- */
+
+.credit-list {
+  list-style: none;
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+  padding: 0;
+}
+
+.credit-list li {
+  margin: 0;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--ice);
+}
+
+.credit-list li:last-child {
+  border-bottom: 1px solid var(--ice);
+}
+
+.credit-list p {
+  margin-top: 0.15rem;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.credit-title {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+/* -------------------- Retained components: cards, info blocks, download buttons -------------------- */
 
 /* -------------------- Cards -------------------- */
 .card-grid {
@@ -1146,20 +1959,20 @@ section + section {
 .card {
   background: var(--card);
   border: 1px solid var(--ice);
-  border-radius: 16px;
+  border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
+/* Same hover as the door cards: border and shadow, no lift. */
 .card:hover,
 .card:focus-within {
   box-shadow: var(--shadow-md);
   border-color: var(--teal);
-  transform: translateY(-4px);
 }
 
 .card h3 {
@@ -1190,111 +2003,6 @@ section + section {
   }
 }
 
-/* -------------------- Numbered steps -------------------- */
-.steps {
-  counter-reset: step;
-  list-style: none;
-  padding-left: 0;
-  display: grid;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  max-width: none;
-}
-
-.steps > li {
-  counter-increment: step;
-  background: var(--card);
-  border: 1px solid var(--ice);
-  border-radius: var(--radius);
-  padding: 1.1rem 1.25rem 1.1rem 3.6rem;
-  position: relative;
-  max-width: none;
-}
-
-.steps > li::before {
-  content: counter(step);
-  position: absolute;
-  left: 0.9rem;
-  top: 1.1rem;
-  width: 1.9rem;
-  height: 1.9rem;
-  border-radius: 50%;
-  background: var(--teal);
-  color: #ffffff;
-  font-weight: 600;
-  font-family: var(--font-display);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.95rem;
-}
-
-.steps > li > :first-child {
-  margin-top: 0;
-}
-
-/* How-it-works variant: icon-led cards instead of numbered circles */
-.steps-4 {
-  position: relative;
-}
-
-.steps-4 > li {
-  padding: 1.6rem 1.35rem 1.35rem;
-  text-align: left;
-}
-
-.steps-4 > li::before {
-  content: none;
-}
-
-.step-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background: var(--mint);
-  color: var(--teal);
-  margin-bottom: 0.85rem;
-}
-
-.step-num {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--rust);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 0.2rem;
-}
-
-@media (min-width: 780px) {
-  .steps-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1000px) {
-  .steps-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .steps-4::before {
-    content: '';
-    position: absolute;
-    top: 2.9rem;
-    left: 9%;
-    right: 9%;
-    border-top: 2px dashed var(--ice);
-    z-index: 0;
-  }
-  .steps-4 > li {
-    position: relative;
-    z-index: 1;
-  }
-}
-
 /* -------------------- Info / address blocks -------------------- */
 .info-block {
   background: var(--card);
@@ -1305,20 +2013,42 @@ section + section {
 }
 
 .info-block h2,
-.info-block h3 {
+.info-block h3,
+.info-block > :first-child {
   margin-top: 0;
+}
+
+.info-block > :last-child {
+  margin-bottom: 0;
+}
+
+/* A block that sits in the text column shares the reading measure. */
+.container > .info-block {
+  max-width: var(--measure);
 }
 
 .info-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
-  margin-top: 1.5rem;
+  gap: 1rem;
+  max-width: var(--measure);
+  margin-top: 1.25rem;
 }
 
-@media (min-width: 780px) {
+/* The grid gap spaces the blocks; their own top margin would double it. */
+.info-grid > .info-block {
+  margin-top: 0;
+}
+
+/* Two columns inside the measure. A third block (the hours) stands beside
+   the first two instead of sitting alone on a second row. */
+@media (min-width: 640px) {
   .info-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .info-grid > .info-block:nth-child(3):last-child {
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 }
 
@@ -1349,9 +2079,9 @@ address p {
   border: 2px solid var(--teal);
   border-radius: var(--radius);
   padding: 1.25rem;
-  text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0.6rem;
 }
 
@@ -1361,96 +2091,36 @@ address p {
 
 .form-card p {
   margin-top: 0;
-  margin-inline: auto;
+}
+
+.form-card .btn {
+  margin-top: auto;
 }
 
 .icon-doc {
   flex: none;
-  margin-inline: auto;
-}
-
-/* -------------------- Trust badges row on cards / misc -------------------- */
-
-/* -------------------- Figures / photography -------------------- */
-
-.figure-wide {
-  margin-top: 1.5rem;
-  max-width: none;
-}
-
-.figure-wide img {
-  width: 100%;
-  border-radius: var(--radius);
-  border: 1px solid var(--ice);
-}
-
-.figure-wide figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.figure-round {
-  max-width: 200px;
-  margin: 1.5rem auto;
-  text-align: center;
-}
-
-.figure-round img {
-  border-radius: 50%;
-  border: 4px solid var(--card);
-  box-shadow: var(--shadow-sm);
-  margin-inline: auto;
-}
-
-.figure-round figcaption {
-  margin-top: 0.6rem;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-@media (min-width: 700px) {
-  .figure-round {
-    float: right;
-    margin: 0.25rem 0 1rem 1.5rem;
-  }
-}
-
-.pricing-badge-row {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  margin-top: 1.25rem;
-  flex-wrap: wrap;
-}
-
-.pricing-badge-row img {
-  flex: none;
-}
-
-.figure-lockup {
-  max-width: 520px;
-  margin: 1.5rem auto;
-}
-
-.figure-lockup img {
-  width: 100%;
-  border-radius: var(--radius);
-  border: 1px solid var(--ice);
 }
 
 /* -------------------- Inquiry form (contact.html) -------------------- */
+
 .inquiry-form {
   display: grid;
   gap: 1.1rem;
   margin-top: 1.5rem;
-  max-width: 40rem;
+  max-width: var(--measure);
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+}
+
+/* Hint lines under form fields (3.15b b), smaller than the label they explain. */
+.form-field > .muted {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
 }
 
 .form-field label {
@@ -1480,6 +2150,13 @@ address p {
 .form-field textarea {
   min-height: unset;
   resize: vertical;
+}
+
+/* One height for every single-line control, so a date input lines up with a select. */
+.form-field input:not([type='checkbox']),
+.form-field select {
+  height: 3rem;
+  padding-block: 0;
 }
 
 /* Checkbox group ("What do you need?") inside the inquiry form. */
@@ -1526,26 +2203,13 @@ address p {
   border-color: var(--teal);
 }
 
-.inquiry-form .btn-primary {
-  background: var(--teal);
-  color: #ffffff;
-  border-color: var(--teal);
-  justify-self: start;
-}
+/* -------------------- 3.14 Footer -------------------- */
 
-.inquiry-form .btn-primary:hover,
-.inquiry-form .btn-primary:focus-visible {
-  background: var(--teal-deep);
-  border-color: var(--teal-deep);
-  color: #ffffff;
-}
-
-/* -------------------- Footer: 3-column on desktop -------------------- */
 .site-footer {
+  flex-shrink: 0;
+  margin-top: 0; /* main's bottom padding is the one gap above the footer */
   background: var(--teal-deep);
   color: #ffffff;
-  margin-top: 3rem;
-  flex-shrink: 0;
 }
 
 .site-footer .container {
@@ -1554,14 +2218,15 @@ address p {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2rem;
 }
 
 .site-footer p {
-  color: #ffffff;
-  margin-top: 0.3rem;
   max-width: none;
+  margin-top: 0.3rem;
+  color: #ffffff;
+  text-wrap: pretty;
 }
 
 .site-footer a {
@@ -1573,83 +2238,109 @@ address p {
   color: #ffffff;
 }
 
+.footer-lockup {
+  display: block;
+  width: 220px;
+  height: auto;
+  border-radius: 8px;
+}
+
 .footer-brand {
+  margin-top: 1rem;
   font-family: var(--font-display);
-  font-size: 1.2rem;
   font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .footer-tagline {
-  margin-top: 0.5rem;
   color: var(--ice);
   font-size: 0.95rem;
-  max-width: 30ch;
 }
 
 .footer-heading {
   font-family: var(--font-display);
   font-weight: 600;
-  color: #ffffff;
-  text-transform: uppercase;
+  font-size: 0.875rem;
   letter-spacing: 0.08em;
-  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #ffffff;
 }
 
 .footer-links {
   list-style: none;
-  padding-left: 0;
-  margin-top: 0.75rem;
   max-width: none;
+  margin-top: 0.5rem;
+  padding-left: 0;
 }
 
 .footer-links li + li {
   margin-top: 0;
 }
 
-/* 44px minimum touch target on every footer quick link (thumb-reach on
-   phones). Inline links inside footer sentences get a smaller bump so they
-   do not blow out the line box. */
 .footer-links a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0.15rem 0;
+  min-width: 44px;
+  font-size: 1rem;
 }
 
-.footer-grid p > a {
+.footer-contact address p > a {
   display: inline-block;
   padding-block: 0.45rem;
 }
 
-.footer-copy {
-  margin-top: 1.75rem;
-  font-size: 0.9rem;
+.footer-biosecurity {
+  margin-top: 0.85rem;
   color: var(--ice);
-  grid-column: 1 / -1;
+  font-size: 0.95rem;
 }
 
-@media (min-width: 780px) {
+.footer-copy {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+  color: var(--ice);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* A 44 px tap target that does not push its line away from the others:
+   the padding is taken back by an equal negative margin. */
+.footer-copy a {
+  display: inline-block;
+  padding-block: 0.75rem;
+  margin-block: -0.75rem;
+}
+
+@media (min-width: 480px) {
+  .footer-links {
+    columns: 2;
+    column-gap: 1.5rem;
+  }
+  .footer-links li {
+    break-inside: avoid;
+  }
+}
+
+@media (min-width: 900px) {
   .footer-grid {
-    grid-template-columns: 1.2fr 1fr 1.2fr;
+    grid-template-columns: 1fr 1.6fr 1.1fr;
     gap: 2.5rem;
   }
 }
 
 /* -------------------- Utility -------------------- */
+
 .text-center {
   text-align: center;
 }
 
-.mt-lg {
-  margin-top: 2rem;
+.text-center p {
+  margin-inline: auto;
 }
 
-.about-teaser {
-  background: var(--card);
-  border: 1px solid var(--ice);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-top: 1.5rem;
+.mt-lg {
+  margin-top: 2rem;
 }
 
 /* -------------------- Scroll-reveal motion system --------------------
@@ -1686,19 +2377,6 @@ address p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-
-  .hero-eyebrow,
-  .hero h1,
-  .hero .lede,
-  .hero .cta-row {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .hero-img {
-    animation: none !important;
-  }
 }
 
 /* -------------------- Print (tail bleeding & shipping pages,
@@ -1730,28 +2408,30 @@ address p {
     color: #000000;
   }
 
-  .hero {
-    background: #ffffff;
-    color: #000000;
-    padding-block: 0.5rem;
-    min-height: 0;
-  }
-
-  .hero-img,
-  .hero-scrim,
-  .badge,
-  .hero .cta-row,
+  .hero-photo,
+  .page-band,
+  .nav-row,
+  .nav-menu,
+  .call-button,
   .hero-stats-wrap,
-  .tagline-band,
-  .affiliate-badge {
+  .next-actions,
+  .footer-lockup {
     display: none !important;
   }
 
-  .hero h1,
-  .hero .lede,
+  .hero-split,
+  .hero-panel {
+    display: block;
+    background: #ffffff;
+    color: #000000;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .hero-panel h1,
+  .hero-panel .lede,
   .hero-eyebrow {
     color: #000000;
-    animation: none !important;
   }
 
   .steps > li,
@@ -1798,19 +2478,39 @@ address p {
   border-radius: var(--radius);
   padding: 1.25rem 1.5rem 1.5rem;
   margin-top: 1.25rem;
-  max-width: 68ch;
+  max-width: var(--measure);
 }
 
+/* Fields start on one top edge, so hint lines of different lengths do not
+   push their neighbours down. */
 .tool-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.9rem;
+  gap: 1rem 1.25rem;
+  align-items: start;
 }
 
-@media (min-width: 700px) {
+/* Tool grid with up to four fields (3.15b c): one column on a phone, two from
+   600 px, more where they fit, and no field narrower than 14rem. */
+@media (min-width: 600px) {
   .tool-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   }
+}
+
+/* Tool output pieces (3.15b d). */
+.tool-count {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.tool-out .tight {
+  margin-top: 0.35rem;
+}
+
+.tool-out .tight li + li {
+  margin-top: 0.15rem;
 }
 
 .tool-out {
@@ -1886,7 +2586,7 @@ address p {
   font-family: var(--font-display);
   font-weight: 600;
   color: var(--rust);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -1914,11 +2614,28 @@ address p {
   transition: width 0.25s ease;
 }
 
+/* Previous and Next share the first row; the other buttons fill the rows
+   below at full width on a phone instead of wrapping one by one. */
 .stepper-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
   margin-top: 1rem;
+}
+
+.stepper-nav .btn {
+  flex: 1 1 auto;
+}
+
+.stepper-nav .stepper-prev,
+.stepper-nav .stepper-next {
+  flex: 1 1 8rem;
+}
+
+@media (max-width: 479px) {
+  .stepper-nav .btn:not(.stepper-prev):not(.stepper-next) {
+    flex-basis: 100%;
+  }
 }
 
 .stepper-nav .btn[disabled] {
@@ -1934,7 +2651,7 @@ address p {
   border-radius: var(--radius);
   background: var(--card);
   margin-top: 0.75rem;
-  max-width: 68ch;
+  max-width: var(--measure);
 }
 
 .faq-item summary {
@@ -1980,143 +2697,6 @@ address p {
 
 .faq-tools .form-field {
   max-width: 28rem;
-}
-
-/* Photo cards ("Who we work with") */
-.cards-photo .card {
-  padding: 0;
-  overflow: hidden;
-}
-
-.cards-photo .card .card-img {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-}
-
-.cards-photo .card h3,
-.cards-photo .card p,
-.cards-photo .card .card-link {
-  margin-inline: 1.5rem;
-}
-
-.cards-photo .card h3 {
-  margin-top: 1rem;
-}
-
-.cards-photo .card .card-link {
-  margin-bottom: 1.25rem;
-}
-
-@media (min-width: 640px) {
-  .cards-6 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 960px) {
-  .cards-6 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* About teaser with a photo */
-.about-teaser-photo {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  padding: 0;
-  overflow: hidden;
-}
-
-.about-teaser-photo .about-img {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-}
-
-.about-teaser-photo .section-head,
-.about-teaser-photo > p {
-  margin-inline: 1.5rem;
-}
-
-.about-teaser-photo > p:last-child {
-  margin-bottom: 1.5rem;
-}
-
-@media (min-width: 780px) {
-  .about-teaser-photo {
-    grid-template-columns: 1.1fr 1fr;
-    align-items: center;
-  }
-  .about-teaser-photo .about-img {
-    height: 100%;
-    aspect-ratio: auto;
-  }
-  .about-teaser-photo .section-head {
-    margin-top: 1.5rem;
-  }
-}
-
-/* Sample report illustration */
-.report-mock {
-  margin-top: 1.5rem;
-  max-width: 68ch;
-}
-
-.report-cap {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-bottom: 0.5rem;
-}
-
-.report {
-  width: 100%;
-  background: var(--card);
-  border: 1px solid var(--ice);
-  border-radius: var(--radius);
-  font-size: 0.95rem;
-  overflow: hidden;
-}
-
-.report th,
-.report td {
-  text-align: left;
-  padding: 0.55rem 0.8rem;
-  border-top: 1px solid var(--ice);
-  vertical-align: top;
-}
-
-.report th {
-  border-top: none;
-  background: var(--mint);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--teal-deep);
-}
-
-.res {
-  display: inline-block;
-  padding: 0.15em 0.6em;
-  border-radius: var(--radius-pill);
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-.res-p {
-  background: #e3efed;
-  color: #244949;
-}
-
-.res-o {
-  background: #f8e8e0;
-  color: #8a300a;
-}
-
-.res-r {
-  background: #f6efdb;
-  color: #6b4b00;
 }
 
 @media print {

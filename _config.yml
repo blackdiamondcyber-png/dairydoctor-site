@@ -1,0 +1,9 @@
+exclude:
+  - docs/
+  - assets/
+  - README.md
+  - CLAUDE.md
+  - IMAGE-CREDITS.md
+  - .work/
+  - .claude/
+  - .gitignore

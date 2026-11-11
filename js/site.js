@@ -1,137 +1,118 @@
-/* Advanced Dairy Diagnostics & Consulting - nav + scroll motion (progressive
-   enhancement). No dependencies. If this fails to load, nav-group triggers
-   are real links to sensible pages, and [data-reveal] is visible via CSS
-   alone. Nav-dropdown logic runs unconditionally (core nav, not motion). */
+/* Advanced Dairy Diagnostics & Consulting: navigation, header shadow and
+   scroll motion (progressive enhancement). No dependencies. Every menu is a
+   <details>, so the site navigates fully without this file, and
+   [data-reveal] content is visible through CSS alone. */
 (function () {
   'use strict';
 
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Navigation: this only adds one menu open at a time, close on an outside
+     click, close on Escape (focus returns to its summary), and close after a
+     link is followed. */
+  var navDetails = Array.prototype.slice.call(document.querySelectorAll('.site-nav details'));
 
-  var groups = document.querySelectorAll('.nav-group');
-  var openGroup = null;
-  var hoverCapable = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)');
-
-  function closeGroup(g) {
-    if (!g) return;
-    g.trigger.setAttribute('aria-expanded', 'false');
-    g.panel.classList.remove('is-open');
-    if (openGroup === g) openGroup = null;
+  function closeNav(except) {
+    navDetails.forEach(function (d) {
+      if (d !== except) d.removeAttribute('open');
+    });
   }
 
-  function openGroupNow(g) {
-    if (openGroup && openGroup !== g) closeGroup(openGroup);
-    g.trigger.setAttribute('aria-expanded', 'true');
-    g.panel.classList.add('is-open');
-    openGroup = g;
-  }
-
-  groups.forEach(function (el) {
-    var trigger = el.querySelector('.nav-group-trigger');
-    var panel = el.querySelector('.nav-panel');
-    if (!trigger || !panel) return;
-    var g = { el: el, trigger: trigger, panel: panel };
-
-    trigger.addEventListener('click', function (e) {
-      /* First activation opens the panel; a second one follows the link,
-         so the trigger keeps behaving like the link it is announced as. */
-      if (trigger.getAttribute('aria-expanded') === 'true') return;
-      e.preventDefault();
-      openGroupNow(g);
-    });
-
-    el.addEventListener('mouseenter', function () {
-      if (hoverCapable && hoverCapable.matches) openGroupNow(g);
-    });
-    el.addEventListener('mouseleave', function () {
-      if (hoverCapable && hoverCapable.matches) closeGroup(g);
-    });
-
-    el.addEventListener('focusout', function (e) {
-      if (!el.contains(e.relatedTarget)) closeGroup(g);
+  navDetails.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) closeNav(d);
     });
   });
 
   document.addEventListener('click', function (e) {
-    if (openGroup && !openGroup.el.contains(e.target)) closeGroup(openGroup);
+    if (!e.target.closest || !e.target.closest('.site-nav')) closeNav(null);
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && openGroup) {
-      var t = openGroup.trigger;
-      closeGroup(openGroup);
-      t.focus();
-    }
+    if (e.key !== 'Escape') return;
+    var open = navDetails.filter(function (d) { return d.open; });
+    if (!open.length) return;
+    var summary = open[open.length - 1].querySelector('summary');
+    closeNav(null);
+    if (summary) summary.focus();
   });
 
-  if (reduceMotion) return;
+  Array.prototype.forEach.call(document.querySelectorAll('.site-nav a'), function (a) {
+    a.addEventListener('click', function () { closeNav(null); });
+  });
 
-  document.documentElement.classList.add('js-motion');
-
-  function startCounts(root) {
-    var els = root.hasAttribute && root.hasAttribute('data-count') ? [root] : root.querySelectorAll('[data-count]');
-    for (var i = 0; i < els.length; i++) {
-      (function (el) {
-        if (el.dataset.counted) return;
-        el.dataset.counted = '1';
-        var target = parseInt(el.getAttribute('data-count'), 10);
-        if (isNaN(target)) return;
-        var duration = 900;
-        var start = null;
-        function tick(ts) {
-          if (start === null) start = ts;
-          var progress = Math.min((ts - start) / duration, 1);
-          el.textContent = Math.round(target * progress);
-          if (progress < 1) requestAnimationFrame(tick);
-          else el.textContent = String(target);
-        }
-        requestAnimationFrame(tick);
-      })(els[i]);
-    }
-  }
-
-  var revealEls = document.querySelectorAll('[data-reveal]');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            startCounts(entry.target);
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      /* A low threshold plus a positive bottom rootMargin makes sections fade
-         in just before they scroll into view. The old 0.15 threshold could
-         leave a tall section blank on short screens, which reads as a page
-         that failed to load. */
-      { threshold: 0.01, rootMargin: '0px 0px 8% 0px' }
-    );
-    var vh = window.innerHeight || document.documentElement.clientHeight;
-    revealEls.forEach(function (el) {
-      var r = el.getBoundingClientRect();
-      if (r.top < vh && r.bottom > 0) {
-        /* Already in view: show it at once instead of fading it in. */
-        el.classList.add('now');
-        el.classList.add('in');
-        startCounts(el);
-      } else {
-        io.observe(el);
-      }
-    });
-  } else {
-    revealEls.forEach(function (el) {
-      el.classList.add('in');
-      startCounts(el);
+  /* 404.html writes a <base> so its links work at any missing path. That
+     would send "#main" (the skip link) to the home page, so on a page with
+     a <base>, same-page links are handled here. No other page has a <base>. */
+  if (document.querySelector('base')) {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href').slice(1);
+      var t = id && document.getElementById(id);
+      if (!t) return;
+      e.preventDefault();
+      if (!t.hasAttribute('tabindex')) t.setAttribute('tabindex', '-1');
+      t.focus();
+      t.scrollIntoView();
     });
   }
 
+  /* Header shadow once the page scrolls. Runs for everyone, including
+     visitors who ask for reduced motion (it is not motion). A marker 8 px
+     tall at the top of the page is watched, so nothing is measured while
+     the page loads; browsers without IntersectionObserver fall back to a
+     scroll listener. */
   var header = document.querySelector('.site-header');
-  if (header) {
-    var onScroll = function () {
-      header.classList.toggle('scrolled', window.scrollY > 8);
-    };
-    document.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+  var hasIO = 'IntersectionObserver' in window;
+  if (header && hasIO) {
+    var mark = document.createElement('div');
+    mark.className = 'scroll-mark';
+    mark.setAttribute('aria-hidden', 'true');
+    document.body.insertBefore(mark, document.body.firstChild);
+    new IntersectionObserver(function (entries) {
+      header.classList.toggle('scrolled', !entries[entries.length - 1].isIntersecting);
+    }).observe(mark);
+  } else if (header) {
+    document.addEventListener(
+      'scroll',
+      function () {
+        header.classList.toggle('scrolled', window.scrollY > 8);
+      },
+      { passive: true }
+    );
   }
+
+  /* Scroll reveal: skipped for reduced motion and for browsers without
+     IntersectionObserver; content then simply shows. */
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !hasIO) return;
+
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+  if (!revealEls.length) return;
+
+  /* The observer's first report covers every block. Whatever is on screen
+     then is shown at once with no fade, and only after that does js-motion
+     hide the blocks further down, so nothing visible ever blinks out. */
+  var firstReport = true;
+  var io = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        if (firstReport) entry.target.classList.add('now');
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+      if (firstReport) {
+        firstReport = false;
+        document.documentElement.classList.add('js-motion');
+      }
+    },
+    /* A low threshold plus a positive bottom rootMargin makes sections fade
+       in just before they scroll into view, so a tall section never sits
+       blank on a short screen. */
+    { threshold: 0.01, rootMargin: '0px 0px 8% 0px' }
+  );
+
+  revealEls.forEach(function (el) {
+    io.observe(el);
+  });
 })();

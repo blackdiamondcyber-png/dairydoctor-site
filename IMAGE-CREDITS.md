@@ -1,40 +1,63 @@
-# Image & font licensing record
+# Image and font record
 
-Most imagery is public domain / CC0 (no attribution required; recorded here for
-provenance) or the business's own property. Photographs added 2026-09-05 and 2026-09-22 include several
-**CC BY-SA 4.0 and CC BY 3.0** works, which REQUIRES attribution to the photographer and a licence link,
-and requires that any adaptation (the resized copies here) carry the same licence.
-The site footer links to this file to satisfy that. All fonts are OFL.
+Kept for the site's maintainers. The public credits page is `credits.html`. Regenerated 2026-11-11
+for the photo-led rebuild; earlier photographs were removed from the site that day and their record is
+in git history.
 
-| File | Source | License |
+Every output was cropped, resized and saved as JPEG and WebP. Copies of CC BY and CC BY-SA photographs
+carry the same license as the original and are credited by name on `credits.html` and in their page
+captions.
+
+## Photographs
+
+| Files in images/ | Shows | Source | Author | License | Other changes |
+|---|---|---|---|---|---|
+| hero-columbia-{800,1200,1600,2100}, hero-columbia-m-{640,750,960,1344}, og-home.jpg | Farmer and adviser with a beef herd, Columbia County, WI (home hero; share image for faq, credits, thanks, 404) | https://commons.wikimedia.org/wiki/File:NRCSWI00105_-_Wisconsin_(6837)(NRCS_Photo_Gallery).jpg | Bob Nichols, USDA NRCS | Public domain (US government work) | CMYK converted to sRGB; a small emblem on a shirt painted out |
+| fig-beef.jpg, fig-beef-760.jpg, fig-beef-{240,380}, fig-beef-760.webp | Beef cows and calves (home door) | https://commons.wikimedia.org/wiki/File:Livestock.jpg | USDA | CC0 1.0 | none |
+| door-dairy-{240,380,760} | Milking a Holstein in a tie-stall barn (home door) | https://commons.wikimedia.org/wiki/File:NRCSOH07039_-_Ohio_(717456)(NRCS_Photo_Gallery).jpg | Scott Bauer, USDA NRCS | Public domain (US government work) | right edge trimmed |
+| fig-heifers.jpg, fig-heifers-760.jpg, fig-heifers-{240,380}, fig-heifers-760.webp | Dairy heifers on pasture (home door) | https://commons.wikimedia.org/wiki/File:Dairy_Heifers_on_Pasture_.jpg | Kristenmacphee | CC BY-SA 4.0 | none |
+| door-goats-{240,380,760} | Nubian does at a feed rail (home door) | https://commons.wikimedia.org/wiki/File:Animals_(20191018-NRCS-LSC-0812).jpg | USDA NRCS | Public domain (US government work) | none |
+| fig-bison-ranch.jpg, fig-bison-ranch-760.jpg, fig-bison-ranch-{240,380}, fig-bison-ranch-760.webp | Two bison on a ranch pasture (home door) | https://lccn.loc.gov/2014632587 | Carol M. Highsmith, Library of Congress | Public domain | none |
+| door-large-{240,380,760} | Holsteins on a rotary parlor (home door) | https://commons.wikimedia.org/wiki/File:20250813-USDA-RD-VA-JGP-0001_(54721557540).jpg | USDA Rural Development | Public domain (US government work) | none |
+| fig-farm2.jpg, fig-farm2-760.jpg, fig-farm2.webp, fig-farm2-760.webp | Holsteins by a red barn, Vernon County, WI (home About card) | https://commons.wikimedia.org/wiki/File:Dunnum_Family%27s_Top_of_the_Town_dairy_farm_near_Westby_in_Vernon_County,_Wisconsin.jpg | Carol M. Highsmith, Library of Congress | Public domain | none |
+| band-pregtest-*, og-pregtest.jpg | Cow in a headgate (pregtest band) | https://commons.wikimedia.org/wiki/File:11VS03-12_(34484069454).jpg | USDA APHIS | Public domain (US government work) | none |
+| fig-bison-calf-{760,1280} | Bison cow and calf (pregtest) | https://commons.wikimedia.org/wiki/File:Bison_with_calf_at_Neal_Smith_National_Wildlife_Refuge_(17286345386).jpg | US Fish and Wildlife Service, Midwest Region | Public domain (US government work) | none |
+| band-bvdtest-*, og-bvdtest.jpg | Freestall barn (bvdtest band) | https://commons.wikimedia.org/wiki/File:20140415-OSEC-UNK-0003_(13905886561).jpg | USDA | Public domain (US government work) | none |
+| fig-calf.jpg, fig-calf-760.jpg, fig-calf.webp, fig-calf-760.webp | Holstein cow with newborn calf (bvdtest) | https://commons.wikimedia.org/wiki/File:Holstein_cow_with_one-day_calf_01.jpg | Witia | CC BY-SA 4.0 | none |
+| fig-ranchers-{760,1280} | Two ranchers with cow-calf pairs (bvdtest) | https://commons.wikimedia.org/wiki/File:Larry_Huntington_and_Justin_Maxey_survey_cattle3903034253_o.jpg | USDA | Public domain (US government work) | the site never names the two people |
+| band-tailbleeding-*, og-tailbleeding.jpg | Tail-vein blood draw (tailbleeding band) | https://commons.wikimedia.org/wiki/File:Cattle_blood_sampling.jpg | RianHS | CC BY-SA 4.0 | none |
+| fig-jugular-{600,1200} | Jugular draw on a sheep (tailbleeding) | https://commons.wikimedia.org/wiki/File:Scrapie_testing.jpg | Stephen Ausmus, USDA ARS | Public domain (US government work) | portrait 4:5 crop |
+| band-shipping-*, og-shipping.jpg | Wisconsin dairy farm from the air (shipping band) | https://commons.wikimedia.org/wiki/File:Wisconsin_dairy_farm.jpg | Wikimedia Commons contributor | CC0 1.0 | cut from the 4000 px original |
+| fig-holstein.jpg, fig-holstein-760.jpg, fig-holstein.webp, fig-holstein-760.webp | Holstein on spring pasture (faq) | https://commons.wikimedia.org/wiki/File:Cow_female_black_white.jpg | Keith Weller, USDA ARS (image K5176-3) | Public domain (US government work) | none |
+| band-aboutus-*, og-aboutus.jpg | Farm in the Town of Rib Lake, WI (aboutus band) | https://commons.wikimedia.org/wiki/File:Town_of_Rib_Lake_Wisconsin_farm_on_C.jpg | Jeff the quiet | CC0 1.0 | none |
+| fig-dane.jpg, fig-dane-760.jpg, fig-dane.webp, fig-dane-760.webp | Dairy farm in Dane County, WI (aboutus) | https://commons.wikimedia.org/wiki/File:Dairy_Farm_in_Dane_County,_Wisconsin_-_panoramio_(8).jpg | Corey Coyle | CC BY 3.0 | none |
+| band-contact-*, og-contact.jpg | Farm in Brighton, Marathon County, WI (contact band) | https://commons.wikimedia.org/wiki/File:Farm_in_Brighton_Marathon_County_Wisconsin.jpg | Jeff the quiet | CC0 1.0 | phone crop leaves out a grass seed head |
+| band-goats-*, og-goats.jpg | Shepherd with a flock (goats band) | https://commons.wikimedia.org/wiki/File:20220516-FPAC-PJK-3738_TONED_(52081814040).jpg | USDA | Public domain (US government work) | none |
+| fig-ewes-{760,1280} | Ewes with lambs (goats) | https://commons.wikimedia.org/wiki/File:Agriculture_Research_Service_(ARS)_(8424922680).jpg | USDA ARS | Public domain (US government work) | top fence trimmed |
+| fig-goat-parlor-{760,1280} | Dairy goats, Wisconsin State Fair (goats) | https://commons.wikimedia.org/wiki/File:2023_Wisconsin_State_Fair_63_(Milking_Parlor).jpg | Michael Barera | CC BY-SA 4.0 | left wall strip trimmed |
+| band-beef-*, og-beef.jpg | Moving a herd to new pasture (beef band) | https://commons.wikimedia.org/wiki/File:Getting_the_herd_to_follow_us_to_the_new_pasture_(51328555504).jpg | Lars Plougmann | CC BY-SA 2.0 | none |
+| fig-chute-{760,1280} | Cow in a squeeze chute (beef) | https://commons.wikimedia.org/wiki/File:Cattle_inspected_for_ticks.jpg | Scott Bauer, USDA | Public domain (US government work) | none |
+| fig-bison-corrals-{760,1280} | Bison driven to corrals (beef) | https://commons.wikimedia.org/wiki/File:Bison_Driven_Toward_the_Corrals_(041cef6a-b789-4f8b-8967-d95b75ec2cb3).JPG | National Park Service | Public domain (US government work) | none |
+| band-consulting-*, og-consulting.jpg | Adviser and farmer looking at pasture grass, WI (consulting band) | https://commons.wikimedia.org/wiki/File:NRCSWI00107_-_Wisconsin_(6839)(NRCS_Photo_Gallery).jpg | Bob Nichols, USDA NRCS | Public domain (US government work) | CMYK converted to sRGB; small emblems on a shirt and a cap painted out; largest file 2100 px |
+| band-results-*, og-results.jpg | Filling a 96-well plate (results band) | https://commons.wikimedia.org/wiki/File:96_well_plate.jpg | J.N. Eskra | CC BY-SA 4.0 | none |
+
+`band-{stem}-*` means `band-{stem}-{800,1600,2400}` (consulting: 2100 in place of 2400) and
+`band-{stem}-m-{640,750,960}`, each as `.jpg` and `.webp`.
+
+## The lab's own images
+
+| Files | What | License |
 |---|---|---|
-| images/hero-vet.jpg, images/hero-vet-800.jpg | "Vet Students Cattle RVC 2006-08" (File:Vet_Students_Cattle_RVC_2006-08.jpg), Wikimedia Commons; uploader Tim1965; veterinary students at the Virginia-Maryland Regional College of Veterinary Medicine examining a calf. Cropped to 3:2 and resized 2026-09-05. | Public domain |
-| images/band-bvd.jpg, images/band-bvd-760.jpg, images/band-bvd-1000.jpg | "Holstein Cow Grazing 03" (File:Holstein_Cow_Grazing_03.jpg), Wikimedia Commons, photo by Carolyn Parsons. Cropped to 3:2 and resized 2026-09-05; these derivatives are likewise CC BY-SA 4.0. | CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0 |
-| images/band-tailbleed.jpg, images/band-tailbleed-760.jpg, images/band-tailbleed-1000.jpg | "Holstein Cow Grazing 05" (File:Holstein_Cow_Grazing_05.jpg), Wikimedia Commons, photo by Carolyn Parsons. Cropped to 3:2 and resized 2026-09-05; these derivatives are likewise CC BY-SA 4.0. | CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0 |
-| images/hero-holsteins.jpg (hero-holsteins-800.jpg removed 2026-09-05; the 1024 file is kept only as the og:image on interior pages) | "Holstein dairy cows farm" (pd207-1-186), rawpixel via Openverse; regenerated 2026-08-10 from the clean watermark-free render (the larger "image_1300" endpoint serves watermarked previews - do not use it) | CC0 public domain dedication |
-| (removed 2026-09-05) images/band-tailbleeding.jpg | USDA Flickr 20130911-OC-RBN-3764 via Openverse | Public Domain Mark (US government work) |
-| images/band-shipping.jpg, images/band-shipping-760.jpg, images/band-shipping-1000.jpg | "Wisconsin dairy farm" (File:Wisconsin_dairy_farm.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Wisconsin_dairy_farm.jpg. Resized and re-encoded 2026-09-22. | CC0 |
-| images/band-contact.jpg, images/band-contact-760.jpg | "Wisconsin dairy farm 2" (File:Wisconsin_dairy_farm_2.jpg), Wikimedia Commons | CC0 |
-| images/band-faq.jpg, images/band-faq-760.jpg | USDA FPAC Flickr 20220517-FPAC-PJK-7321 via Openverse | Public Domain Mark (US government work) |
-| images/herd-vintage.jpg, images/herd-vintage-760.jpg | USDA archival photo 20120105-OC-AMW-0459, USDA Flickr via Openverse | Public Domain Mark (US government work) |
-| (removed 2026-09-05) images/cow-approach.jpg | "Jgibson-0374", USDA Flickr via Openverse | Public Domain Mark (US government work) |
-| images/roundpreg.gif | Original dairydoctor.com (the lab's own BioPRYN result plate photo) | Owner's own asset |
-| images/biopryn-logo.gif | Original dairydoctor.com; BioPRYN is a trademark of BioTracking, LLC, used here as an affiliate lab (continuing existing usage) | Trademark of BioTracking |
-| (removed 2026-09-23, unreferenced) images/cow_ears_flick.gif | Original dairydoctor.com | Owner's own asset |
-| fonts/sora-600.woff2, fonts/sora-800.woff2 | Sora (Sora Sans Project), latin subsets via google-webfonts-helper; the site's heading face | SIL Open Font License 1.1 |
-| images/header-mark.png, images/header-mark-140.png, images/logo-512.png, favicon.svg, favicon-48.png, favicon-180.png, images/logo.svg | ADDC label-style logo composed for the lab in 2026: vintage public-domain Holstein engraving (rawpixel PD vintage illustration collection, CC0) inside an original cream-rectangle keyline design with ADDC lettering | Engraving CC0; composition owner's asset |
-| images/logo-lockup.jpg, images/logo-lockup-600.jpg | The Dairy Doctor brand lockup composed 2026 from the same CC0 engraving | Engraving CC0; lockup composition owner's asset |
-| images/goats-nubian.jpg, images/goats-nubian-760.jpg | USDA Flickr 20160521-RD-LSC-0452 via Openverse | Public Domain Mark (US government work) |
-| images/bison-herd.jpg, images/bison-herd-760.jpg | "Hayden Valley, Yellowstone National Park" via Openverse/Flickr | CC0 |
-| images/band-preg.jpg, images/band-preg-760.jpg, images/band-preg-1000.jpg | "Holstein Cow Grazing 01" (File:Holstein_Cow_Grazing_01.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Holstein_Cow_Grazing_01.jpg. Photo by Carolyn Parsons (Commons user Gindungo, https://commons.wikimedia.org/wiki/User:Gindungo). Cropped to 3:2 and resized 2026-09-22; these derivatives carry the same licence. | CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0 |
-| images/fig-heifers.jpg, images/fig-heifers-760.jpg | "Dairy Heifers on Pasture" (File:Dairy_Heifers_on_Pasture_.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Dairy_Heifers_on_Pasture_.jpg. Photo by Kristenmacphee. Cropped to 3:2 and resized 2026-09-22; these derivatives carry the same licence. | CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0 |
-| images/fig-sampling.jpg, images/fig-sampling-760.jpg | "Cattle blood sampling" (File:Cattle_blood_sampling.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Cattle_blood_sampling.jpg. Photo by RianHS (https://commons.wikimedia.org/wiki/User:RianHS). Cropped to 3:2 and resized 2026-09-22; these derivatives carry the same licence. | CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0 |
-| images/fig-sampling2.jpg, images/fig-sampling2-760.jpg | "Cow blood sampling" (File:Cow_blood_sampling.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Cow_blood_sampling.jpg. Photo by Agungtrinugroho. Cropped to 3:2 and resized 2026-09-22; these derivatives carry the same licence. | CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0 |
-| images/fig-microplate.jpg, images/fig-microplate-760.jpg | "96-well microplate" (File:96-well_microplate.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:96-well_microplate.jpg. Photo by Gannu03 (https://commons.wikimedia.org/wiki/User:Gannu03). Cropped to 3:2 and resized 2026-09-22; these derivatives carry the same licence. | CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0 |
-| images/fig-calf.jpg, images/fig-calf-760.jpg | "Holstein cow with one-day calf 01" (File:Holstein_cow_with_one-day_calf_01.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Holstein_cow_with_one-day_calf_01.jpg. Photo by Witia (https://commons.wikimedia.org/wiki/User:Witia). Cropped to 3:2, resized and re-encoded 2026-09-22; these derivatives carry the same licence. | CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0 |
-| images/fig-beef.jpg, images/fig-beef-760.jpg | "Livestock" (File:Livestock.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Livestock.jpg. USDA photo (Flickr user USDAgov, https://www.flickr.com/photos/41284017@N08/9303666227). Cropped to 3:2 and resized 2026-09-22. | CC0, https://creativecommons.org/publicdomain/zero/1.0 |
-| images/fig-bison-ranch.jpg, images/fig-bison-ranch-760.jpg | "American bison at the 1,800-acre Lonesome Pine Ranch ... Austin County, Texas" (LCCN 2014632587), Wikimedia Commons via the Library of Congress, https://lccn.loc.gov/2014632587. Photo by Carol M. Highsmith, Library of Congress Prints and Photographs Division. Cropped to 3:2 and resized 2026-09-22. | Public domain |
-| images/fig-farm.jpg, images/fig-farm-760.jpg | "Maplehurst Wisconsin farm" (File:Maplehurst_Wisconsin_farm.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Maplehurst_Wisconsin_farm.jpg. Photo by Jeff the quiet (https://commons.wikimedia.org/wiki/User:Jeff_the_quiet). Cropped to 3:2 and resized 2026-09-22. | CC0, https://creativecommons.org/publicdomain/zero/1.0 |
-| images/fig-farm2.jpg, images/fig-farm2-760.jpg | "Dunnum Family's Top of the Town dairy farm near Westby in Vernon County, Wisconsin" (File:Dunnum_Family's_Top_of_the_Town_dairy_farm_near_Westby_in_Vernon_County,_Wisconsin.jpg), Wikimedia Commons via the Library of Congress. Photo by Carol M. Highsmith, Library of Congress Prints and Photographs Division. Cropped to 3:2 and resized 2026-09-22. | Public domain |
-| images/fig-holstein.jpg, images/fig-holstein-760.jpg | "Cow female black white" (File:Cow_female_black_white.jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Cow_female_black_white.jpg. Photo by Keith Weller, USDA Agricultural Research Service, image K5176-3. Cropped to 3:2 and resized 2026-09-22. | Public domain (US government work) |
-| images/fig-dane.jpg, images/fig-dane-760.jpg | "Dairy Farm in Dane County, Wisconsin - panoramio (8)" (File:Dairy_Farm_in_Dane_County,_Wisconsin_-_panoramio_(8).jpg), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Dairy_Farm_in_Dane_County,_Wisconsin_-_panoramio_(8).jpg. Photo by Corey Coyle, originally on Panoramio (archived: https://web.archive.org/web/20161103085227/http://www.panoramio.com/photo/131987725). Cropped to 3:2 and resized 2026-09-22; these derivatives carry the same licence. | CC BY 3.0, https://creativecommons.org/licenses/by/3.0 |
+| images/roundpreg.gif | A BioPRYN result plate photographed at the lab (original dairydoctor.com) | Owner's own |
+| images/header-mark.png, images/header-mark-140.png, images/logo-512.png, images/logo.svg, favicon.svg, favicon-48.png, favicon-180.png | The engraved Holstein mark in its frame, drawn for the lab in 2026 from a public-domain engraving (rawpixel vintage illustration collection, CC0) | Engraving CC0; finished mark owner's own |
+| images/logo-lockup.jpg, images/logo-lockup-600.jpg | The Dairy Doctor lockup from the same engraving; re-lettered 2026-11-11 to read DIAGNOSTICS | Engraving CC0; lockup owner's own |
+| images/biopryn-logo.gif | BioPRYN mark (original dairydoctor.com) | Trademark of BioTracking, LLC; shown as an affiliate lab |
+| inline SVG in tailbleeding, faq, shipping_test, results, consulting | Drawings SVG-1 to SVG-6 | Owner's own |
+
+## Fonts
+
+| Files | Font | License |
+|---|---|---|
+| fonts/sora-600.woff2, fonts/sora-800.woff2 | Sora (latin subset), headings | SIL Open Font License 1.1 |
+
+Body text uses the visitor's system font; no font file is shipped for it.
