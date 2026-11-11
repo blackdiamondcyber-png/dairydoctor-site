@@ -18,10 +18,18 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
   like GitHub Pages: performance 99 to 100, accessibility 100, best practices 100, SEO 100
   (`thanks.html` and `404.html` are noindex on purpose).
 - Working files live in `.work/` on the G7 only (git-ignored). If it exists, read
-  `.work/2026-11-11/STATE.md` first, from "RUNNING STATE 4": decisions, file map, next steps.
-- Next: review round 1 with the same three reviewers on the fixed rubric, fix what they find,
-  repeat until each scores 95 or more (constraint 15). Then fast-forward `master`, push, and
-  run the one live check (about 10 page loads).
+  `.work/2026-11-11/STATE.md` first, from "RUNNING STATE 5": decisions, file map, next steps.
+- Review round 1 is scored (commit `1219065`): 74, 80.5 and 82 out of 100. The bar is 95 each.
+- Fix round 2 started 11 Nov about 14:40 and is not committed yet: the working tree on the G7
+  holds edits in progress to the pages, `css/style.css` and `js/tools.js`. Do not commit them
+  until the local checks pass again (site check, tool tests, behaviour checks, axe, Lighthouse).
+  The plan of record for that round is `.work/2026-11-11/plan/R2-DECISIONS.md`.
+- Next: finish fix round 2, run the checks, commit and push `full-pass`, score round 2 with the
+  same three reviewers on the fixed rubric, and repeat until each scores 95 or more
+  (constraint 15). Then fast-forward `master`, push, and run the one live check (about 10 page
+  loads).
+- An email to Dr. Pearson about the preview sits in Erik's drafts (not sent). Its link is the
+  public preview, which shows the September build until `master` moves.
 - Capturing pages: take slices by scrolling inside the viewport. Capturing beyond the viewport
   makes the browser pick `<picture>` sources again and the art-directed photos come out blank.
 - Lighthouse on this machine: call the cached CLI with `node`; `npx --no-install lighthouse`
