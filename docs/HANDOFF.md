@@ -20,6 +20,11 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
   554. Still open, by choice: a new hero illustration (Erik's pick), goat and sheep photographs,
   the drawing label typeface on Android, the advice line when the day before ship day is a
   holiday, empty cells in three-field tools, the no-script timing text.
+- Where it stopped (12 Nov, afternoon): the build work is done and the session was archived.
+  `full-pass` and `master` are both at `2f82768`, live on the preview. A follow-up email to
+  Dr. Pearson sits as an unsent draft in Erik's Gmail ("Dad, the website preview is updated");
+  Erik is texting him first. Next session starts from Dr. Pearson's replies or from Erik's pick
+  of a new hero picture, not from another build round.
 - Round 8 (12 Nov, no items set aside): 98 / 96 / 97 on commit `6317028`, after a fix round
   that built the deferred items (wording, holiday shipping advice, tool layout, a new sheep
   photograph, a lifted parlour photograph, drawing labels as outlines, lighter hero files).
