@@ -47,6 +47,6 @@ Added later:
     no stopping to ask between rounds; change approach if a round stalls.
 
 16. 2026-11-12 (Erik): the home hero may be one generated illustration with no face in it (a farmer
-    on a call in the barn). It is captioned "Illustration" and the credits page says plainly that it
+    on a call in the barn). It carries no caption on the page (Erik, 12 Nov); the credits page says plainly that it
     is generated and shows no real person, farm or herd. This is the only exception to rules 6 and
     10; every other picture stays a real, credited photograph or a drawing.

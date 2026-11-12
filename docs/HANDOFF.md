@@ -4,7 +4,16 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
 
 ## START HERE (12 Nov 2026)
 
-- Constraints: `CLAUDE.md`, "Hard constraints" (15 items). Plan: `docs/plans/2026-11-11-full-pass.md`.
+- After the scored build (12 Nov): the home hero is a generated illustration of a farmer on a
+  call in the barn, with no caption on the page and a plain credit on `credits.html` (rule 16).
+  A top-to-bottom UI pass followed: every corner is square (no `border-radius` except resets to
+  0, no shadows), one double-rule frame for tools and cards, one rust-ruled callout, one type and
+  spacing scale, square brand selects and checkboxes, a 3px focus ring on every control. No
+  wording, price, fact or address changed. The reviewers have not scored this build.
+  Checks after the pass: site check 16 pages 0 problems, tool tests 552 of 552, behaviour 483 of
+  483, axe 0 violations, Lighthouse 98 to 100 on six pages. Spec and captures: `.work/2026-11-11/ui/`
+  and `evidence/ui0` (before), `evidence/ui-final` (after).
+- Constraints: `CLAUDE.md`, "Hard constraints" (16 items). Plan: `docs/plans/2026-11-11-full-pass.md`.
 - State: `full-pass` and `master` hold the same site build, commit `1a1ba45` (round 5). Erik
   sent Dr. Pearson the preview link on 11 Nov, so every build that passes the local checks goes
   to `master` as well (fast-forward, push, one live check of about 10 page loads).
