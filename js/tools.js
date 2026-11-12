@@ -262,7 +262,12 @@
      that makes Thursday's report. n is 1, 2 or 3 (transitDays). */
   function marginHtml(plan, n) {
     if (plan.arriveWeekend || plan.arriveClosed || plan.arrive.getDay() !== 3) return "";
-    return '<p class="muted">' + MARGIN[n] + "</p>";
+    var line = MARGIN[n];
+    /* A day earlier than a Monday is a Sunday: only overnight leaves a margin. */
+    if (plan.ship && plan.ship.getDay() === 1) {
+      line = line.replace("Shipping a day earlier, or overnight, leaves", "Overnight leaves").replace("Shipping a day earlier leaves", "Overnight leaves");
+    }
+    return '<p class="muted">' + line + "</p>";
   }
   function closedSentence(d, transit) {
     /* A holiday is named for delivery, never as a lab closing: the owner has

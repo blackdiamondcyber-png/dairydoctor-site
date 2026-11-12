@@ -1200,6 +1200,7 @@ main .btn[href^='tel:']::before {
   .form-card .btn,
   .form-line .btn,
   .info-block .btn,
+  .info-row .btn,
   .next-actions .btn,
   .inquiry-form .btn,
   .barn-card-details > summary.btn {
@@ -1249,7 +1250,7 @@ main .btn[href^='tel:']::before {
   height: auto;
   aspect-ratio: 16 / 10;
   object-fit: cover;
-  object-position: 66% 30%;
+  object-position: 52% 45%;
 }
 
 /* Light hero panel (BRAN-R1-12, constraint 10): white ground, deep teal
@@ -1329,7 +1330,7 @@ main .btn[href^='tel:']::before {
 @media (min-width: 640px) {
   .hero-img {
     aspect-ratio: 16 / 9;
-    object-position: 66% 30%;
+    object-position: 52% 45%;
   }
   .hero-panel {
     padding: 2.5rem var(--gutter) 2.75rem;
@@ -1349,7 +1350,7 @@ main .btn[href^='tel:']::before {
   .hero-img {
     height: 100%;
     aspect-ratio: auto;
-    object-position: 66% 30%;
+    object-position: 52% 45%;
   }
   .hero-photo {
     border-left: var(--frame);
@@ -1495,28 +1496,21 @@ main .btn[href^='tel:']::before {
     aspect-ratio: 3 / 1;
     max-height: 35rem;
   }
-  /* A 2:1 band (bvdtest: the cow's head and her whole calf do not fit in
-     3:1; R5 ruling 1, BRAN-R4-02, TECH-R4-05). It stops at the page
-     text's width, 1040 px, lined up with the header's mark and call
-     button, so it is never more than 520 px tall and is never cropped. */
-  .page-band--tall img {
-    aspect-ratio: 2 / 1;
-    max-width: calc(var(--content-max) - 2 * var(--gutter));
-    max-height: none;
-    margin-inline: auto;
-  }
-  .page-band--tall picture {
-    background: var(--teal-deep);
-  }
 }
 
 @media (min-width: 900px) {
   .page-band img {
     max-height: min(35rem, 44vh);
   }
-  .page-band--tall img {
-    max-height: none;
-    max-width: min(calc(var(--content-max) - 2 * var(--gutter)), 100vh);
+}
+
+/* bvdtest: the Holstein photo is 2:1, so a 3:1 band shows two thirds of it.
+   The cap is raised for this band only (40rem, 60vh) so the cow's head and the
+   calf's head both stay in frame; the position sits the window between them. */
+@media (min-width: 640px) {
+  .page-band--bvd img {
+    max-height: min(40rem, 60vh);
+    object-position: 50% 25%;
   }
 }
 
@@ -2458,54 +2452,6 @@ main > section:has(> .link-rows) {
   }
 }
 
-/* -------------------- 3.11c Tools that span the container (home timing tool) --------------------
-   From 960 px the inputs sit on the left and the answer on the right, so a
-   full-width tool leaves no empty half (ruling 10). Two classes, so it
-   outranks the .tool measure set later in this file. */
-.tool.tool-wide {
-  max-width: none;
-}
-
-@media (min-width: 960px) {
-  .tool-wide {
-    display: grid;
-    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-    grid-template-areas:
-      'inputs out'
-      'inputs cal';
-    grid-template-rows: auto 1fr;
-    column-gap: 2rem;
-    align-items: start;
-  }
-  .tool-wide > .tool-grid {
-    grid-area: inputs;
-  }
-  .tool-wide > .tool-out {
-    grid-area: out;
-    margin-top: 0;
-    padding-top: 0;
-    padding-left: 2rem;
-    border-top: 0;
-    border-left: var(--rule);
-  }
-  .tool-wide > .tool-cal {
-    grid-area: cal;
-    margin-left: 2rem;
-  }
-}
-
-@media (min-width: 960px) {
-  .tool-wide {
-    grid-template-rows: 1fr auto;
-  }
-  .tool-wide > .tool-out {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-
 /* -------------------- 3.12 Next step, first-box note, BioPRYN mark -------------------- */
 
 /* A ruled callout (see 3.8b); this sets only its spacing. */
@@ -2710,29 +2656,26 @@ main > section:has(> .link-rows) {
   max-width: var(--measure);
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--grid-gap);
+/* Contact: call, email and hours as one ruled list under a single top rule,
+   rows split by the hairline rule, no frame round each row. */
+.info-list {
   max-width: var(--measure);
   margin-top: var(--flow);
+  border-top: var(--rule);
 }
 
-/* The grid gap spaces the blocks; their own top margin would double it. */
-.info-grid > .info-block {
+.info-row {
+  padding: var(--inset-y) 0;
+  border-bottom: var(--rule);
+}
+
+.info-row h3,
+.info-row > :first-child {
   margin-top: 0;
 }
 
-/* Two columns inside the measure. A third block (the hours) stands beside
-   the first two instead of sitting alone on a second row. */
-@media (min-width: 640px) {
-  .info-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .info-grid > .info-block:nth-child(3):last-child {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-  }
+.info-row > :last-child {
+  margin-bottom: 0;
 }
 
 address {
@@ -3337,6 +3280,8 @@ address p {
   margin-top: 0.5rem;
 }
 
+/* The 44 px tap height belongs to the links (phone, email) alone; the name,
+   address and fax lines keep normal line height so the block reads as one address. */
 .footer-contact address p > a {
   display: inline-flex;
   align-items: center;
@@ -3348,7 +3293,6 @@ address p {
   flex-wrap: wrap;
   align-items: center;
   column-gap: 0.3em;
-  min-height: 44px;
   margin: 0;
   font-size: var(--fs-sm);
   line-height: 1.35;
@@ -3577,8 +3521,7 @@ address p {
   .info-block,
   .form-card,
   .barn-card-list > div,
-  .steps > li,
-  .site-footer {
+  .steps > li {
     break-inside: avoid;
   }
 
@@ -3621,14 +3564,15 @@ address p {
   }
 
   /* Chrome weighs "avoid before" and "avoid inside" the same and then takes
-     the later break, so only the closing box carries both; the footer is
-     kept whole and short instead (a few lines, never one alone). */
+     the later break, so only the closing box carries both. The footer is
+     short and may split (orphans and widows keep three lines together), so
+     it never pushes a sheet of its own onto the end. */
   section:has(> .next-step) {
     break-before: avoid;
   }
 
   .site-footer .container {
-    padding-block: 0.4rem 0;
+    padding-block: 0.25rem 0;
   }
 
   .footer-grid {
@@ -3644,6 +3588,15 @@ address p {
 
   .footer-contact address p {
     display: inline;
+  }
+
+  .footer-contact address p > a {
+    display: inline;
+    min-height: 0;
+  }
+
+  .footer-contact .footer-biosecurity {
+    padding-block: 0;
   }
 
   /* The copyright and credits line is for the screen; on paper the footer is
@@ -3721,7 +3674,8 @@ address p {
     background: #ffffff;
     color: #000000;
     border-top: 2px solid #000000;
-    margin-top: 0.4rem;
+    margin-top: 0.25rem;
+    font-size: 9pt;
   }
 
   .site-footer a,
@@ -3732,7 +3686,12 @@ address p {
 
   /* No tap-target padding on paper: it opened the footer lines apart. */
   .site-footer {
-    line-height: 1.4;
+    line-height: 1.3;
+  }
+
+  /* The closing line runs on after the address so the footer is one short paragraph. */
+  .footer-contact .footer-biosecurity {
+    display: inline;
   }
 
   .site-footer a {
@@ -4463,8 +4422,7 @@ address p {
     --intro-top: 0;
   }
   .tool,
-  .tool.forms-block,
-  .tool.tool-wide {
+  .tool.forms-block {
     border: 3px double #000000;
   }
   .form-field input:not([type='checkbox']),
