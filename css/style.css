@@ -1743,6 +1743,14 @@ main:has(> .page-band) {
     aspect-ratio: auto;
     object-fit: cover;
   }
+  /* The 112 px thumbnails show only a third to two fifths of each photograph's
+     width, so each one is anchored on its animal's head. */
+  .door-grid.is-compact .door-img[src*="fig-beef"] { object-position: 42% 50%; }
+  .door-grid.is-compact .door-img[src*="door-dairy"] { object-position: 14% 50%; }
+  .door-grid.is-compact .door-img[src*="fig-heifers"] { object-position: 70% 50%; }
+  .door-grid.is-compact .door-img[src*="door-goats"] { object-position: 56% 50%; }
+  .door-grid.is-compact .door-img[src*="fig-bison"] { object-position: 52% 50%; }
+  .door-grid.is-compact .door-img[src*="door-large"] { object-position: 57% 50%; }
   .door-grid.is-compact .door-title {
     margin: 0.85rem 1rem 0;
     font-size: var(--fs-body);
@@ -3742,6 +3750,11 @@ address p {
 @media (min-width: 600px) {
   .tool-grid {
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+  /* The grid is two columns wide at most (the tool card is 586 px), so a third
+     field would sit beside an empty cell: let it use the full row. */
+  .tool-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 

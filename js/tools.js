@@ -263,8 +263,10 @@
   function marginHtml(plan, n) {
     if (plan.arriveWeekend || plan.arriveClosed || plan.arrive.getDay() !== 3) return "";
     var line = MARGIN[n];
-    /* A day earlier than a Monday is a Sunday: only overnight leaves a margin. */
-    if (plan.ship && plan.ship.getDay() === 1) {
+    /* A day earlier than the ship day may be a Sunday or a holiday the carrier
+       does not run (the day after Labor Day, for example): only overnight
+       leaves a margin. */
+    if (plan.ship && isLabClosed(addDays(plan.ship, -1), n)) {
       line = line.replace("Shipping a day earlier, or overnight, leaves", "Overnight leaves").replace("Shipping a day earlier leaves", "Overnight leaves");
     }
     return '<p class="muted">' + line + "</p>";
