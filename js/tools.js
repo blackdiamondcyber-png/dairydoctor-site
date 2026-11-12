@@ -267,7 +267,9 @@
        does not run (the day after Labor Day, for example): only overnight
        leaves a margin. */
     if (plan.ship && isLabClosed(addDays(plan.ship, -1), n)) {
-      line = line.replace("Shipping a day earlier, or overnight, leaves", "Overnight leaves").replace("Shipping a day earlier leaves", "Overnight leaves");
+      /* Already overnight: there is no faster choice to offer, so say only that it is not guaranteed. */
+      if (n === 1) line = "Overnight shipping is not guaranteed.";
+      else line = line.replace("Shipping a day earlier, or overnight, leaves", "Overnight leaves").replace("Shipping a day earlier leaves", "Overnight leaves");
     }
     return '<p class="muted">' + line + "</p>";
   }

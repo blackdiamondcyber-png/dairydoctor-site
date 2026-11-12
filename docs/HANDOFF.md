@@ -20,6 +20,13 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
   554. Still open, by choice: a new hero illustration (Erik's pick), goat and sheep photographs,
   the drawing label typeface on Android, the advice line when the day before ship day is a
   holiday, empty cells in three-field tools, the no-script timing text.
+- Round 8 (12 Nov, no items set aside): 98 / 96 / 97 on commit `6317028`, after a fix round
+  that built the deferred items (wording, holiday shipping advice, tool layout, a new sheep
+  photograph, a lifted parlour photograph, drawing labels as outlines, lighter hero files).
+  One line was fixed after scoring (overnight advice after a holiday). Tool tests are now 557.
+  Still open: the jugular photograph on the goats page, the round plate photo on results, the
+  parlour photo crop, drawing label size on phones, a credits line for the drawing lettering,
+  the footer photo sentence, source links for two figures, and a new hero (Erik's pick).
 - Constraints: `CLAUDE.md`, "Hard constraints" (16 items). Plan: `docs/plans/2026-11-11-full-pass.md`.
 - State: `full-pass` and `master` hold the same site build, commit `1a1ba45` (round 5). Erik
   sent Dr. Pearson the preview link on 11 Nov, so every build that passes the local checks goes
