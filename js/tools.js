@@ -95,28 +95,38 @@
     holidayCache[y] = h;
     return h;
   }
-  /* Name of the federal holiday observed on d, or "". New Year's Day of the
-     next year can be observed on December 31, so next year's list is read too. */
-  function holidayName(d) {
+  /* The days a next-day carrier does not deliver. The Postal Service (Priority
+     Mail and 3-day boxes) stops on all 11 federal holidays; the overnight
+     choice stops only on these six, on the day itself (an "observed" Friday or
+     Monday is a working day for a carrier). */
+  var OVERNIGHT_HOLIDAYS = ["New Year's Day", "Memorial Day", "Independence Day", "Labor Day", "Thanksgiving Day", "Christmas Day"];
+  /* Name of the holiday on d that stops delivery, or "". transit is 1 for the
+     overnight choice (six days); anything else is the Postal Service (all 11
+     federal holidays, observed dates). New Year's Day of the next year can be
+     observed on December 31, so next year's list is read too. */
+  function holidayName(d, transit) {
     var y = d.getFullYear();
-    return holidaysOf(y)[iso(d)] || holidaysOf(y + 1)[iso(d)] || "";
+    var name = holidaysOf(y)[iso(d)] || holidaysOf(y + 1)[iso(d)] || "";
+    if (transit !== 1) return name;
+    return name.indexOf("(observed)") === -1 && OVERNIGHT_HOLIDAYS.indexOf(name) !== -1 ? name : "";
   }
-  /* Why d is a day off the lab calendar for a weekday: a holiday name, a
-     closed day the owner added, or "". */
-  function closedLabel(d) {
-    var h = holidayName(d);
+  /* Why d is a day off the calendar for a weekday: a holiday name, a closed
+     day the owner added, or "". transit picks the holiday set (see above). */
+  function closedLabel(d, transit) {
+    var h = holidayName(d, transit);
     if (h) return h;
     return LAB_CLOSED.indexOf(iso(d)) !== -1 ? "a day the lab is closed" : "";
   }
-  /* The lab works Monday to Friday except holidays and LAB_CLOSED days. */
-  function isLabClosed(d) {
-    return isWeekend(d) || closedLabel(d) !== "";
+  /* A day off for this shipping choice: a weekend, a holiday that stops its
+     delivery, or a LAB_CLOSED day. Without transit, the full federal list. */
+  function isLabClosed(d, transit) {
+    return isWeekend(d) || closedLabel(d, transit) !== "";
   }
   /* The first lab day on or after d: a box that lands on a weekend or a
      closed day is counted from the next lab day. */
-  function labDay(d) {
+  function labDay(d, transit) {
     var x = startOfDay(d);
-    for (var k = 0; k < 30 && isLabClosed(x); k++) x = addDays(x, 1);
+    for (var k = 0; k < 30 && isLabClosed(x, transit); k++) x = addDays(x, 1);
     return x;
   }
   /* Thursday of the week that holds d (d is Monday to Friday). */
@@ -124,8 +134,8 @@
     return addDays(d, 4 - d.getDay());
   }
   /* "Thursday, Nov 26, 2026 is Thanksgiving Day" */
-  function closedIs(d) {
-    return fmt(d) + " is " + closedLabel(d);
+  function closedIs(d, transit) {
+    return fmt(d) + " is " + closedLabel(d, transit);
   }
   /* The answer for a report Thursday that is a holiday or closed day: no
      report date, the phone line instead. */
@@ -138,13 +148,16 @@
      day counts as arriving the next lab day (count); a box counted Monday to
      Wednesday makes that week's Thursday report, a box counted Thursday or
      Friday makes the next week's. reportClosed names the holiday when that
-     Thursday is closed (then no report date may be stated). skipped lists the
-     weekday closed days the box waited through. */
+     Thursday is closed (then no report date may be stated; the full federal
+     list applies, the lab has not said otherwise). skipped lists the weekday
+     closed days the box waited through. Which holidays stop delivery depends
+     on transit (see holidayName); arriveHoliday is true when the arrival day
+     is one of them, so the answer says "would arrive". */
   function boxPlan(ship, transit) {
     var arrive = addDays(ship, transit);
     var count = arrive;
     var skipped = [];
-    for (var k = 0; k < 30 && isLabClosed(count); k++) {
+    for (var k = 0; k < 30 && isLabClosed(count, transit); k++) {
       if (!isWeekend(count)) skipped.push(count);
       count = addDays(count, 1);
     }
@@ -152,6 +165,7 @@
     var report = addDays(thursdayOf(count), missed ? 7 : 0);
     return {
       ship: ship,
+      transit: transit,
       arrive: arrive,
       count: count,
       missed: missed,
@@ -159,7 +173,8 @@
       reportClosed: closedLabel(report),
       skipped: skipped,
       arriveWeekend: isWeekend(arrive),
-      arriveClosed: !isWeekend(arrive) && closedLabel(arrive) !== ""
+      arriveClosed: !isWeekend(arrive) && closedLabel(arrive, transit) !== "",
+      arriveHoliday: holidayName(arrive, transit) !== ""
     };
   }
   /* First lab-day ship on or after `from` whose box arrives on a lab day,
@@ -168,7 +183,7 @@
   function firstGoodShip(from, transit) {
     for (var k = 0; k < 28; k++) {
       var s = addDays(from, k);
-      if (isLabClosed(s)) continue;
+      if (isLabClosed(s, transit)) continue;
       var plan = boxPlan(s, transit);
       if (!plan.arriveWeekend && !plan.arriveClosed && plan.arrive.getDay() >= 1 && plan.arrive.getDay() <= 3) return plan;
     }
@@ -181,7 +196,7 @@
     var thu = addDays(w, 1);
     for (var k = 0; k < 14; k++) {
       var s = addDays(w, -k);
-      if (isLabClosed(s)) continue;
+      if (isLabClosed(s, transit)) continue;
       var p = boxPlan(s, transit);
       if (p.report.getTime() !== thu.getTime()) continue;
       if (cold && (p.arriveWeekend || p.arriveClosed)) continue;
@@ -203,7 +218,14 @@
   }
 
   var PHONE = '<a href="tel:+17156532201">(715) 653-2201</a>';
-  var REPORT_LINE = "Samples that reach the lab by Wednesday are reported Thursday.";
+  /* The one label and hint for the shipping choice on every copy of the tool
+     (the pages carry them as static HTML; tests read them from here). */
+  var TRANSIT_LABEL = "How you ship";
+  var TRANSIT_HINT = "Days from shipping to arrival at the lab. Overnight means a next-day carrier.";
+  /* Why the ship day is a Monday when she can be sampled already. Boxes that
+     reach the lab Thursday or Friday are tested too, in the next report. */
+  var MON_WED_LINE = "Boxes that reach the lab Monday to Wednesday are in that Thursday's report, so draw and ship on ";
+  var DAY_LINE = "Draw and ship: ";
 
   /* ---------------- Core: pure answers (no page access) ---------------- */
 
@@ -219,15 +241,21 @@
     if (plan.arriveWeekend || plan.arriveClosed || plan.arrive.getDay() !== 3) return "";
     return '<p class="muted">' + MARGIN[n] + "</p>";
   }
-  function closedSentence(d) {
-    /* A federal holiday is named for the mail, never as a lab closing: the
-       owner has not said which days the lab is shut. */
-    return closedIs(d) + (closedLabel(d) === "a day the lab is closed" ? "." : " and the mail does not run.");
+  function closedSentence(d, transit) {
+    /* A holiday is named for delivery, never as a lab closing: the owner has
+       not said which days the lab is shut. The Postal Service carries Priority
+       Mail and the 3-day choice; the overnight choice is a next-day carrier. */
+    if (closedLabel(d, transit) === "a day the lab is closed") return closedIs(d, transit) + ".";
+    return closedIs(d, transit) + (transit === 1 ? " and next-day carriers do not deliver." : " and the Postal Service does not deliver.");
   }
   /* Why a box that lands on a weekend or closed day counts from a later day. */
   function rollText(plan) {
     var head = plan.arriveWeekend ? "That is a " + DAYS[plan.arrive.getDay()] + ". The lab is staffed Monday to Friday" : "";
-    var closed = plan.skipped.map(closedSentence).join(" ");
+    var closed = plan.skipped
+      .map(function (d) {
+        return closedSentence(d, plan.transit);
+      })
+      .join(" ");
     if (plan.arriveWeekend && !closed) return head + ", so count on " + fmt(plan.count) + ".";
     return (head ? head + ". " : "") + (closed ? closed + " " : "") + "Count on " + fmt(plan.count) + ".";
   }
@@ -288,7 +316,7 @@
     if (p) {
       ship = p.ship;
       /* Today or past: say she can be sampled, then why the ship day waits. */
-      html += "<p>" + (ready ? "She can be sampled now. The lab takes boxes Monday to Wednesday, so draw and ship on " : "Draw and ship on ") +
+      html += "<p>" + (ready ? "She can be sampled now. " + MON_WED_LINE : "Draw and ship on ") +
         fmt(p.ship) + ". " + TRANSIT_LEAD[days] + " should arrive " + fmt(p.arrive) +
         (p.reportClosed ? "." : " and be reported " + fmt(p.report) + ".") + "</p>";
       if (p.reportClosed) html += reportClosedHtml(p.report);
@@ -297,8 +325,7 @@
       html += "<p>Call the lab at " + PHONE + " to plan the ship day.</p>";
     }
 
-    if (kind === "small") html += '<p class="muted">For does and ewes that kidded or lambed recently, ask when you call. ' + REPORT_LINE + "</p>";
-    else html += '<p class="muted">' + REPORT_LINE + "</p>";
+    if (kind === "small") html += '<p class="muted">For does and ewes that kidded or lambed recently, ask when you call.</p>';
     return { html: html, ship: ship, form: kind === "small" ? FORMS.preg_small.name : FORMS.preg_cattle.name };
   }
   function timingAnswer(speciesValue, bredValue, calvedValue, transitValue, today) {
@@ -328,10 +355,11 @@
       /* When that Monday is a holiday or closed day, name the next lab day. */
       var mon = addDays(S, S.getDay() === 6 ? 2 : 1);
       html += "<p>That is a " + DAYS[S.getDay()] + ". If your carrier does not pick up on weekends, pick " +
-        (isLabClosed(mon) ? fmt(labDay(mon)) + ". " + closedIs(mon) + ".</p>" : "Monday.</p>");
-    } else if (closedLabel(S)) html += "<p>" + closedIs(S) + ". If your carrier does not pick up that day, pick another day.</p>";
+        (isLabClosed(mon, N) ? fmt(labDay(mon, N)) + ". " + closedIs(mon, N) + ".</p>" : "Monday.</p>");
+    } else if (closedLabel(S, N)) html += "<p>" + closedIs(S, N) + ". If your carrier does not pick up that day, pick another day.</p>";
 
-    html += "<p><strong>Arrives:</strong> " + fmt(A) + ".";
+    /* A holiday arrival is "would arrive": the box cannot be delivered that day. */
+    html += "<p><strong>" + (plan.arriveHoliday ? "Would arrive:" : "Arrives:") + "</strong> " + fmt(A) + ".";
     if (daysBetween(A, R) !== 0) html += "<br>" + rollText(plan);
     html += "</p>";
 
@@ -371,20 +399,20 @@
       html += "<p><strong>Ear notches and BVD blood ship cold.</strong> This shipping takes longer than 48 hours. Call the lab first for instructions.</p>";
     } else if (plan.arriveWeekend || plan.arriveClosed) {
       var B = S > today ? S : today;
-      for (var k = 0; k < 28 && (isLabClosed(B) || isLabClosed(addDays(B, N))); k++) B = addDays(B, 1);
+      for (var k = 0; k < 28 && (isLabClosed(B, N) || isLabClosed(addDays(B, N), N)); k++) B = addDays(B, 1);
       if (plan.arriveWeekend && !plan.skipped.length)
         html += "<p><strong>Ear notches and BVD blood ship cold.</strong> This box would land on a " + DAYS[A.getDay()] +
           " and wait for Monday, past 48 hours. Ship on " + fmt(B) + " instead, so it lands on a weekday.</p>";
       else
         html += "<p><strong>Ear notches and BVD blood ship cold.</strong> This box would land on " +
-          (plan.arriveWeekend ? "a " + DAYS[A.getDay()] : fmt(A) + ", which is " + closedLabel(A) + ",") +
+          (plan.arriveWeekend ? "a " + DAYS[A.getDay()] : fmt(A) + ", which is " + closedLabel(A, N) + ",") +
           " and wait for " + fmt(R) + ", past 48 hours. Ship on " + fmt(B) + " instead, so it lands on a lab day.</p>";
     } else {
       html += "<p><strong>Ear notches and BVD blood ship cold.</strong> Refrigerate before shipping and pack with ice packs. Sample on the day you ship, so the box arrives within 48 hours of collection.</p>";
     }
     return {
       html: html,
-      ship: isLabClosed(S) || coldStop ? null : S,
+      ship: isLabClosed(S, N) || coldStop ? null : S,
       form: bvd ? FORMS.bvd.name : "",
       cold: bvd
     };
@@ -462,7 +490,7 @@
     html += "<li><strong>Positives:</strong> isolate the animal and test its dam. It is retested or removed on the veterinarian's advice.</li>";
     html += "<li><strong>Vaccination:</strong> calves and open adults, on a schedule Dr. Pearson sets for your herd.</li>";
     html += '<li><strong>Ship day:</strong> the lab is staffed Monday to Friday, so pick a ship day that gets the cold box there on a weekday. The <a href="shipping_test.html#planner">ship-by planner</a> checks the arrival day.</li>';
-    html += '</ol><p class="muted">Planning estimate only, based on about nine calves per ten breeding females a year. Your numbers replace these on the phone.</p>';
+    html += '</ol><p class="muted">Planning estimate only, based on about nine calves per ten breeding females a year. Call the lab to plan with the numbers from your own herd.</p>';
     return { invalid: false, html: html };
   }
 
@@ -591,6 +619,13 @@
     return makeIcs({ date: ship, summary: ICS_TITLE, description: text, now: now });
   }
 
+  /* The draw-and-ship day as plain text that can be copied by hand, shown
+     beside the calendar file button: "Draw and ship: Monday, Nov 16, 2026".
+     "" when there is no day. No outside calendar service is named or linked. */
+  function dayLine(ship) {
+    return ship instanceof Date && !isNaN(ship.getTime()) ? DAY_LINE + fmt(ship) : "";
+  }
+
   /* 9. Herd list sheets (herd-list.html). A herd with more animals than lines
      on the form prints list sheets in the form's own columns: Tube # and
      Animal #/ID, two column pairs of 20 rows, 40 lines a sheet. The farmer
@@ -612,8 +647,15 @@
   function listLines(text) {
     return String(text == null ? "" : text).split(/\r\n|\r|\n/);
   }
+  /* Lines that hold a run of two or more spaces between words (a report whose
+     columns are lined up with spaces, such as a herd software printout). The
+     line is trimmed first, so right-aligned numbers and trailing spaces do
+     not count. A single space (a "840 003 123" tag) never counts. */
+  var SPACE_RUN = /[  ]{2,}/;
   /* "\t" when any line holds a tab (a spreadsheet copy), "," when at least
-     half the lines hold a comma (a CSV export), otherwise "" (one column). */
+     half the lines hold a comma (a CSV export), "  " (two spaces) when no tab
+     or comma rules and more than half the lines hold a run of two or more
+     spaces (a space-aligned report), otherwise "" (one column). */
   function listDelimiter(lines) {
     var filled = lines.filter(function (l) {
       return l.trim() !== "";
@@ -625,12 +667,18 @@
     var commas = filled.filter(function (l) {
       return l.indexOf(",") !== -1;
     }).length;
-    return commas * 2 >= filled.length ? "," : "";
+    if (commas * 2 >= filled.length) return ",";
+    var spaced = filled.filter(function (l) {
+      return SPACE_RUN.test(l.trim());
+    }).length;
+    return spaced * 2 > filled.length ? "  " : "";
   }
   /* One line to trimmed cells. A cell in double quotes may hold the
-     delimiter; "" inside quotes is one quote mark. */
+     delimiter; "" inside quotes is one quote mark. With the two-space
+     delimiter a cell ends at each run of two or more spaces. */
   function listCells(line, delim) {
     if (!delim) return [line.trim()];
+    if (delim === "  ") return line.trim().split(/[  ]{2,}/);
     var cells = [];
     var cur = "";
     var quoted = false;
@@ -853,6 +901,11 @@
       makeIcs: makeIcs,
       drawShipIcs: drawShipIcs,
       ICS_FILE: ICS_FILE,
+      dayLine: dayLine,
+      TRANSIT_LABEL: TRANSIT_LABEL,
+      TRANSIT_HINT: TRANSIT_HINT,
+      MON_WED_LINE: MON_WED_LINE,
+      closedLabel: closedLabel,
       chooserAnswer: chooserAnswer,
       bvdAnswer: bvdAnswer,
       checklistAnswer: checklistAnswer,
@@ -915,10 +968,12 @@
     };
   }
   /* Offer the calendar file as a download from the [data-ics] button inside a
-     tool. The button ships hidden; it shows only while the answer names a
-     draw-and-ship day. Returns the function that tells it the latest answer
-     ({ ship, form, cold }). The file is built when the button is pressed and
-     saved by the browser; nothing is sent anywhere. */
+     tool, and the same day as copyable text in the [data-day] element beside
+     it (made here, right after the button, when the page has none). Both ship
+     hidden; they show only while the answer names a draw-and-ship day.
+     Returns the function that tells them the latest answer ({ ship, form,
+     cold }). The file is built when the button is pressed and saved by the
+     browser; nothing is sent anywhere. */
   function icsButton(root) {
     var btn = $("[data-ics]", root);
     if (!btn) return function () {};
@@ -929,6 +984,14 @@
     status.className = "sr-only";
     status.setAttribute("aria-live", "polite");
     btn.parentNode.appendChild(status);
+    var line = $("[data-day]", root);
+    if (!line) {
+      line = document.createElement("span");
+      line.className = "tool-day";
+      line.setAttribute("data-day", "");
+      btn.parentNode.insertBefore(line, btn.nextSibling);
+    }
+    line.hidden = true;
     btn.hidden = true;
     on(btn, "click", function () {
       if (!current || !current.ship) return;
@@ -965,6 +1028,8 @@
     return function (answer) {
       current = answer && answer.ship ? answer : null;
       btn.hidden = !current;
+      line.textContent = current ? dayLine(current.ship) : "";
+      line.hidden = !current;
     };
   }
 
@@ -1127,11 +1192,20 @@
     });
     nav.appendChild(toggle);
 
-    list.hidden = true;
-    if (head) head.hidden = true;
-    root.setAttribute("tabindex", "0");
-    render();
-    root.hidden = false;
+    /* The page ships the whole list visible and the stepper hidden. Only when
+       the stepper has drawn its first step does the list go away and the
+       stepper show; if anything here throws, the list stays visible. */
+    try {
+      render();
+      root.setAttribute("tabindex", "0");
+      list.hidden = true;
+      if (head) head.hidden = true;
+      root.hidden = false;
+    } catch (err) {
+      list.hidden = false;
+      if (head) head.hidden = false;
+      root.hidden = true;
+    }
   });
 
   /* ---------------- 6. FAQ search and accordions ---------------- */

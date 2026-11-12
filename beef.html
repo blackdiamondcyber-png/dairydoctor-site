@@ -17,6 +17,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Black beef cows graze a pasture in front of a red gambrel barn, a silo and grain bins on a Wisconsin farm.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dairydoctor.com/images/og-beef.jpg">
+<meta name="twitter:image:alt" content="Black beef cows graze a pasture in front of a red gambrel barn, a silo and grain bins on a Wisconsin farm.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -37,7 +39,7 @@
       "alternateName": ["The Dairy Doctor", "ADDC", "Dairy Pharm Services"],
       "url": "https://dairydoctor.com/",
       "logo": "https://dairydoctor.com/images/logo-512.png",
-      "image": "https://dairydoctor.com/images/og-home.jpg",
+      "image": "https://dairydoctor.com/images/og-site.jpg",
       "email": "info@dairydoctor.com",
       "telephone": "+17156532201",
       "faxNumber": "+17156534301",
@@ -263,20 +265,21 @@
             <p class="muted" id="bf-bred-hint">If the bull ran with the cows, enter the day he came out.</p>
           </div>
           <div class="form-field">
-            <label for="bf-transit">Shipping</label>
-            <select id="bf-transit" name="transit">
+            <label for="bf-transit">How you ship</label>
+            <select id="bf-transit" name="transit" aria-describedby="bf-transit-hint">
               <option value="1">Overnight</option>
               <option value="2" selected>Priority Mail, usually 2 days</option>
               <option value="3">3 days</option>
             </select>
+            <p class="muted" id="bf-transit-hint">Days from shipping to arrival at the lab. Overnight means a next-day carrier.</p>
           </div>
         </div>
         <div class="tool-out" aria-live="polite">
-          <p>Cows and bison can be sampled 28 days after breeding, virgin heifers at 25. If that date is today or past, she can be sampled now. Samples that reach the lab by Wednesday are reported Thursday.</p>
-          <p>The lab takes boxes Monday to Wednesday. With Priority Mail, usually 2 days, ship by Monday. With overnight shipping, ship by Tuesday. A box shipped later is in the next week's report.</p>
-          <p class="muted">Priority Mail usually takes 2 days but is not guaranteed. Shipping a day earlier, or overnight, leaves a margin. The mail does not run on federal holidays, so a box that would land on a weekend or a holiday counts from the next lab day. If the report Thursday is a holiday, call <a href="tel:+17156532201">(715) 653-2201</a> for that week's report day.</p>
+          <p>Cows and bison can be sampled 28 days after breeding, virgin heifers at 25. If that date is today or past, she can be sampled now.</p>
+          <p>Boxes that reach the lab Monday to Wednesday are in that Thursday's report. With Priority Mail, usually 2 days, ship by Monday. With overnight shipping, ship by Tuesday. A box shipped later is in the next week's report.</p>
+          <p class="muted">Priority Mail usually takes 2 days but is not guaranteed. Shipping a day earlier, or overnight, leaves a margin. The Postal Service does not deliver on federal holidays, and next-day carriers do not deliver on New Year's Day, Memorial Day, Independence Day, Labor Day, Thanksgiving or Christmas. A box that would arrive on a weekend or one of those days counts from the next lab day. If the report Thursday is a holiday, call <a href="tel:+17156532201">(715) 653-2201</a> for that week's report day.</p>
         </div>
-        <p class="tool-actions"><button type="button" class="btn btn-outline" data-ics hidden>Add the draw and ship day to my calendar</button></p>
+        <p class="tool-actions"><button type="button" class="btn btn-outline" data-ics hidden>Add the draw and ship day to my calendar</button> <span class="tool-day" data-day hidden></span></p>
       </div>
     </section>
     <section class="container" aria-labelledby="bison">
@@ -313,7 +316,7 @@
       <div class="section-head">
         <h2 id="results">Reading the report</h2>
       </div>
-      <p>Samples that reach the lab by Wednesday are reported Thursday by email, fax or phone, whichever you mark on the form. BioPRYN reports each animal as pregnant, open, or recheck. Every plate is read by the lab's veterinarian, Dr. Glenn Pearson, and a recheck usually comes with a note on when to sample her again.</p>
+      <p>Samples that reach the lab by Wednesday are reported Thursday by email, fax or phone, whichever you mark on the form. BioPRYN reports each animal as pregnant, open, or recheck, and Dr. Pearson reads every plate.</p>
       <p>Every testing client can call or email Dr. Pearson about a result: <a href="tel:+17156532201">(715) 653-2201</a> or <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a>.</p>
       <p>What each result means, and the limits of a blood test: <a href="results.html">how your results are read</a>.</p>
     </section>
@@ -323,7 +326,6 @@
       </div>
       <div class="forms-grid">
         <div class="form-card">
-          <svg class="icon-doc" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z"/></svg>
           <h3>Cattle and bison pregnancy</h3>
           <p>Cattle-Bison Pregnancy Test Submission Form</p>
           <a class="btn btn-outline" href="ADDC%20Preg%20Submission%20Form.pdf">
@@ -332,7 +334,6 @@
           </a>
         </div>
         <div class="form-card">
-          <svg class="icon-doc" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z"/></svg>
           <h3>BVD PI</h3>
           <p>BVD PI Test Submission Form, for blood or ear notch samples</p>
           <a class="btn btn-outline" href="BVD_PI_Test.pdf">

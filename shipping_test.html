@@ -12,11 +12,13 @@
 <meta property="og:description" content="How to label, pack and ship blood and ear notch samples so they reach the lab in Frederic, Wisconsin by Wednesday. Forms, a barn card to print, supplies and a ship-by planner.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dairydoctor.com/shipping_test.html">
-<meta property="og:image" content="https://dairydoctor.com/images/og-home.jpg">
+<meta property="og:image" content="https://dairydoctor.com/images/og-site.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A smiling dairy farmer in a blue plaid shirt and cap stands in a barn with his Holstein herd resting behind him. USDA photo.">
+<meta property="og:image:alt" content="The Dairy Doctor: Advanced Dairy Diagnostics and Consulting, Frederic, Wisconsin.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dairydoctor.com/images/og-site.jpg">
+<meta name="twitter:image:alt" content="The Dairy Doctor: Advanced Dairy Diagnostics and Consulting, Frederic, Wisconsin.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -35,7 +37,7 @@
       "alternateName": ["The Dairy Doctor", "ADDC", "Dairy Pharm Services"],
       "url": "https://dairydoctor.com/",
       "logo": "https://dairydoctor.com/images/logo-512.png",
-      "image": "https://dairydoctor.com/images/og-home.jpg",
+      "image": "https://dairydoctor.com/images/og-site.jpg",
       "email": "info@dairydoctor.com",
       "telephone": "+17156532201",
       "faxNumber": "+17156534301",
@@ -96,7 +98,7 @@
   "name": "Packing and shipping your samples",
   "isPartOf": { "@id": "https://dairydoctor.com/#website" },
   "about": { "@id": "https://dairydoctor.com/#lab" },
-  "primaryImageOfPage": "https://dairydoctor.com/images/og-home.jpg",
+  "primaryImageOfPage": "https://dairydoctor.com/images/og-site.jpg",
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
@@ -437,13 +439,13 @@
             <input type="date" id="sb-ship" name="ship">
           </div>
           <div class="form-field">
-            <label for="sb-transit">Shipping</label>
+            <label for="sb-transit">How you ship</label>
             <select id="sb-transit" name="transit" aria-describedby="sb-transit-hint">
               <option value="1">Overnight</option>
               <option value="2" selected>Priority Mail, usually 2 days</option>
               <option value="3">3 days</option>
             </select>
-            <p class="muted" id="sb-transit-hint">Overnight means UPS or FedEx overnight.</p>
+            <p class="muted" id="sb-transit-hint">Days from shipping to arrival at the lab. Overnight means a next-day carrier.</p>
           </div>
           <div class="form-field">
             <label for="sb-kind">Samples</label>
@@ -455,10 +457,10 @@
           </div>
         </div>
         <div class="tool-out" aria-live="polite">
-          <p>Samples that reach the lab by Wednesday are reported Thursday. With Priority Mail, usually 2 days, ship by Monday. With UPS or FedEx overnight, ship by Tuesday. A box shipped later is in the next week's report.</p>
-          <p class="muted">The mail does not run on federal holidays, so a box that would land on a weekend or a holiday counts from the next lab day. If the report Thursday is a holiday, call <a href="tel:+17156532201">(715) 653-2201</a> for that week's report day. Ear notches and BVD blood ship cold and must reach the lab within 48 hours of collection, so they should not wait over a weekend or a holiday.</p>
+          <p>Boxes that reach the lab Monday to Wednesday are in that Thursday's report. With Priority Mail, usually 2 days, ship by Monday. With overnight shipping, ship by Tuesday. A box shipped later is in the next week's report.</p>
+          <p class="muted">The Postal Service does not deliver on federal holidays, and next-day carriers do not deliver on New Year's Day, Memorial Day, Independence Day, Labor Day, Thanksgiving or Christmas. A box that would arrive on a weekend or one of those days counts from the next lab day. If the report Thursday is a holiday, call <a href="tel:+17156532201">(715) 653-2201</a> for that week's report day. Ear notches and BVD blood ship cold and must reach the lab within 48 hours of collection, so they should not wait over a weekend or a holiday.</p>
         </div>
-        <p class="tool-actions"><button type="button" class="btn btn-outline" data-ics hidden>Add the draw and ship day to my calendar</button></p>
+        <p class="tool-actions"><button type="button" class="btn btn-outline" data-ics hidden>Add the draw and ship day to my calendar</button> <span class="tool-day" data-day hidden></span></p>
       </div>
 
       <div class="section-head" data-reveal>
@@ -473,7 +475,7 @@
         <p>The lab is staffed Monday to Friday, 8 a.m. to 4 p.m. Central. Tests run Monday to Thursday.</p>
         <p class="tool-actions"><button type="button" class="btn btn-outline" data-copy="Advanced Dairy Diagnostics &amp; Consulting, LLC, 362 310th Avenue, Frederic, WI 54837" hidden>Copy the address</button> <a class="btn btn-outline" href="addc.vcf" download>Add the lab to your contacts</a></p>
       </div>
-      <p class="biosecurity-line"><svg class="biosecurity-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span><strong>Our lab is closed to the public.</strong> For the biosecurity of every herd we test, we do not allow visitors into the laboratory. Samples come to us by mail.</span></p>
+      <p class="biosecurity-line"><strong>Our lab is closed to the public.</strong> For the biosecurity of every herd we test, we do not allow visitors into the laboratory. Samples come to us by mail.</p>
 
       <div class="section-head" data-reveal>
         <h2 id="forms">Submission forms</h2>
@@ -482,17 +484,14 @@
       <div class="tool forms-block" data-tool="chooser" id="chooser">
         <ul class="form-lines">
           <li class="form-line">
-            <svg class="icon-doc" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z"/></svg>
             <p><strong>Cattle and bison pregnancy</strong><br><span class="muted">Cattle-Bison Pregnancy Test Submission Form</span></p>
             <a class="btn btn-outline" href="ADDC%20Preg%20Submission%20Form.pdf"><svg class="icon-download" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg> Download PDF<span class="sr-only">, Cattle-Bison Pregnancy Test Submission Form</span></a>
           </li>
           <li class="form-line">
-            <svg class="icon-doc" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z"/></svg>
             <p><strong>Goats and sheep pregnancy</strong><br><span class="muted">Small Ruminant Pregnancy Test Submission Form</span></p>
             <a class="btn btn-outline" href="Farm%20Pregnancy%20Test.pdf"><svg class="icon-download" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg> Download PDF<span class="sr-only">, Small Ruminant Pregnancy Test Submission Form</span></a>
           </li>
           <li class="form-line">
-            <svg class="icon-doc" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z"/></svg>
             <p><strong>BVD PI, cattle and bison</strong><br><span class="muted">BVD PI Test Submission Form. Ear notch or blood.</span></p>
             <a class="btn btn-outline" href="BVD_PI_Test.pdf"><svg class="icon-download" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg> Download PDF<span class="sr-only">, BVD PI Test Submission Form</span></a>
           </li>
@@ -529,43 +528,49 @@
         <h2 id="barn-card">Barn card</h2>
       </div>
       <p>Everything on one page for the barn office. Print it and tape it up.</p>
-      <div class="barn-card" id="barn-card-body">
-        <p class="barn-card-name">The Dairy Doctor <span>Advanced Dairy Diagnostics &amp; Consulting, LLC</span></p>
-        <dl class="barn-card-list">
-          <div>
-            <dt>Call</dt>
-            <dd><a class="barn-card-phone" href="tel:+17156532201">(715) 653-2201</a><br>Fax (715) 653-4301. <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a>. Staffed Monday to Friday, 8 a.m. to 4 p.m. Central.</dd>
+      <details class="barn-card-details">
+        <summary class="btn btn-outline"><span class="when-shut">Show the barn card</span><span class="when-open">Hide the barn card</span></summary>
+        <div class="barn-card" id="barn-card-body">
+          <div class="barn-card-head">
+            <img class="barn-card-mark" src="images/header-mark-140.png" srcset="images/header-mark-140.png 140w, images/header-mark.png 280w" sizes="70px" width="70" height="56" alt="">
+            <p class="barn-card-name">The Dairy Doctor <span>Advanced Dairy Diagnostics &amp; Consulting, LLC</span></p>
           </div>
-          <div>
-            <dt>Ship to</dt>
-            <dd>Advanced Dairy Diagnostics &amp; Consulting, LLC, 362 310th Avenue, Frederic, WI 54837</dd>
-          </div>
-          <div>
-            <dt>When to draw</dt>
-            <dd>Cows and bison from 28 days after breeding and at least 90 days since calving. Virgin heifers from 25 days. Goats and sheep from 30 days.</dd>
-          </div>
-          <div>
-            <dt>The draw</dt>
-            <dd>At least 2cc of whole blood in a red-top tube, a new needle for each animal. Cattle and bison from the tail vein, goats and sheep from the jugular vein. Number each tube in the order of the form, and write the animal ID on it.</dd>
-          </div>
-          <div>
-            <dt>Ice</dt>
-            <dd>Pregnancy tubes need no ice. Ear notches and BVD blood ship with frozen ice packs and must reach the lab within 48 hours of collection.</dd>
-          </div>
-          <div>
-            <dt>The box</dt>
-            <dd>A sturdy box, never an envelope. Tubes in a sealed zip-lock bag with padding. Form and check (payable to ADDC) in their own bag. Write "BOVINE BLOOD and/or TISSUE SAMPLES" (or CAPRINE or OVINE BLOOD SAMPLES) and "Exempt Animal Specimen" on the outside.</dd>
-          </div>
-          <div>
-            <dt>The week</dt>
-            <dd>Tests run Monday to Thursday. Samples that reach the lab by Wednesday are reported Thursday.</dd>
-          </div>
-          <div>
-            <dt>Forms</dt>
-            <dd>Cattle-Bison Pregnancy Test Submission Form. Small Ruminant Pregnancy Test Submission Form. BVD PI Test Submission Form.</dd>
-          </div>
-        </dl>
-      </div>
+          <dl class="barn-card-list">
+            <div>
+              <dt>Call</dt>
+              <dd><a class="barn-card-phone" href="tel:+17156532201">(715) 653-2201</a><br>Fax (715) 653-4301. <a href="mailto:info@dairydoctor.com">info@dairydoctor.com</a>. Staffed Monday to Friday, 8 a.m. to 4 p.m. Central.</dd>
+            </div>
+            <div>
+              <dt>Ship to</dt>
+              <dd>Advanced Dairy Diagnostics &amp; Consulting, LLC, 362 310th Avenue, Frederic, WI 54837</dd>
+            </div>
+            <div>
+              <dt>When to draw</dt>
+              <dd>Cows and bison from 28 days after breeding and at least 90 days since calving. Virgin heifers from 25 days. Goats and sheep from 30 days.</dd>
+            </div>
+            <div>
+              <dt>The draw</dt>
+              <dd>At least 2cc of whole blood in a red-top tube, a new needle for each animal. Cattle and bison from the tail vein, goats and sheep from the jugular vein. Number each tube in the order of the form, and write the animal ID on it.</dd>
+            </div>
+            <div>
+              <dt>Ice</dt>
+              <dd>Pregnancy tubes need no ice. Ear notches and BVD blood ship with frozen ice packs and must reach the lab within 48 hours of collection.</dd>
+            </div>
+            <div>
+              <dt>The box</dt>
+              <dd>A sturdy box, never an envelope. Tubes in a sealed zip-lock bag with padding. Form and check (payable to ADDC) in their own bag. Write "BOVINE BLOOD and/or TISSUE SAMPLES" (or CAPRINE or OVINE BLOOD SAMPLES) and "Exempt Animal Specimen" on the outside.</dd>
+            </div>
+            <div>
+              <dt>The week</dt>
+              <dd>Tests run Monday to Thursday. Samples that reach the lab by Wednesday are reported Thursday.</dd>
+            </div>
+            <div>
+              <dt>Forms</dt>
+              <dd>Cattle-Bison Pregnancy Test Submission Form. Small Ruminant Pregnancy Test Submission Form. BVD PI Test Submission Form.</dd>
+            </div>
+          </dl>
+        </div>
+      </details>
       <p class="tool-actions"><button type="button" class="btn btn-outline" data-print="#barn-card-body" hidden>Print the barn card</button></p>
 
       <div class="section-head" data-reveal>

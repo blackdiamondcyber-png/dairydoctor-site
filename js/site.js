@@ -1,5 +1,5 @@
-/* Advanced Dairy Diagnostics & Consulting: navigation, header shadow and
-   scroll motion (progressive enhancement). No dependencies. Every menu is a
+/* Advanced Dairy Diagnostics & Consulting: navigation, the barn card
+   disclosure and scroll motion (progressive enhancement). No dependencies. Every menu is a
    <details>, so the site navigates fully without this file, and
    [data-reveal] content is visible through CSS alone. */
 (function () {
@@ -87,35 +87,29 @@
     a.href += '&body=' + encodeURIComponent(url);
   });
 
-  /* Header shadow once the page scrolls. Runs for everyone, including
-     visitors who ask for reduced motion (it is not motion). A marker 8 px
-     tall at the top of the page is watched, so nothing is measured while
-     the page loads; browsers without IntersectionObserver fall back to a
-     scroll listener. */
-  var header = document.querySelector('.site-header');
-  var hasIO = 'IntersectionObserver' in window;
-  if (header && hasIO) {
-    var mark = document.createElement('div');
-    mark.className = 'scroll-mark';
-    mark.setAttribute('aria-hidden', 'true');
-    document.body.insertBefore(mark, document.body.firstChild);
-    new IntersectionObserver(function (entries) {
-      header.classList.toggle('scrolled', !entries[entries.length - 1].isIntersecting);
-    }).observe(mark);
-  } else if (header) {
-    document.addEventListener(
-      'scroll',
-      function () {
-        header.classList.toggle('scrolled', window.scrollY > 8);
-      },
-      { passive: true }
-    );
+  /* Barn card (shipping_test.html, <details class="barn-card-details">): shut
+     behind "Show the barn card" on phones, open from 768 px (R4 ruling 11),
+     and always open on paper. Without this file it starts shut everywhere
+     and one tap opens it. */
+  var barn = document.querySelector('.barn-card-details');
+  if (barn) {
+    var wide = window.matchMedia ? window.matchMedia('(min-width: 768px)') : null;
+    if (wide && wide.matches) barn.open = true;
+    var barnWasOpen = null;
+    window.addEventListener('beforeprint', function () {
+      barnWasOpen = barn.open;
+      barn.open = true;
+    });
+    window.addEventListener('afterprint', function () {
+      if (barnWasOpen !== null) barn.open = barnWasOpen;
+      barnWasOpen = null;
+    });
   }
 
   /* Scroll reveal: skipped for reduced motion and for browsers without
      IntersectionObserver; content then simply shows. */
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion || !hasIO) return;
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
 
   var revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
   if (!revealEls.length) return;

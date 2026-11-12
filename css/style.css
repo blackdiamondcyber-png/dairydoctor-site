@@ -46,17 +46,14 @@
   /* Type */
   --font-display: 'Sora', -apple-system, 'Segoe UI', Arial, sans-serif;
   --font-body: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-  /* Small labels borrow the lockup's engraved serif (BRAN-R1-12). */
-  --font-label: Georgia, 'Times New Roman', Times, serif;
-  --tint: rgba(51, 102, 102, 0.07); /* teal wash for notices; reads on white and on mint */
-  /* Shape and elevation: one radius for every box, card, figure and drawing.
-     Square-cornered like the lockup's rectangular frame (ruling 12). */
+  /* Shape: one 4 px radius for every box, card, button, field and figure.
+     Square-cornered like the lockup's rectangular frame. No pills, no shadows (R4 ruling 10). */
   --radius: 4px;
-  /* The card frame: a thin double rule, the lockup's engraved manner (ruling 12). */
+  /* The two containers (R4 ruling 10). 1: the frame, a thin double rule in the lockup's
+     engraved manner, for cards, tools, rail cards and the report card. 2: the ruled
+     callout, one rust rule on the left (see "Ruled callout" below). */
   --frame: 3px double var(--line-strong);
-  --radius-pill: 999px;
-  --shadow-sm: 0 1px 3px rgba(27, 39, 39, 0.14);
-  --shadow-md: 0 10px 28px rgba(27, 39, 39, 0.2);
+  --callout-rule: 4px solid var(--rust);
   --focus-ring: var(--teal-deep);
   /* Layout */
   --gutter: 1rem;          /* 16 px side gutter on phones */
@@ -229,30 +226,33 @@ b {
 }
 
 /* -------------------- Small labels -------------------- */
-/* One label face for the hero eyebrow, "Step 1", menu and footer headings
-   and rail headings: the lockup's serif in small caps, letter-spaced.
-   Headings stay Sora. Text is written in sentence case; the small caps do
-   the rest, so no text-transform. Photo credits are NOT in this group: they
-   sit in their caption's own face (see .credit). */
+/* One label style (R4 ruling 10, BRAN-R3-09): the hero eyebrow, "Step 1",
+   "On this page", menu, footer and rail headings and the barn card's row
+   names. Sora 600, capitals, 0.08em tracking, rust. The ruling's 0.75rem is
+   raised to 0.875rem to keep the 14 px floor. Text is written in sentence
+   case; text-transform sets the capitals. No small caps anywhere (the old
+   serif faked them). Footer headings stay white: rust fails AA on deep teal.
+   Photo credits are NOT in this group (see .credit). */
 .eyebrow,
 .label,
 .step-num,
 .stepper-num,
 .nav-menu-heading,
-.footer-heading {
-  font-family: var(--font-label);
-  font-variant-caps: small-caps;
-  font-weight: 700;
+.footer-heading,
+.jump-row > span,
+.barn-card-list dt {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
   letter-spacing: 0.08em;
-  text-transform: none;
+  text-transform: uppercase;
+  color: var(--rust);
 }
 
 .eyebrow,
 .label {
   display: block;
-  color: var(--rust);
-  font-size: 1.0625rem;
-  line-height: 1.3;
   margin-bottom: 0.4rem;
 }
 
@@ -283,9 +283,9 @@ h1 + .section-head,
   border: 0;
 }
 
-/* "On this page": plain links in a ruled grid, no pills (ruling 12). The
-   label takes the first row in the small-caps label face; each link sits on
-   a hairline, and the row closes on one. Same markup as before. */
+/* "On this page": links in a ruled grid. The label takes the first row; each
+   link sits on a hairline, in link colour with a small down arrow, so on a
+   phone the rows read as links (R4 ruling 10, TECH-R3-12). Same markup as before. */
 .jump-row {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
@@ -300,28 +300,75 @@ h1 + .section-head,
 .jump-row > span {
   grid-column: 1 / -1;
   padding-bottom: 0.3rem;
-  font-family: var(--font-label);
-  font-variant-caps: small-caps;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--rust);
-  font-size: 1.0625rem;
 }
 
-.jump-row a {
+.jump-row a,
+.link-rows a {
   display: flex;
   align-items: center;
+  gap: 0.5em;
   min-height: 44px;
   padding-block: 0.2rem;
   border-top: 1px solid var(--ice);
-  color: var(--teal-deep);
+  color: var(--link);
+  font-weight: 600;
   text-decoration: none;
 }
 
 .jump-row a:hover,
-.jump-row a:focus-visible {
+.jump-row a:focus-visible,
+.link-rows a:hover,
+.link-rows a:focus-visible {
   color: var(--rust);
   text-decoration: underline;
+}
+
+/* The arrow: a small chevron drawn in the link's colour. Down for a jump on
+   the same page, right for a link to another page. */
+.jump-row a::after,
+.link-rows a::after {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.link-rows a::after {
+  margin-left: auto;
+  transform: rotate(-45deg);
+}
+
+/* Home: three plain links in place of the old "What the lab does" card grid
+   (R4 ruling 7). One per row on a phone, three across from 780 px. */
+.link-rows {
+  list-style: none;
+  max-width: var(--measure);
+  margin-top: 1rem;
+  padding: 0;
+  border-bottom: 1px solid var(--ice);
+}
+
+main .link-rows li + li {
+  margin-top: 0;
+}
+
+.link-rows a {
+  min-height: 52px;
+  padding-block: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+}
+
+@media (min-width: 780px) {
+  .link-rows {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    max-width: none;
+  }
 }
 
 .faq-empty {
@@ -384,7 +431,7 @@ button {
   background: var(--ink);
   color: #ffffff;
   padding: 0.85em 1.25em;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 var(--radius) var(--radius);
   z-index: 1000;
   text-decoration: none;
   font-weight: 700;
@@ -477,7 +524,6 @@ section + section {
 
 .rail-card .label {
   margin: 0 0 0.25rem;
-  font-size: 1rem;
 }
 
 .rail-card p {
@@ -501,7 +547,7 @@ section + section {
   min-height: 44px;
   padding: 0.2rem 0.5rem;
   margin-inline: -0.5rem;
-  border-radius: 6px;
+  border-radius: var(--radius);
   color: var(--teal-deep);
   text-decoration: none;
 }
@@ -548,20 +594,8 @@ section + section {
   background: var(--teal);
 }
 
-.site-header.scrolled {
-  box-shadow: 0 4px 14px rgba(18, 30, 30, 0.28);
-}
-
-/* js/site.js adds this marker at the top of the page and watches it to
-   know when the page has scrolled (the header shadow above). */
-.scroll-mark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 8px;
-  pointer-events: none;
-}
+/* No header shadow once the page scrolls (no shadows, R4 ruling 10): the
+   solid teal bar stands apart from the page on its own. */
 
 .brand-row {
   display: flex;
@@ -631,7 +665,7 @@ section + section {
   min-height: 44px;
   padding: 0 10px;
   border: 2px solid #ffffff;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   color: #ffffff;
   font-family: var(--font-display);
   font-weight: 600;
@@ -673,7 +707,7 @@ section + section {
   padding: 0.25rem var(--gutter) 1rem;
   background: #ffffff;
   border-top: 1px solid var(--ice);
-  box-shadow: var(--shadow-md);
+  border-bottom: var(--frame);
   max-height: calc(100dvh - var(--header-h));
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -682,9 +716,6 @@ section + section {
 .nav-menu-heading {
   margin: 0.9rem 0 0.15rem;
   max-width: none;
-  font-size: 1.0625rem;
-  line-height: 1.3;
-  color: var(--rust);
 }
 
 .nav-menu-list {
@@ -702,7 +733,7 @@ section + section {
   align-items: center;
   min-height: 44px;
   padding: 0.25rem 0.5rem;
-  border-radius: 6px;
+  border-radius: var(--radius);
   color: var(--ink);
   font-size: 1rem;
   font-weight: 500;
@@ -720,7 +751,8 @@ section + section {
   font-weight: 700;
 }
 
-/* Call button: a 44 px round icon on phones, a pill with the number from 600 px */
+/* Call button: a 44 px square icon on phones, the number beside it from 600 px.
+   4 px corners like every button (R4 ruling 10). */
 .call-button {
   flex: none;
   display: inline-flex;
@@ -731,7 +763,7 @@ section + section {
   height: 44px;
   padding: 0;
   border: 2px solid #ffffff;
-  border-radius: 50%;
+  border-radius: var(--radius);
   background: var(--teal);
   color: #ffffff;
   font-family: var(--font-display);
@@ -779,7 +811,6 @@ section + section {
     height: auto;
     min-height: 44px;
     padding: 0 16px;
-    border-radius: var(--radius-pill);
   }
   .call-button .icon-phone {
     width: 20px;
@@ -877,8 +908,8 @@ section + section {
     min-width: 15rem;
     padding: 0.5rem;
     background: #ffffff;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    border: var(--frame);
+    border-radius: var(--radius);
   }
   /* The Tests menu: two headed groups side by side ("Tests" and "By herd"). */
   .nav-panel-groups {
@@ -906,7 +937,7 @@ section + section {
   min-height: 44px;
   padding: 0.7em 1.3em;
   border: 2px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1rem;
@@ -914,7 +945,7 @@ section + section {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
 /* Primary is solid teal. Every button surface is light now (the hero panel
@@ -997,7 +1028,7 @@ section + section {
   color: #ffffff;
   font-size: 0.875rem;
   line-height: 1.3;
-  border-radius: 6px;
+  border-radius: var(--radius);
 }
 
 /* Light hero panel (BRAN-R1-12, constraint 10): white ground, deep teal
@@ -1019,12 +1050,11 @@ section + section {
 }
 
 /* One line on a desktop screen, never a stranded last word (ruling 9).
-   Measured: 417 px of text in a 425 px panel at 1100, 457 px from 1200. */
+   Checked 12 Nov in the R4 label style (Sora capitals, 14 px): one line
+   inside the panel at 1100 and 1280 px, no sideways scroll. */
 @media (min-width: 1100px) {
   .hero-eyebrow {
     white-space: nowrap;
-    font-size: 1rem;
-    letter-spacing: 0.03em;
   }
 }
 
@@ -1037,8 +1067,9 @@ section + section {
   letter-spacing: -0.01em;
 }
 
+/* The rust underline is a painted band, not a shadow (no shadows, R4 ruling 10). */
 .hero-panel .hl {
-  box-shadow: inset 0 -0.16em 0 0 var(--rust);
+  background: linear-gradient(var(--rust), var(--rust)) left bottom / 100% 0.16em no-repeat;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -1122,8 +1153,8 @@ section + section {
 
 .hero-stats-card {
   background: var(--card);
+  border: var(--frame);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -1267,8 +1298,7 @@ section + section {
   background: var(--card);
   border: var(--frame);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  transition: border-color 0.18s ease;
 }
 
 .door-card picture {
@@ -1316,7 +1346,6 @@ section + section {
 .door-card:hover,
 .door-card:focus-within {
   border-color: var(--teal);
-  box-shadow: var(--shadow-md);
 }
 
 .door-card:hover .door-link {
@@ -1432,7 +1461,7 @@ section + section {
 .res {
   display: inline-block;
   padding: 0.15em 0.6em;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   font-weight: 700;
   font-size: 0.875rem;
   white-space: nowrap;
@@ -1448,9 +1477,8 @@ section + section {
   margin: 0;
   padding: 1.25rem;
   background: #ffffff;
-  border: 1px solid var(--line-strong);
-  border-radius: 4px;
-  box-shadow: var(--shadow-md);
+  border: var(--frame);
+  border-radius: var(--radius);
 }
 
 .report-stamp {
@@ -1588,16 +1616,28 @@ section + section {
   }
 }
 
-/* -------------------- 3.8b Honest-limits block -------------------- */
+/* -------------------- 3.8b The ruled callout -------------------- */
+
+/* The second of the site's two containers (R4 ruling 10, BRAN-R3-06): a
+   white ground and one rust rule on the left, square, no other border and no
+   shadow. It replaces the rust-top closing box, the teal-ruled limits block,
+   the grey lock notice and the herd-list notice. Each class below keeps only
+   its own spacing. */
+.limits-block,
+.biosecurity-line,
+.next-step,
+.first-box-note,
+.list-notice {
+  max-width: var(--measure);
+  background: var(--card);
+  border: 0;
+  border-left: var(--callout-rule);
+  border-radius: 0;
+}
 
 .limits-block {
-  max-width: var(--measure);
   margin-top: 1.5rem;
   padding: 1.1rem 1.4rem 1.25rem;
-  background: var(--card);
-  border: 1px solid var(--ice);
-  border-left: 4px solid var(--teal);
-  border-radius: var(--radius);
 }
 
 .limits-block h3 {
@@ -1609,32 +1649,16 @@ section + section {
   margin-top: 0.5rem;
 }
 
-/* -------------------- 3.8c Plain biosecurity line -------------------- */
-
-/* A notice, not a footnote: body-size text, a teal rule and a visible wash
-   on both white cards and the mint page. */
+/* The lab-closed notice: body-size text in a ruled callout. The lock glyph
+   is retired (R4 ruling 10); until a page drops its <svg>, it is hidden. */
 .biosecurity-line {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  max-width: var(--measure);
   margin-top: 1.25rem;
   padding: 0.85rem 1rem;
-  background: var(--tint);
-  border-left: 4px solid var(--teal);
-  border-radius: 0 var(--radius) var(--radius) 0;
   line-height: 1.55;
 }
 
-.biosecurity-line span {
-  flex: 1;
-  min-width: 0;
-}
-
 .biosecurity-icon {
-  flex: none;
-  margin-top: 0.15rem;
-  color: var(--teal);
+  display: none;
 }
 
 /* -------------------- 3.9 Repaired About card (home) -------------------- */
@@ -1658,13 +1682,14 @@ section + section {
   display: block;
 }
 
+/* Cropped to the barn and the cows, with little sky (R4 ruling 2, TECH-R3-11). */
 .about-teaser-photo .about-img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  object-position: 45% 55%;
+  object-position: 30% 85%;
 }
 
 .about-body {
@@ -1688,12 +1713,19 @@ section + section {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     align-items: stretch;
   }
+  /* The photo fills a cell as tall as the text beside it. The card text is
+     kept short (the closed-to-visitors line is in the footer just below), so
+     the cell stays under the 480 px cap for content photos (R4 ruling 2).
+     No zoom: the 1280 px file covers the cell without being enlarged. */
   .about-teaser-photo picture {
     height: 100%;
+    max-height: 480px;
+    overflow: hidden;
   }
   .about-teaser-photo .about-img {
     height: 100%;
     aspect-ratio: auto;
+    object-position: 25% 100%;
   }
   .about-body {
     align-self: center;
@@ -1717,6 +1749,18 @@ section + section {
   border: 1px solid var(--ice);
   border-radius: var(--radius);
   background: var(--card);
+}
+
+/* Content photographs stand at most 480 px tall from 640 px (R4 ruling 2,
+   TECH-R3-11). A tall photo then narrows to keep its shape instead of
+   filling the screen; width and height stay automatic so it never stretches. */
+@media (min-width: 640px) {
+  .figure img,
+  .figure-wide img {
+    width: auto;
+    max-width: 100%;
+    max-height: 480px;
+  }
 }
 
 .figure figcaption,
@@ -1779,6 +1823,14 @@ section + section {
 main h2,
 .engraved-rule,
 .next-step {
+  clear: both;
+}
+
+/* A side figure beside a short list (About's career list): the paragraph
+   after the list starts below the photo at full width, never half beside
+   it (TECH-R3-10, CUST-R3-05). */
+.figure-side + ul + p,
+.figure-side + ol + p {
   clear: both;
 }
 
@@ -1899,22 +1951,20 @@ main h2,
   border-bottom: 1px solid var(--ice);
 }
 
+/* The step number: a rust figure in Sora on the step's first line, no
+   filled circle (BRAN-R3-06). The line box matches the body text's, so the
+   two share a baseline. */
 .steps > li::before {
   content: counter(step);
   position: absolute;
   left: 0;
   top: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.9rem;
-  height: 1.9rem;
-  border-radius: 50%;
-  background: var(--teal);
-  color: #ffffff;
+  width: 2.25rem;
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: calc(1.125rem * 1.65);
+  color: var(--rust);
 }
 
 .steps > li > :first-child {
@@ -1925,7 +1975,7 @@ main h2,
    "Step 1" labels. From 640 px: framed cards, two by two; from 960 px: four
    in one row. The form buttons live in their own row under the steps, so
    the cards are short and share one height (ruling 10). No step icons
-   (ruling 12): the small-caps "Step 1" labels number them. */
+   (ruling 12): the "Step 1" labels number them. */
 .steps-4 > li {
   padding: 0.85rem 0;
 }
@@ -1968,9 +2018,6 @@ main h2,
 .step-num {
   display: block;
   margin-bottom: 0.2rem;
-  font-size: 1.0625rem;
-  line-height: 1.3;
-  color: var(--rust);
 }
 
 /* -------------------- 3.11b Home: the submission forms row under the steps -------------------- */
@@ -2062,14 +2109,10 @@ main h2,
 
 /* -------------------- 3.12 Next step, first-box note, BioPRYN mark -------------------- */
 
+/* A ruled callout (see 3.8b); this sets only its spacing. */
 .next-step {
-  max-width: var(--measure);
   margin-top: 3rem;
   padding: 1.5rem;
-  background: var(--card);
-  border: 1px solid var(--ice);
-  border-top: 4px solid var(--rust);
-  border-radius: var(--radius);
 }
 
 /* Closing boxes span the reading column on inner pages; the home page's
@@ -2104,12 +2147,8 @@ main h2,
 }
 
 .first-box-note {
-  max-width: var(--measure);
   margin-top: 1.25rem;
   padding: 0.8rem 1rem;
-  background: var(--card);
-  border-left: 4px solid var(--rust);
-  border-radius: 0 var(--radius) var(--radius) 0;
   font-size: 1rem;
 }
 
@@ -2119,7 +2158,7 @@ main h2,
   padding: 0.4rem 0.6rem;
   background: #ffffff;
   border: 1px solid var(--ice);
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 /* -------------------- 3.12b Engraved rule -------------------- */
@@ -2180,17 +2219,15 @@ main h2,
   border: var(--frame);
   border-radius: var(--radius);
   padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  transition: border-color 0.18s ease;
 }
 
-/* Same hover as the door cards: border and shadow, no lift. */
+/* Same hover as the door cards: the border darkens, no shadow, no lift. */
 .card:hover,
 .card:focus-within {
-  box-shadow: var(--shadow-md);
   border-color: var(--teal);
 }
 
@@ -2318,15 +2355,15 @@ address p {
   margin-top: auto;
 }
 
-/* The form glyph in brand teal, not black (BRAN-R2-06). */
+/* No file glyphs on form rows (R4 ruling 10): the word PDF says it. Until a
+   page drops its <svg class="icon-doc">, it is hidden. */
 .icon-doc {
-  flex: none;
-  color: var(--teal);
+  display: none;
 }
 
 /* Packing page: the three forms and the "which form?" chooser in one block
    (CUST-R2-09, TECH-R2-06). One row per form; the button drops under the
-   name on a phone and sits at the end of the row from 600 px. */
+   name on a phone and sits at the end of the row from 600 px. No glyph column. */
 .form-lines {
   list-style: none;
   margin: 0;
@@ -2335,7 +2372,7 @@ address p {
 
 .form-line {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: 0.5rem 0.75rem;
   padding: 0.9rem 0;
@@ -2351,17 +2388,12 @@ address p {
 }
 
 .form-line .btn {
-  grid-column: 2;
   justify-self: start;
 }
 
 @media (min-width: 600px) {
   .form-line {
-    grid-template-columns: auto 1fr auto;
-  }
-
-  .form-line .btn {
-    grid-column: auto;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 }
 
@@ -2376,7 +2408,60 @@ address p {
 
 /* -------------------- Barn card (shipping_test.html, R3 plan item 7) --------------------
    One framed card with the lab's routine on it, printed on its own by the
-   "Print the barn card" button (data-print, js/tools.js printFocus). */
+   "Print the barn card" button (data-print, js/tools.js printFocus).
+   R4 ruling 11: on phones it sits behind a "Show the barn card" disclosure
+   (<details class="barn-card-details">); js/site.js opens it from 768 px and
+   before printing. R4 ruling 12: the cow mark heads the card. */
+.barn-card-details {
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+}
+
+.barn-card-details > summary {
+  list-style: none;
+}
+
+.barn-card-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.barn-card-details > summary::after {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.barn-card-details[open] > summary::after {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.barn-card-details .when-open,
+.barn-card-details[open] .when-shut {
+  display: none;
+}
+
+.barn-card-details[open] .when-open {
+  display: inline;
+}
+
+.barn-card-details > .barn-card {
+  margin-top: 0.75rem;
+}
+
+/* From 768 px the card is simply open (js/site.js); the toggle steps aside. */
+@media (min-width: 768px) {
+  .barn-card-details[open] > summary {
+    display: none;
+  }
+  .barn-card-details[open] > .barn-card {
+    margin-top: 0;
+  }
+}
+
 .barn-card {
   max-width: var(--measure);
   margin-top: 1.25rem;
@@ -2384,6 +2469,19 @@ address p {
   background: var(--card);
   border: var(--frame);
   border-radius: var(--radius);
+}
+
+/* The card's head: the cow mark at the top left, the lab's name beside it. */
+.barn-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.barn-card-mark {
+  flex: none;
+  width: 70px;
+  height: 56px;
 }
 
 .barn-card-name {
@@ -2410,16 +2508,6 @@ address p {
 .barn-card-list > div {
   padding: 0.6rem 0;
   border-top: 1px solid var(--ice);
-}
-
-.barn-card-list dt {
-  font-family: var(--font-label);
-  font-variant-caps: small-caps;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  font-size: 1.0625rem;
-  line-height: 1.3;
-  color: var(--rust);
 }
 
 .barn-card-list dd {
@@ -2466,8 +2554,21 @@ address p {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem 1.25rem;
+  gap: 0.5rem 1.25rem;
   margin-top: 0.85rem;
+}
+
+/* The draw-and-ship day as plain text beside the calendar file button, for a
+   phone whose calendar will not open the file (R4 ruling 4, TECH-R3-04).
+   js/tools.js fills and shows [data-day] (it adds a span.tool-day after the
+   button when the page has none); one tap selects the whole line to copy. */
+.tool-day,
+[data-day] {
+  margin: 0;
+  font-weight: 600;
+  color: var(--teal-deep);
+  -webkit-user-select: all;
+  user-select: all;
 }
 
 /* -------------------- Inquiry form (contact.html) -------------------- */
@@ -2526,7 +2627,7 @@ address p {
   padding: 0.7em 0.9em;
   min-height: 44px;
   border: 2px solid var(--line-strong);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--card);
   color: var(--ink);
   width: 100%;
@@ -2627,7 +2728,7 @@ address p {
   display: block;
   width: 220px;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 /* The lockup spells the legal name, so no name line repeats it underneath. */
@@ -2638,8 +2739,6 @@ address p {
 }
 
 .footer-heading {
-  font-size: 1.0625rem;
-  line-height: 1.3;
   color: #ffffff;
 }
 
@@ -2662,9 +2761,14 @@ address p {
   font-size: 1rem;
 }
 
+/* Same size as the page links beside it, so the column reads as one block. */
+.footer-contact address p {
+  font-size: 1rem;
+}
+
 .footer-contact address p > a {
   display: inline-block;
-  padding-block: 0.45rem;
+  padding-block: 0.6rem; /* 44 px tall at the 1rem address size */
 }
 
 .footer-biosecurity {
@@ -2689,13 +2793,20 @@ address p {
   margin-block: -0.75rem;
 }
 
+/* Two columns at every width, phones too: the one-column list ran about
+   1,300 px on a phone (R4 ruling 11, CUST-R3-08). */
+.footer-links {
+  columns: 2;
+  column-gap: 1.25rem;
+}
+
+.footer-links li {
+  break-inside: avoid;
+}
+
 @media (min-width: 480px) {
   .footer-links {
-    columns: 2;
     column-gap: 1.5rem;
-  }
-  .footer-links li {
-    break-inside: avoid;
   }
 }
 
@@ -2971,8 +3082,7 @@ address p {
   }
 
   .steps > li::before {
-    background: #000000;
-    color: #ffffff;
+    color: #000000;
   }
 
   .site-footer {
@@ -3123,9 +3233,6 @@ address p {
 
 .stepper-num {
   margin-top: 1rem;
-  color: var(--rust);
-  font-size: 1.0625rem;
-  line-height: 1.3;
 }
 
 .stepper-text {
@@ -3178,8 +3285,6 @@ address p {
 .stepper-nav .btn[disabled] {
   opacity: 0.45;
   cursor: default;
-  transform: none;
-  box-shadow: none;
 }
 
 /* FAQ accordions */
@@ -3290,6 +3395,11 @@ address p {
    so the title js/tools.js writes into data-print-title is not printed (it
    would repeat the phone number). */
 @media print {
+  /* The screen's full-height body plus the card's top margin ran past one
+     Letter page and printed a blank second sheet; paper needs no minimum. */
+  body.print-focus {
+    min-height: 0;
+  }
   body.print-focus .hero,
   body.print-focus .site-footer,
   body.print-focus main > *:not(:has(.print-target)),
@@ -3321,6 +3431,29 @@ address p {
     min-height: 0;
     font-size: 24pt;
   }
+  /* The taped-up card carries its own head (cow mark and name), so the
+     generic letterhead stays off it and the phone prints once, large, in the
+     Call row (R4 ruling 12, BRAN-R3-10). */
+  body.print-focus:has(.barn-card.print-target) .print-letterhead {
+    display: none !important;
+  }
+  body.print-focus .barn-card.print-target .barn-card-mark {
+    width: 0.95in;
+    height: auto;
+  }
+}
+
+/* The barn card disclosure prints open with no toggle, even if a browser
+   prints without js/site.js opening it first. Its own rule, like the FAQ's:
+   a browser that does not know ::details-content drops only this one. */
+@media print {
+  .barn-card-details > summary {
+    display: none !important;
+  }
+  .barn-card-details::details-content {
+    content-visibility: visible;
+    display: contents;
+  }
 }
 
 /* -------------------- Herd list sheets (herd-list.html, js/tools.js section 9 and 11) --------------------
@@ -3330,13 +3463,10 @@ address p {
    page prints. <body class="list-page" data-sheets="list"> prints the filled
    sheets; without that attribute (no list yet, or no JavaScript) the blank
    sheet prints. */
+/* A ruled callout (see 3.8b); this sets only its spacing. */
 .list-notice {
-  max-width: var(--measure);
   margin-top: 1rem;
   padding: 0.85rem 1rem;
-  background: var(--tint);
-  border-left: 4px solid var(--teal);
-  border-radius: 0 var(--radius) var(--radius) 0;
   font-weight: 600;
 }
 
