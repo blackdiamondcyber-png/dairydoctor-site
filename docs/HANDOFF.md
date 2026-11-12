@@ -12,16 +12,22 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
   rail on inner pages from 1100 px, a light hero with a new working photograph, date tools that
   know federal holidays, a cow-only header mark, fewer and more relevant photographs (seven
   pages lead with a drawing), 82 unused image files removed.
-- Local checks on the round 2 build: site check 15 pages, 0 problems; tool tests 218 of 218;
-  behaviour checks 407 of 407; axe 0 violations at 375 and 1280 px; Lighthouse performance 99
-  to 100, accessibility 100, best practices 100, SEO 100 (`thanks.html` and `404.html` are
-  noindex on purpose).
+- Round 3 build (12 Nov): "Submission forms" in every menu and footer, a contact form that
+  takes a phone number or an email, a printable barn card, add-to-calendar on the date tools,
+  holiday wording ("the mail does not run"), a print letterhead, a new home hero (a dairy
+  farmer with his Holstein herd), one cow drawing in the header mark, favicons and lockup, six
+  redrawn engraved plates, and `herd-list.html` (a printable animal list sheet; deliberately
+  unlinked and noindex until Dr. Pearson agrees to take list sheets).
+- Local checks on the round 3 build: site check 16 pages, 0 problems; tool tests 365 of 365;
+  behaviour checks 443 of 443; axe 0 violations at 375 and 1280 px; Lighthouse performance,
+  accessibility and best practices 100, SEO 100 (`thanks.html`, `404.html` and `herd-list.html`
+  are noindex on purpose).
 - Working files live in `.work/` on the G7 only (git-ignored). If it exists, read
   `.work/2026-11-11/STATE.md` first, from "RUNNING STATE 5" onward: decisions, file map, next steps.
-- Review scores so far: round 1 was 74, 80.5 and 82 out of 100. The bar is 95 each.
-- Next: score round 2 with the same three reviewers, then build round 3 from
-  `.work/2026-11-11/r3/R3-PLAN.md` (ranked changes that stay inside every constraint), check,
-  push, score, and repeat until each reviewer is at 95 or more (constraint 15).
+- Review scores so far: round 1 was 74, 80.5 and 82; round 2 was 84.5, 90 and 88. The bar is
+  95 each.
+- Next: score round 3 with the same three reviewers, fix what they find, and repeat until each
+  reviewer is at 95 or more (constraint 15).
 - Tool arguments: `behavior_check.js`, `shoot.js` and `lh_run.py` take page names WITHOUT
   `.html`.
 - Capturing pages: take slices by scrolling inside the viewport. Capturing beyond the viewport

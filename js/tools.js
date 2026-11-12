@@ -220,7 +220,9 @@
     return '<p class="muted">' + MARGIN[n] + "</p>";
   }
   function closedSentence(d) {
-    return closedIs(d) + (closedLabel(d) === "a day the lab is closed" ? "." : ", and the lab is closed.");
+    /* A federal holiday is named for the mail, never as a lab closing: the
+       owner has not said which days the lab is shut. */
+    return closedIs(d) + (closedLabel(d) === "a day the lab is closed" ? "." : " and the mail does not run.");
   }
   /* Why a box that lands on a weekend or closed day counts from a later day. */
   function rollText(plan) {
@@ -239,26 +241,32 @@
     return Object.prototype.hasOwnProperty.call(WAIT, v) ? v : "cattle";
   }
 
+  /* An answer that names no ship day. */
+  function say(html) {
+    return { html: html, ship: null, form: "" };
+  }
   /* bredValue and calvedValue are "YYYY-MM-DD" or "" (the calving date is
-     read for cows only); transitValue is "1", "2" or "3"; today is a Date. */
-  function timingAnswer(speciesValue, bredValue, calvedValue, transitValue, today) {
+     read for cows only); transitValue is "1", "2" or "3"; today is a Date.
+     Returns { html, ship, form }: ship is the draw-and-ship day (a Date) when
+     the answer names one, otherwise null; form is the submission form's name. */
+  function timingResult(speciesValue, bredValue, calvedValue, transitValue, today) {
     var kind = speciesKind(speciesValue);
     today = startOfDay(today);
 
-    if (!bredValue) return '<p class="muted">Enter the breeding date to see the earliest sample date.</p>';
+    if (!bredValue) return say('<p class="muted">Enter the breeding date to see the earliest sample date.</p>');
     var d = parseDate(bredValue);
-    if (!d) return '<p class="muted">Enter the full breeding date, with a four-digit year.</p>';
+    if (!d) return say('<p class="muted">Enter the full breeding date, with a four-digit year.</p>');
     var since = daysBetween(d, today);
-    if (since < -90) return "<p>That breeding date is more than 90 days ahead. Check the date.</p>";
+    if (since < -90) return say("<p>That breeding date is more than 90 days ahead. Check the date.</p>");
     if (since > LIMIT[kind])
-      return "<p>That breeding date is more than " + LIMIT[kind] + " days ago. Check the date. If it is right, call the lab before you sample, at " + PHONE + ".</p>";
+      return say("<p>That breeding date is more than " + LIMIT[kind] + " days ago. Check the date. If it is right, call the lab before you sample, at " + PHONE + ".</p>");
 
     var c = null;
     if (kind === "cattle" && calvedValue) {
       c = parseDate(calvedValue);
-      if (!c) return '<p class="muted">Enter the full calving date, with a four-digit year, or leave it blank.</p>';
-      if (daysBetween(c, today) < 0) return "<p>That calving date is in the future. Check the date, or leave it blank.</p>";
-      if (daysBetween(c, d) < 0) return "<p>The calving date is after the breeding date. Check both dates.</p>";
+      if (!c) return say('<p class="muted">Enter the full calving date, with a four-digit year, or leave it blank.</p>');
+      if (daysBetween(c, today) < 0) return say("<p>That calving date is in the future. Check the date, or leave it blank.</p>");
+      if (daysBetween(c, d) < 0) return say("<p>The calving date is after the breeding date. Check both dates.</p>");
     }
 
     var wait = WAIT[kind];
@@ -273,10 +281,15 @@
     }
 
     var days = transitDays(transitValue);
-    var start = earliest > today ? earliest : today;
+    var ready = earliest <= today;
+    var start = ready ? today : earliest;
     var p = firstGoodShip(start, days);
+    var ship = null;
     if (p) {
-      html += "<p>Draw and ship on " + fmt(p.ship) + ". " + TRANSIT_LEAD[days] + " should arrive " + fmt(p.arrive) +
+      ship = p.ship;
+      /* Today or past: say she can be sampled, then why the ship day waits. */
+      html += "<p>" + (ready ? "She can be sampled now. The lab takes boxes Monday to Wednesday, so draw and ship on " : "Draw and ship on ") +
+        fmt(p.ship) + ". " + TRANSIT_LEAD[days] + " should arrive " + fmt(p.arrive) +
         (p.reportClosed ? "." : " and be reported " + fmt(p.report) + ".") + "</p>";
       if (p.reportClosed) html += reportClosedHtml(p.report);
       html += marginHtml(p, days);
@@ -286,18 +299,23 @@
 
     if (kind === "small") html += '<p class="muted">For does and ewes that kidded or lambed recently, ask when you call. ' + REPORT_LINE + "</p>";
     else html += '<p class="muted">' + REPORT_LINE + "</p>";
-    return html;
+    return { html: html, ship: ship, form: kind === "small" ? FORMS.preg_small.name : FORMS.preg_cattle.name };
+  }
+  function timingAnswer(speciesValue, bredValue, calvedValue, transitValue, today) {
+    return timingResult(speciesValue, bredValue, calvedValue, transitValue, today).html;
   }
 
   /* 2. Ship-by planner. shipValue is "YYYY-MM-DD" or ""; transitValue is
      "1", "2" or "3"; kindValue is "preg" or "bvd". The day logic comes from
-     boxPlan, the same function the timing tool uses. */
-  function shipbyAnswer(shipValue, transitValue, kindValue, today) {
+     boxPlan, the same function the timing tool uses. Returns { html, ship,
+     form, cold } like timingResult: ship is the picked day when the answer
+     stands behind it (a lab day, and not a cold box the answer sends elsewhere). */
+  function shipbyResult(shipValue, transitValue, kindValue, today) {
     today = startOfDay(today);
     var S = parseDate(shipValue);
-    if (!S) return '<p class="muted">Pick the day you can ship.</p>';
-    if (S < today) return '<p class="muted">That day has passed. Pick today or a later day.</p>';
-    if (daysBetween(today, S) > 365) return '<p class="muted">Pick a day within the next year.</p>';
+    if (!S) return say('<p class="muted">Pick the day you can ship.</p>');
+    if (S < today) return say('<p class="muted">That day has passed. Pick today or a later day.</p>');
+    if (daysBetween(today, S) > 365) return say('<p class="muted">Pick a day within the next year.</p>');
 
     var N = transitDays(transitValue);
     var bvd = kindValue === "bvd";
@@ -322,7 +340,7 @@
     var coldStop = bvd && (N > 2 || plan.arriveWeekend || plan.arriveClosed);
     if (!coldStop && !plan.missed) {
       if (plan.reportClosed) html += reportClosedHtml(plan.report);
-      else html += "<p><strong>Report:</strong> " + fmt(plan.report) + ". That makes the same week's report.</p>";
+      else html += "<p><strong>Report:</strong> " + fmt(plan.report) + ".</p>";
       html += marginHtml(plan, N);
     } else if (!coldStop) {
       html += "<p>That arrival misses the Wednesday cutoff, so it is not in that week's Thursday report.";
@@ -364,7 +382,15 @@
     } else {
       html += "<p><strong>Ear notches and BVD blood ship cold.</strong> Refrigerate before shipping and pack with ice packs. Sample on the day you ship, so the box arrives within 48 hours of collection.</p>";
     }
-    return html;
+    return {
+      html: html,
+      ship: isLabClosed(S) || coldStop ? null : S,
+      form: bvd ? FORMS.bvd.name : "",
+      cold: bvd
+    };
+  }
+  function shipbyAnswer(shipValue, transitValue, kindValue, today) {
+    return shipbyResult(shipValue, transitValue, kindValue, today).html;
   }
 
   /* 3. Which form do I need? */
@@ -424,8 +450,9 @@
         " plus calves, bulls and replacements. Calves under a year old give an ear notch; adults give an ear notch or a blood sample.</li>";
     else html += "<li><strong>First screen:</strong> already done. The steps below keep the herd clean.</li>";
     if (patternValue === "season") {
-      var s = Math.max(1, Math.round(c / 10));
-      html += "<li><strong>Calves:</strong> roughly " + num(c) + " in a calving season of about ten weeks, about " + num(s) + " a week at the peak." + SHIP_WEEKLY + "</li>";
+      var s = Math.round(c / 10);
+      html += "<li><strong>Calves:</strong> roughly " + num(c) + " in a calving season of about ten weeks, " +
+        (s >= 1 ? "about " + num(s) + " a week on average, more at the peak." : "fewer than one a week.") + SHIP_WEEKLY + "</li>";
     } else {
       var w = Math.round(c / 52);
       if (w >= 1) html += "<li><strong>Calves:</strong> roughly " + num(c) + " a year, about " + num(w) + " a week." + SHIP_WEEKLY + "</li>";
@@ -482,6 +509,329 @@
       (pack.labels.length ? listHtml("Still to pack:", pack.labels) : '<p class="muted">Nothing left to pack.</p>');
   }
 
+  /* 8. Calendar file for the draw-and-ship day (.ics, RFC 5545). One all-day
+     event. The day is written as a plain date (VALUE=DATE, no time zone), so it
+     lands on the same calendar day wherever the phone is. Nothing is sent: the
+     page builds the text and the browser saves it. */
+  var ICS_TITLE = "Draw and ship samples to The Dairy Doctor";
+  var ICS_FILE = "dairy-doctor-reminder.ics";
+  var LAB_ADDRESS = "Advanced Dairy Diagnostics & Consulting, LLC, 362 310th Avenue, Frederic, WI 54837";
+  var ANY_PREG_FORM = "Cattle-Bison or the Small Ruminant Pregnancy Test Submission Form";
+  var COLD_LINE = "Ear notches and BVD blood ship cold and must reach the lab within 48 hours of collection.";
+
+  function pad2(n) {
+    return ("0" + n).slice(-2);
+  }
+  /* "20261116" from a local date. */
+  function icsDate(d) {
+    return d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate());
+  }
+  /* "20261111T154500Z": the one UTC value in the file (when it was made). */
+  function icsStamp(d) {
+    return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate()) + "T" + pad2(d.getUTCHours()) + pad2(d.getUTCMinutes()) + pad2(d.getUTCSeconds()) + "Z";
+  }
+  function icsText(v) {
+    return String(v).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  }
+  /* Lines longer than 75 bytes are folded: CRLF plus one space. */
+  function icsFold(line) {
+    var out = [];
+    var cur = "";
+    var bytes = 0;
+    for (var i = 0; i < line.length; i++) {
+      var ch = line.charAt(i);
+      var code = line.charCodeAt(i);
+      if (code >= 0xd800 && code <= 0xdbff && i + 1 < line.length) ch += line.charAt(++i);
+      var n = ch.length === 2 ? 4 : code < 0x80 ? 1 : code < 0x800 ? 2 : 3;
+      if (bytes + n > 75) {
+        out.push(cur);
+        cur = " ";
+        bytes = 1;
+      }
+      cur += ch;
+      bytes += n;
+    }
+    out.push(cur);
+    return out.join("\r\n");
+  }
+  /* o.date is a local Date or "YYYY-MM-DD"; o.summary and o.description are
+     plain text (a newline in the description is a line break); o.now is the
+     Date used for DTSTAMP (default: now). Returns "" when the date is not
+     usable. The UID comes from the date alone, so a second download of the
+     same day replaces the first in a calendar instead of adding a copy. */
+  function makeIcs(o) {
+    var day = o && o.date instanceof Date ? startOfDay(o.date) : parseDate(o && o.date);
+    if (!day || isNaN(day.getTime())) return "";
+    var now = o.now instanceof Date ? o.now : new Date();
+    var lines = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//The Dairy Doctor//Draw and ship day//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH",
+      "BEGIN:VEVENT",
+      "UID:draw-and-ship-" + icsDate(day) + "@dairydoctor.com",
+      "DTSTAMP:" + icsStamp(now),
+      "DTSTART;VALUE=DATE:" + icsDate(day),
+      "DTEND;VALUE=DATE:" + icsDate(addDays(day, 1)),
+      "SUMMARY:" + icsText(o.summary || ICS_TITLE),
+      "DESCRIPTION:" + icsText(o.description || ""),
+      "TRANSP:TRANSPARENT",
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ];
+    return lines.map(icsFold).join("\r\n") + "\r\n";
+  }
+  /* The file for a timing or ship-by answer. formName is "" when the answer
+     does not know which form (the planner on a pregnancy box); cold adds the
+     48-hour line for BVD. */
+  function drawShipIcs(ship, formName, cold, now) {
+    var text = "Use the " + (formName || ANY_PREG_FORM) + ".\nShip to " + LAB_ADDRESS + ".\nQuestions: (715) 653-2201.";
+    if (cold) text += "\n" + COLD_LINE;
+    return makeIcs({ date: ship, summary: ICS_TITLE, description: text, now: now });
+  }
+
+  /* 9. Herd list sheets (herd-list.html). A herd with more animals than lines
+     on the form prints list sheets in the form's own columns: Tube # and
+     Animal #/ID, two column pairs of 20 rows, 40 lines a sheet. The farmer
+     pastes a list (typed, one column copied from a spreadsheet, or a CSV or
+     text export). These functions read it, keep the farmer's order exactly
+     (never sort), and number the tubes from a start number. Nothing leaves
+     the page and nothing is stored. */
+  var LIST_MAX = 1000;
+  var SHEET_ROWS = 20;
+  var SHEET_LINES = 40;
+  var LIST_TESTS = [
+    ["preg_cattle", "Cattle or bison pregnancy"],
+    ["preg_small", "Goat or sheep pregnancy"],
+    ["bvd", "BVD PI"]
+  ];
+  var HEADING_WORDS = /(^|[^a-z])(id|ids|tag|tags|cow|cows|animal|animals|ear|eid|rfid|number|no|name|visual)([^a-z]|$)/i;
+  var SHEET_FOOT = "The Dairy Doctor, Frederic, WI. Phone (715) 653-2201. Fax (715) 653-4301.";
+
+  function listLines(text) {
+    return String(text == null ? "" : text).split(/\r\n|\r|\n/);
+  }
+  /* "\t" when any line holds a tab (a spreadsheet copy), "," when at least
+     half the lines hold a comma (a CSV export), otherwise "" (one column). */
+  function listDelimiter(lines) {
+    var filled = lines.filter(function (l) {
+      return l.trim() !== "";
+    });
+    if (!filled.length) return "";
+    if (filled.some(function (l) {
+      return l.indexOf("\t") !== -1;
+    })) return "\t";
+    var commas = filled.filter(function (l) {
+      return l.indexOf(",") !== -1;
+    }).length;
+    return commas * 2 >= filled.length ? "," : "";
+  }
+  /* One line to trimmed cells. A cell in double quotes may hold the
+     delimiter; "" inside quotes is one quote mark. */
+  function listCells(line, delim) {
+    if (!delim) return [line.trim()];
+    var cells = [];
+    var cur = "";
+    var quoted = false;
+    for (var i = 0; i < line.length; i++) {
+      var ch = line.charAt(i);
+      if (quoted) {
+        if (ch !== '"') cur += ch;
+        else if (line.charAt(i + 1) === '"') {
+          cur += '"';
+          i++;
+        } else quoted = false;
+      } else if (ch === '"' && cur.trim() === "") {
+        quoted = true;
+        cur = "";
+      } else if (ch === delim) {
+        cells.push(cur.trim());
+        cur = "";
+      } else cur += ch;
+    }
+    cells.push(cur.trim());
+    return cells;
+  }
+  /* A first row is a heading when its cell in the ID column is not a number
+     and some cell in it reads like a heading word (ID, Tag, Cow, Animal, #). */
+  function looksLikeHeading(cells, col) {
+    var v = cells[col] || "";
+    if (!v || /^[\d\s.\-\/]+$/.test(v)) return false;
+    return cells.some(function (c) {
+      return c.indexOf("#") !== -1 || HEADING_WORDS.test(c);
+    });
+  }
+  function listKey(id) {
+    return id.replace(/\s+/g, " ").toUpperCase();
+  }
+  /* IDs that show up more than once, as { id, count }, in the order each
+     first repeats. Case and inner spacing are ignored when comparing. */
+  function listDuplicates(ids) {
+    var seen = {};
+    var out = [];
+    ids.forEach(function (id) {
+      var k = listKey(id);
+      if (!Object.prototype.hasOwnProperty.call(seen, k)) seen[k] = { id: id, count: 0 };
+      seen[k].count++;
+      if (seen[k].count === 2) out.push(seen[k]);
+    });
+    return out.map(function (d) {
+      return { id: d.id, count: d.count };
+    });
+  }
+  /* text is the pasted list; column is the 0-based ID column (anything else
+     reads as the first); heading is true or false when the farmer set it,
+     null to decide from the first row. Blank lines and rows with nothing in
+     the ID column are dropped (counted in noId); the order is kept. */
+  function parseHerdList(text, column, heading) {
+    var lines = listLines(text);
+    var delim = listDelimiter(lines);
+    var rows = [];
+    lines.forEach(function (l) {
+      if (l.trim() !== "") rows.push(listCells(l, delim));
+    });
+    var columns = rows.reduce(function (m, r) {
+      return Math.max(m, r.length);
+    }, 0);
+    var col = Math.max(0, Math.min(columns - 1, parseInt(column, 10) || 0));
+    var auto = rows.length > 0 && looksLikeHeading(rows[0], col);
+    var head = rows.length > 0 && (heading === true || heading === false ? heading : auto);
+    var ids = [];
+    var noId = 0;
+    (head ? rows.slice(1) : rows).forEach(function (r) {
+      var v = (r[col] || "").trim();
+      if (v) ids.push(v);
+      else noId++;
+    });
+    var kept = ids.slice(0, LIST_MAX);
+    return {
+      delimiter: delim,
+      columns: columns,
+      preview: rows.slice(0, 3),
+      column: col,
+      headingAuto: auto,
+      heading: head,
+      headingText: head ? rows[0][col] || "" : "",
+      ids: kept,
+      total: ids.length,
+      capped: ids.length > LIST_MAX,
+      noId: noId,
+      duplicates: listDuplicates(kept)
+    };
+  }
+  /* The start tube number: blank is 1; a whole number 1 to 9,999; else null. */
+  function listStart(value) {
+    var v = String(value == null ? "" : value).trim();
+    if (!v) return 1;
+    if (!/^\d+$/.test(v)) return null;
+    var n = parseInt(v, 10);
+    return n >= 1 && n <= 9999 ? n : null;
+  }
+  /* Pages of 40: [{ number, of, first, last, rows: [{ tube, id }] }]. Tube
+     numbers run from start in the pasted order. */
+  function listSheets(ids, start) {
+    var s = start || 1;
+    var sheets = [];
+    for (var i = 0; i < ids.length; i += SHEET_LINES) {
+      var part = ids.slice(i, i + SHEET_LINES);
+      sheets.push({
+        first: s + i,
+        last: s + i + part.length - 1,
+        rows: part.map(function (id, k) {
+          return { tube: s + i + k, id: id };
+        })
+      });
+    }
+    sheets.forEach(function (sh, k) {
+      sh.number = k + 1;
+      sh.of = sheets.length;
+    });
+    return sheets;
+  }
+  /* "2026-11-09" to "11/9/2026" for the sheet; anything else is "". */
+  function sheetDate(v) {
+    var d = parseDate(v);
+    return d ? d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear() : "";
+  }
+  function sheetFill(v, wide) {
+    return '<span class="sheet-fill' + (wide ? " sheet-fill-wide" : "") + '">' + (v === "" || v == null ? "" : esc(v)) + "</span>";
+  }
+  function sheetCells(x) {
+    return '<td class="sheet-tube">' + (x ? x.tube : "") + '</td><td class="sheet-id">' + (x ? esc(x.id) : "") + "</td>";
+  }
+  /* One printed sheet as HTML. sheet is one item from listSheets, or null for
+     the blank sheet; meta is { farm, date ("YYYY-MM-DD"), test (a LIST_TESTS
+     key or ""), lastTube }. herd-list.html carries sheetHtml(null) as its
+     no-script blank sheet. */
+  function sheetHtml(sheet, meta) {
+    var s = sheet || null;
+    var m = meta || {};
+    var html = '<div class="list-sheet">';
+    html += '<p class="sheet-title">Animal list sheet ' + sheetFill(s ? s.number : "") + " of " + sheetFill(s ? s.of : "") + "</p>";
+    html += '<p class="sheet-staple">Goes with the signed submission form. Staple to the form.</p>';
+    html += '<div class="sheet-fields">';
+    html += "<p>Farm or owner name: " + sheetFill(m.farm || "", true) + "</p>";
+    html += "<p>Date collected: " + sheetFill(sheetDate(m.date)) + "</p>";
+    html += '<p class="sheet-test">Test (check one): ' +
+      LIST_TESTS.map(function (t) {
+        return '<span class="sheet-check"><span class="sheet-box">' + (m.test === t[0] ? "X" : "") + "</span> " + t[1] + "</span>";
+      }).join(" ") + "</p>";
+    html += "<p>Tubes on this sheet: " + sheetFill(s ? s.first : "") + " to " + sheetFill(s ? s.last : "") + "</p>";
+    html += "<p>Total tubes in the box: " + sheetFill(s ? m.lastTube : "") + "</p>";
+    html += "</div>";
+    html += '<table class="sheet-table"><thead><tr><th scope="col">Tube #</th><th scope="col">Animal #/ID</th><th scope="col">Tube #</th><th scope="col">Animal #/ID</th></tr></thead><tbody>';
+    for (var r = 0; r < SHEET_ROWS; r++) html += "<tr>" + sheetCells(s && s.rows[r]) + sheetCells(s && s.rows[r + SHEET_ROWS]) + "</tr>";
+    html += "</tbody></table>";
+    html += '<p class="sheet-foot">' + SHEET_FOOT + "</p>";
+    return html + "</div>";
+  }
+  function countOf(n, one, many) {
+    return num(n) + " " + (n === 1 ? one : many);
+  }
+  /* The tool's whole answer: { parsed, start, sheets, lastTube, html }. html
+     is the summary under the box (count, warnings); sheets is empty when
+     there is nothing to print. Warnings never block printing. */
+  function herdListResult(text, column, heading, startValue) {
+    var p = parseHerdList(text, column, heading);
+    var start = listStart(startValue);
+    var res = { parsed: p, start: start, sheets: [], lastTube: 0, html: "" };
+    if (!p.ids.length) {
+      res.html = '<p class="muted">' + (p.columns ? "No animal IDs found in that column yet." : "Paste your list in the box to see the sheets.") + "</p>";
+      return res;
+    }
+    if (start === null) {
+      res.html = '<p class="muted">Enter a start tube number from 1 to 9,999, or put it back to 1.</p>';
+      return res;
+    }
+    var n = p.ids.length;
+    res.sheets = listSheets(p.ids, start);
+    res.lastTube = start + n - 1;
+    var where = "Tubes " + num(start) + " to " + num(res.lastTube) + " on " + countOf(res.sheets.length, "list sheet", "list sheets") + ".";
+    var html = "";
+    if (p.capped)
+      html += '<p class="list-warn"><strong>This list has ' + countOf(p.total, "animal", "animals") + ", more than the " + num(LIST_MAX) +
+        " these sheets take.</strong> Only the first " + num(LIST_MAX) + " are on the sheets. Check that this is the right list, or call the lab at " + PHONE + ".</p><p>" + where + "</p>";
+    else html += "<p><strong>This list has " + countOf(n, "animal", "animals") + ".</strong> " + where + "</p>";
+    if (p.duplicates.length) {
+      var twice = p.duplicates.every(function (d) {
+        return d.count === 2;
+      });
+      var shown = p.duplicates.slice(0, 12).map(function (d) {
+        return esc(d.id);
+      }).join(", ");
+      var more = p.duplicates.length > 12 ? ", and " + num(p.duplicates.length - 12) + " more" : "";
+      html += '<p class="list-warn"><strong>' + (p.duplicates.length === 1 ? "This ID shows up " : "These IDs show up ") + (twice ? "twice: " : "more than once: ") +
+        shown + more + ". Check before you print.</strong></p>";
+    }
+    if (p.heading) html += '<p class="muted">The first row, "' + esc(p.headingText) + '", is read as a heading and left off the sheets.</p>';
+    if (p.noId) html += '<p class="muted">' + countOf(p.noId, "row has", "rows have") + " nothing in column " + (p.column + 1) + " and " + (p.noId === 1 ? "is" : "are") + " left off.</p>";
+    if (start > 1)
+      html += '<p class="muted">Tube numbers start at ' + num(start) + ". The sheets count tubes 1 to " + num(start - 1) + " as already in the box and show " + num(res.lastTube) + " as the total.</p>";
+    res.html = html;
+    return res;
+  }
+
   /* Test hook: node loads this file as a module; browsers have no `module`. */
   if (typeof module !== "undefined" && module.exports) {
     module.exports = {
@@ -497,12 +847,30 @@
       firstGoodShip: firstGoodShip,
       latestShip: latestShip,
       timingAnswer: timingAnswer,
+      timingResult: timingResult,
       shipbyAnswer: shipbyAnswer,
+      shipbyResult: shipbyResult,
+      makeIcs: makeIcs,
+      drawShipIcs: drawShipIcs,
+      ICS_FILE: ICS_FILE,
       chooserAnswer: chooserAnswer,
       bvdAnswer: bvdAnswer,
       checklistAnswer: checklistAnswer,
       suppliesAnswer: suppliesAnswer
     };
+    /* Herd list sheets (9). */
+    module.exports.LIST_MAX = LIST_MAX;
+    module.exports.listLines = listLines;
+    module.exports.listDelimiter = listDelimiter;
+    module.exports.listCells = listCells;
+    module.exports.looksLikeHeading = looksLikeHeading;
+    module.exports.listDuplicates = listDuplicates;
+    module.exports.parseHerdList = parseHerdList;
+    module.exports.listStart = listStart;
+    module.exports.listSheets = listSheets;
+    module.exports.sheetDate = sheetDate;
+    module.exports.sheetHtml = sheetHtml;
+    module.exports.herdListResult = herdListResult;
   }
   if (typeof document === "undefined") return;
 
@@ -527,6 +895,79 @@
     });
   }
 
+  /* Run fn once typing has stopped (later) or right away (now). */
+  function settleThen(fn) {
+    var timer = null;
+    return {
+      later: function () {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          timer = null;
+          fn();
+        }, 600);
+      },
+      now: function () {
+        if (timer === null) return;
+        clearTimeout(timer);
+        timer = null;
+        fn();
+      }
+    };
+  }
+  /* Offer the calendar file as a download from the [data-ics] button inside a
+     tool. The button ships hidden; it shows only while the answer names a
+     draw-and-ship day. Returns the function that tells it the latest answer
+     ({ ship, form, cold }). The file is built when the button is pressed and
+     saved by the browser; nothing is sent anywhere. */
+  function icsButton(root) {
+    var btn = $("[data-ics]", root);
+    if (!btn) return function () {};
+    var label = btn.textContent;
+    var current = null;
+    var timer = null;
+    var status = document.createElement("span");
+    status.className = "sr-only";
+    status.setAttribute("aria-live", "polite");
+    btn.parentNode.appendChild(status);
+    btn.hidden = true;
+    on(btn, "click", function () {
+      if (!current || !current.ship) return;
+      var text = drawShipIcs(current.ship, current.form, current.cold, new Date());
+      if (!text) return;
+      var a = document.createElement("a");
+      var url = "";
+      var blob = null;
+      try {
+        blob = new Blob([text], { type: "text/calendar;charset=utf-8" });
+        url = window.URL.createObjectURL(blob);
+      } catch (err) {
+        url = "data:text/calendar;charset=utf-8," + encodeURIComponent(text);
+      }
+      a.href = url;
+      a.download = ICS_FILE;
+      a.hidden = true;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      if (blob) setTimeout(function () {
+        window.URL.revokeObjectURL(url);
+      }, 1000);
+      btn.textContent = "Calendar file saved";
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.textContent = label;
+      }, 2400);
+      status.textContent = "";
+      setTimeout(function () {
+        status.textContent = "Calendar file saved. Open it to add " + fmt(current.ship) + " to your calendar.";
+      }, 50);
+    });
+    return function (answer) {
+      current = answer && answer.ship ? answer : null;
+      btn.hidden = !current;
+    };
+  }
+
   /* ---------------- 1. "When can I test?" ---------------- */
   each('[data-tool="timing"]', function (root) {
     var species = $('[name="species"]', root);
@@ -545,16 +986,22 @@
     }
     if (!bred.value) bred.value = iso(addDays(today, -30));
 
+    var calendar = icsButton(root);
     function run() {
       if (calvedField) calvedField.hidden = speciesKind(species.value) !== "cattle";
-      out.innerHTML = timingAnswer(species.value, bred.value, calved ? calved.value : "", transit.value, startOfDay(new Date()));
+      var r = timingResult(species.value, bred.value, calved ? calved.value : "", transit.value, startOfDay(new Date()));
+      out.innerHTML = r.html;
+      calendar(r);
     }
+    /* The answer is a live region: a date field fires an event for every digit
+       of a year, so wait until the typing stops (or the field loses focus). */
+    var settle = settleThen(run);
     on(species, "change", run);
-    on(bred, "input", run);
-    on(bred, "change", run);
-    on(calved, "input", run);
-    on(calved, "change", run);
     on(transit, "change", run);
+    on(bred, "change", settle.later);
+    on(bred, "blur", settle.now);
+    on(calved, "change", settle.later);
+    on(calved, "blur", settle.now);
     run();
   });
 
@@ -570,11 +1017,15 @@
     ship.max = iso(addDays(today, 365));
     if (!ship.value) ship.value = iso(labDay(today));
 
+    var calendar = icsButton(root);
     function run() {
-      out.innerHTML = shipbyAnswer(ship.value, transit.value, kind ? kind.value : "preg", startOfDay(new Date()));
+      var r = shipbyResult(ship.value, transit.value, kind ? kind.value : "preg", startOfDay(new Date()));
+      out.innerHTML = r.html;
+      calendar(r);
     }
-    on(ship, "input", run);
-    on(ship, "change", run);
+    var settle = settleThen(run);
+    on(ship, "change", settle.later);
+    on(ship, "blur", settle.now);
     on(transit, "change", run);
     on(kind, "change", run);
     run();
@@ -629,7 +1080,6 @@
     var bar = $(".stepper-bar span", root);
     var prev = $(".stepper-prev", root);
     var next = $(".stepper-next", root);
-    var fig = $(".stepper-figure", root);
     var nav = $(".stepper-nav", root);
     if (!num || !text || !prev || !next || !nav) return;
     var head = list.previousElementSibling;
@@ -641,12 +1091,6 @@
       if (bar) bar.style.width = Math.round(((i + 1) / steps.length) * 100) + "%";
       prev.disabled = i === 0;
       next.textContent = i === steps.length - 1 ? "Start over" : "Next step";
-      if (fig) {
-        $all("[data-step]", fig).forEach(function (g) {
-          var show = g.getAttribute("data-step").split(" ").indexOf(String(i + 1)) !== -1;
-          g.style.display = show ? "" : "none";
-        });
-      }
     }
     on(prev, "click", function () {
       if (i > 0) i--;
@@ -971,5 +1415,139 @@
       printFocus(sel ? $all(sel) : [btn.closest(".tool")]);
     });
     btn.hidden = false;
+  });
+
+  /* ---------------- 11. Herd list sheets (herd-list.html) ---------------- */
+  /* Which sheets print is one attribute on <body>: data-sheets="list" prints
+     the filled sheets, anything else the blank one (css: .list-page). The
+     page's own Print therefore prints the list once there is one. */
+  function printSheets(which) {
+    var body = document.body;
+    var before = body.getAttribute("data-sheets");
+    body.setAttribute("data-sheets", which);
+    function done() {
+      window.removeEventListener("afterprint", done);
+      if (before === null) body.removeAttribute("data-sheets");
+      else body.setAttribute("data-sheets", before);
+    }
+    window.addEventListener("afterprint", done);
+    window.print();
+  }
+  $all(".list-nojs").forEach(function (el) {
+    el.hidden = true;
+  });
+  $all("[data-blank-print]").forEach(function (btn) {
+    on(btn, "click", function () {
+      printSheets("blank");
+    });
+    btn.hidden = false;
+  });
+  each('[data-tool="herdlist"]', function (root) {
+    var fields = $(".list-fields", root);
+    var box = $("textarea", root);
+    var colWrap = $(".list-columns", root);
+    var colSel = $('select[name="column"]', root);
+    var preview = $(".list-preview", root);
+    var headBox = $('input[name="heading"]', root);
+    var test = $('select[name="test"]', root);
+    var farm = $('input[name="farm"]', root);
+    var date = $('input[name="collected"]', root);
+    var start = $('input[name="start"]', root);
+    var out = $(".tool-out", root);
+    var printBtn = $("[data-list-print]", root);
+    var clearBtn = $("[data-list-clear]", root);
+    var sheets = $(root.getAttribute("data-sheets") || "#list-sheets");
+    var sheetsSection = sheets ? sheets.closest("section") : null;
+    if (!fields || !box || !colSel || !headBox || !start || !out || !printBtn || !sheets) return;
+    var headTouched = false;
+    var colKey = "";
+    var last = null;
+
+    /* Column picker: one option per column, named by its first-row cell, and
+       the first three rows as a small table. Rebuilt only when they change. */
+    function columns(p) {
+      var show = p.columns > 1;
+      if (colWrap) colWrap.hidden = !show;
+      var key = show ? p.columns + "|" + JSON.stringify(p.preview) : "";
+      if (key === colKey) return;
+      colKey = key;
+      var keep = colSel.value;
+      colSel.innerHTML = "";
+      if (preview) preview.innerHTML = "";
+      if (!show) return;
+      for (var c = 0; c < p.columns; c++) {
+        var o = document.createElement("option");
+        var first = (p.preview[0] && p.preview[0][c]) || "";
+        o.value = String(c);
+        o.textContent = "Column " + (c + 1) + (first ? ": " + first.slice(0, 30) : "");
+        colSel.appendChild(o);
+      }
+      colSel.value = keep && Number(keep) < p.columns ? keep : String(p.column);
+      if (!preview) return;
+      var table = document.createElement("table");
+      table.className = "list-preview-table";
+      var cap = document.createElement("caption");
+      cap.textContent = "The first rows of your list";
+      table.appendChild(cap);
+      p.preview.forEach(function (row) {
+        var tr = document.createElement("tr");
+        for (var k = 0; k < p.columns; k++) {
+          var td = document.createElement("td");
+          td.textContent = (row[k] || "").slice(0, 24);
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      });
+      preview.appendChild(table);
+    }
+
+    function run() {
+      var r = herdListResult(box.value, colSel.value, headTouched ? headBox.checked : null, start.value);
+      last = r;
+      columns(r.parsed);
+      if (!headTouched) headBox.checked = r.parsed.heading;
+      if (listStart(start.value) === null) start.setAttribute("aria-invalid", "true");
+      else start.removeAttribute("aria-invalid");
+      out.innerHTML = r.html;
+      var meta = { farm: farm ? farm.value.trim() : "", date: date ? date.value : "", test: test ? test.value : "", lastTube: r.lastTube };
+      sheets.innerHTML = r.sheets
+        .map(function (s) {
+          return sheetHtml(s, meta);
+        })
+        .join("");
+      var has = r.sheets.length > 0;
+      if (sheetsSection) sheetsSection.hidden = !has;
+      if (has) document.body.setAttribute("data-sheets", "list");
+      else document.body.removeAttribute("data-sheets");
+      printBtn.disabled = !has;
+    }
+    /* The summary is a live region: wait until the typing stops. */
+    var settle = settleThen(run);
+    on(box, "input", settle.later);
+    on(box, "blur", settle.now);
+    on(start, "input", settle.later);
+    on(start, "blur", settle.now);
+    on(colSel, "change", run);
+    on(headBox, "change", function () {
+      headTouched = true;
+      run();
+    });
+    [test, date].forEach(function (el) {
+      on(el, "change", run);
+    });
+    on(farm, "input", settle.later);
+    on(farm, "blur", settle.now);
+    on(printBtn, "click", function () {
+      settle.now();
+      if (last && last.sheets.length) printSheets("list");
+    });
+    on(clearBtn, "click", function () {
+      box.value = "";
+      headTouched = false;
+      run();
+      box.focus();
+    });
+    fields.hidden = false;
+    run();
   });
 })();

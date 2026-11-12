@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://dairydoctor.com/images/og-home.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A farmhand in a hooded sweatshirt, seen from behind, guides Holstein and Jersey cows along a pasture lane, one gloved hand on a cow's tail.">
+<meta property="og:image:alt" content="A smiling dairy farmer in a blue plaid shirt and cap stands in a barn with his Holstein herd resting behind him. USDA photo.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
@@ -112,6 +112,7 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
+<p class="print-letterhead">The Dairy Doctor, Frederic, Wisconsin. (715) 653-2201</p>
 <header class="site-header">
   <div class="container brand-row">
     <div class="brand">
@@ -142,6 +143,7 @@
         <details class="nav-group">
           <summary class="nav-link">Sending samples<svg class="nav-chevron" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
           <div class="nav-panel">
+            <a class="nav-panel-link" href="shipping_test.html#forms">Submission forms</a>
             <a class="nav-panel-link" href="tailbleeding.html">How to tail bleed</a>
             <a class="nav-panel-link" href="shipping_test.html">Packing and shipping</a>
             <a class="nav-panel-link" href="faq.html">Common questions</a>
@@ -182,6 +184,7 @@
           <div class="nav-menu-group">
             <p class="nav-menu-heading">Sending samples</p>
             <ul class="nav-menu-list">
+              <li><a class="nav-panel-link" href="shipping_test.html#forms">Submission forms</a></li>
               <li><a class="nav-panel-link" href="tailbleeding.html">How to tail bleed</a></li>
               <li><a class="nav-panel-link" href="shipping_test.html">Packing and shipping</a></li>
               <li><a class="nav-panel-link" href="faq.html">Common questions</a></li>
@@ -249,10 +252,13 @@
           <h2 id="new-client">Become a new client</h2>
         </div>
         <p>Tell us about your herd and the lab will get back to you by phone or email. Ask about new client discounts when you call or send the form.</p>
-        <p class="first-box-note"><strong>First box?</strong> Please call our office before your first submission, at <a href="tel:+17156532201">(715) 653-2201</a>, or send the form below. A call settles which supplies you need.</p>
+        <p class="first-box-note"><strong>First box?</strong> Please call our office before your first submission, at <a href="tel:+17156532201">(715) 653-2201</a>, or send the form below. We'd like to meet you. A call settles which supplies you need.</p>
 
-        <form class="inquiry-form" action="https://formsubmit.co/info@dairydoctor.com" method="POST" data-reveal>
-          <p class="muted">Name and email are required.</p>
+        <form class="inquiry-form" action="https://formsubmit.co/info@dairydoctor.com" method="POST" data-reach data-reveal>
+          <div class="form-hint">
+            <p class="muted">Name is required, and a phone number or an email so the lab can reach you.</p>
+            <p class="form-message" id="f-reach-msg" aria-live="polite"></p>
+          </div>
           <div class="form-field">
             <label for="f-name">Name <span class="form-required" aria-hidden="true">*</span></label>
             <input type="text" id="f-name" name="name" autocomplete="name" required>
@@ -262,16 +268,21 @@
             <input type="text" id="f-farm" name="farm" autocomplete="organization">
           </div>
           <div class="form-field">
-            <label for="f-email">Email <span class="form-required" aria-hidden="true">*</span></label>
-            <input type="email" id="f-email" name="email" autocomplete="email" required>
+            <label for="f-phone">Phone</label>
+            <input type="tel" id="f-phone" name="phone" autocomplete="tel" aria-describedby="f-reach-msg">
           </div>
           <div class="form-field">
-            <label for="f-phone">Phone</label>
-            <input type="tel" id="f-phone" name="phone" autocomplete="tel">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" autocomplete="email" aria-describedby="f-reach-msg">
           </div>
           <div class="form-field">
             <label for="f-location">City and state</label>
             <input type="text" id="f-location" name="location">
+          </div>
+          <div class="form-field">
+            <label for="f-mailing">Mailing address for supplies</label>
+            <textarea id="f-mailing" name="mailing_address" rows="3" autocomplete="street-address" aria-describedby="f-mailing-hint"></textarea>
+            <p class="muted" id="f-mailing-hint">Optional. Only if the lab should mail you tubes and needles.</p>
           </div>
           <div class="form-field">
             <label for="f-species">What do you raise?</label>
@@ -290,6 +301,7 @@
             <label class="choice" for="f-need-bvd"><input type="checkbox" id="f-need-bvd" name="need_bvd_pi_testing" value="Yes">BVD PI testing (cattle and bison)</label>
             <label class="choice" for="f-need-monitor"><input type="checkbox" id="f-need-monitor" name="need_disease_monitoring" value="Yes">Disease monitoring (Johne's, Leukosis, Mycoplasma)</label>
             <label class="choice" for="f-need-consult"><input type="checkbox" id="f-need-consult" name="need_herd_consulting" value="Yes">Herd health consulting</label>
+            <label class="choice" for="f-need-supplies"><input type="checkbox" id="f-need-supplies" name="need_first_box_supplies" value="Yes">Sampling supplies for my first box (tubes, needles, labels)</label>
           </fieldset>
           <div class="form-field">
             <label for="f-herd-size">Roughly how many head?</label>
@@ -306,8 +318,8 @@
           <input type="hidden" name="_next" value="https://dairydoctor.com/thanks.html">
           <input type="text" name="_honey" hidden tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <p class="muted">This form is relayed to the lab's email by FormSubmit, a third-party form service, solely to deliver your message. The lab uses your details only to reply to you.</p>
-          <button type="submit" class="btn btn-primary">Send to the lab</button>
+          <p class="muted">This form reaches the lab's email through an outside form service that passes your message on. The lab uses your details only to reply to you.</p>
+          <button type="submit" class="btn btn-solid">Send to the lab</button>
         </form>
       </section>
 
@@ -410,6 +422,7 @@
         <li><a href="consulting.html">Herd health consulting</a></li>
         <li><a href="tailbleeding.html">How to tail bleed</a></li>
         <li><a href="shipping_test.html">Packing and shipping</a></li>
+        <li><a href="shipping_test.html#forms">Submission forms</a></li>
         <li><a href="faq.html">Common questions</a></li>
         <li><a href="aboutus.html">About Dr. Pearson</a></li>
         <li><a href="contact.html">Contact and new clients</a></li>

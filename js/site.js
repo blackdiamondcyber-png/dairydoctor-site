@@ -56,6 +56,37 @@
     });
   }
 
+  /* New client form (contact.html, form[data-reach]): a phone number OR an
+     email is enough. If both are empty, stop the send, say so in the
+     aria-live line and put the visitor in the phone field. Without this
+     file only the name is required. */
+  var reach = document.querySelector('form[data-reach]');
+  if (reach) {
+    var phone = reach.querySelector('input[type="tel"]');
+    var email = reach.querySelector('input[type="email"]');
+    var reachMsg = reach.querySelector('.form-message');
+    var reachable = function () {
+      return !!(phone.value.trim() || email.value.trim());
+    };
+    reach.addEventListener('submit', function (e) {
+      if (reachable()) return;
+      e.preventDefault();
+      reachMsg.textContent = 'Please give a phone number or an email so the lab can reach you.';
+      phone.focus();
+    });
+    reach.addEventListener('input', function () {
+      if (reachMsg.textContent && reachable()) reachMsg.textContent = '';
+    });
+  }
+
+  /* "Email this to your vet" (a[data-mail-page="herd-vet"]): the message
+     body carries this page's own address plus the section, so the link
+     works on the preview and on the final domain alike. */
+  Array.prototype.forEach.call(document.querySelectorAll('a[data-mail-page]'), function (a) {
+    var url = location.href.split('#')[0] + '#' + a.getAttribute('data-mail-page');
+    a.href += '&body=' + encodeURIComponent(url);
+  });
+
   /* Header shadow once the page scrolls. Runs for everyone, including
      visitors who ask for reduced motion (it is not motion). A marker 8 px
      tall at the top of the page is watched, so nothing is measured while
