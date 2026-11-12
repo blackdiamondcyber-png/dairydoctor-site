@@ -5,31 +5,25 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
 ## START HERE (11 Nov 2026, afternoon)
 
 - Constraints: `CLAUDE.md`, "Hard constraints" (15 items). Plan: `docs/plans/2026-11-11-full-pass.md`.
-- State: branch `full-pass` holds the rebuilt site. `master` (the public preview) is still the
-  23 Sep build plus docs and changes only when the review gate passes.
-- On `full-pass`: 15 pages (new: `goats.html`, `beef.html`, `consulting.html`, `results.html`),
-  a rebuilt stylesheet and both scripts, one-row header with four menus, the photo-led look
-  (hero and a photo band per page, credits on `credits.html`), six inline drawings, the
-  corrected lockup, a lighter header mark, 33 retired images removed, `_config.yml` in place of
-  `.nojekyll` so internal files are not published.
-- Local checks at the last commit: site check 15 pages, 0 problems; tool tests 113 of 113;
-  behaviour checks 406 of 406 (scroll reveal, JavaScript off, menus, keyboard, FAQ search,
-  print); axe 0 violations at 375 and 1280 px; Lighthouse on a local server that compresses
-  like GitHub Pages: performance 99 to 100, accessibility 100, best practices 100, SEO 100
-  (`thanks.html` and `404.html` are noindex on purpose).
+- State (11 Nov, late afternoon): `full-pass` and `master` hold the same build. Erik sent Dr.
+  Pearson the preview link on 11 Nov, so from now on every build that passes the local checks
+  goes to `master` as well (fast-forward, push, one live check of about 10 page loads).
+- Round 2 build: 15 pages, new menu (Tests, Consulting, Sending samples, The practice), a right
+  rail on inner pages from 1100 px, a light hero with a new working photograph, date tools that
+  know federal holidays, a cow-only header mark, fewer and more relevant photographs (seven
+  pages lead with a drawing), 82 unused image files removed.
+- Local checks on the round 2 build: site check 15 pages, 0 problems; tool tests 218 of 218;
+  behaviour checks 407 of 407; axe 0 violations at 375 and 1280 px; Lighthouse performance 99
+  to 100, accessibility 100, best practices 100, SEO 100 (`thanks.html` and `404.html` are
+  noindex on purpose).
 - Working files live in `.work/` on the G7 only (git-ignored). If it exists, read
-  `.work/2026-11-11/STATE.md` first, from "RUNNING STATE 5": decisions, file map, next steps.
-- Review round 1 is scored (commit `1219065`): 74, 80.5 and 82 out of 100. The bar is 95 each.
-- Fix round 2 started 11 Nov about 14:40 and is not committed yet: the working tree on the G7
-  holds edits in progress to the pages, `css/style.css` and `js/tools.js`. Do not commit them
-  until the local checks pass again (site check, tool tests, behaviour checks, axe, Lighthouse).
-  The plan of record for that round is `.work/2026-11-11/plan/R2-DECISIONS.md`.
-- Next: finish fix round 2, run the checks, commit and push `full-pass`, score round 2 with the
-  same three reviewers on the fixed rubric, and repeat until each scores 95 or more
-  (constraint 15). Then fast-forward `master`, push, and run the one live check (about 10 page
-  loads).
-- An email to Dr. Pearson about the preview sits in Erik's drafts (not sent). Its link is the
-  public preview, which shows the September build until `master` moves.
+  `.work/2026-11-11/STATE.md` first, from "RUNNING STATE 5" onward: decisions, file map, next steps.
+- Review scores so far: round 1 was 74, 80.5 and 82 out of 100. The bar is 95 each.
+- Next: score round 2 with the same three reviewers, then build round 3 from
+  `.work/2026-11-11/r3/R3-PLAN.md` (ranked changes that stay inside every constraint), check,
+  push, score, and repeat until each reviewer is at 95 or more (constraint 15).
+- Tool arguments: `behavior_check.js`, `shoot.js` and `lh_run.py` take page names WITHOUT
+  `.html`.
 - Capturing pages: take slices by scrolling inside the viewport. Capturing beyond the viewport
   makes the browser pick `<picture>` sources again and the art-directed photos come out blank.
 - Lighthouse on this machine: call the cached CLI with `node`; `npx --no-install lighthouse`

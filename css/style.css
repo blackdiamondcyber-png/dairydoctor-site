@@ -46,6 +46,8 @@
   /* Type */
   --font-display: 'Sora', -apple-system, 'Segoe UI', Arial, sans-serif;
   --font-body: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  /* Small labels borrow the lockup's engraved serif (BRAN-R1-12). */
+  --font-label: Georgia, 'Times New Roman', Times, serif;
   --tint: rgba(51, 102, 102, 0.07); /* teal wash for notices; reads on white and on mint */
   /* Shape and elevation: one radius for every box, card, figure and drawing */
   --radius: 12px;
@@ -59,6 +61,8 @@
   --content-max: 1080px;
   /* One reading measure: text, lists, steps, tools, notices, figures and rules share one right edge. */
   --measure: 44rem;
+  /* Right rail beside the reading column on inner pages from 1100 px. */
+  --rail-w: 18rem;
   /* One gap between the page's top-level sections. */
   --section-gap: 3rem;
 }
@@ -221,15 +225,37 @@ b {
   scroll-margin-top: calc(var(--header-h) + 1rem);
 }
 
-/* -------------------- Eyebrows -------------------- */
-.eyebrow {
+/* -------------------- Small labels -------------------- */
+/* One label face for the hero eyebrow, "Step 1", menu and footer headings,
+   rail headings and photo credits: the lockup's serif in small caps,
+   letter-spaced. Headings stay Sora. Text is written in sentence case; the
+   small caps do the rest, so no text-transform. */
+.eyebrow,
+.label,
+.step-num,
+.stepper-num,
+.nav-menu-heading,
+.footer-heading,
+.credit {
+  font-family: var(--font-label);
+  font-variant-caps: small-caps;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.eyebrow,
+.label {
   display: block;
   color: var(--rust);
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 1.0625rem;
+  line-height: 1.3;
   margin-bottom: 0.4rem;
+}
+
+.credit {
+  font-weight: 400;
+  letter-spacing: 0.04em;
 }
 
 .section-head {
@@ -330,8 +356,7 @@ button {
 
 /* Focus: dark ring on light surfaces, white ring on teal and deep teal surfaces. */
 .site-header :focus-visible,
-.site-footer :focus-visible,
-.on-dark :focus-visible {
+.site-footer :focus-visible {
   outline-color: #ffffff;
 }
 
@@ -375,11 +400,132 @@ section + section {
 /* Vertical rhythm: every top-level block of a page (section, bare container,
    the stat strip) sits one --section-gap below the one before it, and the
    first thing inside a top-level container adds no margin of its own. */
-main > :is(section, .container, .hero-stats-wrap) + :is(section, .container) {
+:is(main, .page-main) > :is(section, .container, .hero-stats-wrap) + :is(section, .container) {
   margin-top: var(--section-gap);
 }
 
-main > .container > :first-child {
+:is(main, .page-main) > .container > :first-child,
+.home-pair > section > :first-child {
+  margin-top: 0;
+}
+
+/* -------------------- Inner pages: reading column and right rail --------------------
+   Markup: <div class="container page-layout"> holds <div class="page-main">
+   (the page's own sections, from the intro to the closing box) and
+   <aside class="page-rail">. The sections keep their "container" class; inside
+   .page-main it adds no second gutter. Below 1100 px the rail is hidden and
+   the jump row does its job; from 1100 px the rail replaces the jump row. */
+.page-main > .container {
+  max-width: none;
+  padding-inline: 0;
+}
+
+.page-rail {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .page-layout {
+    display: grid;
+    grid-template-columns: minmax(0, var(--measure)) var(--rail-w);
+    justify-content: space-between;
+    column-gap: 2.5rem;
+    align-items: start;
+  }
+  .page-layout .jump-row {
+    display: none;
+  }
+  .page-rail {
+    position: sticky;
+    top: calc(var(--header-h) + 1.25rem);
+    display: grid;
+    gap: 0.85rem;
+    max-height: calc(100dvh - var(--header-h) - 2.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* Room for focus rings inside the scroll box. */
+    padding: 4px;
+    margin: -4px;
+  }
+  .main-flush .page-rail {
+    margin-top: calc(1.75rem - 4px);
+  }
+  /* The illustrated report stacks in the reading column. */
+  .page-main .report-block {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.rail-card {
+  padding: 0.9rem 1.1rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.rail-card .label {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.rail-card p {
+  margin-top: 0.25rem;
+}
+
+.rail-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rail-links li + li {
+  margin-top: 0;
+  border-top: 1px solid var(--mint);
+}
+
+.rail-links a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.2rem 0.5rem;
+  margin-inline: -0.5rem;
+  border-radius: 6px;
+  color: var(--teal-deep);
+  text-decoration: none;
+}
+
+.rail-links a:hover,
+.rail-links a:focus-visible {
+  background: var(--mint);
+  color: var(--rust);
+  text-decoration: underline;
+}
+
+.rail-phone a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--teal-deep);
+  text-decoration: none;
+}
+
+.rail-phone a:hover,
+.rail-phone a:focus-visible {
+  color: var(--rust);
+  text-decoration: underline;
+}
+
+.rail-card .btn {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.rail-card address p {
   margin-top: 0;
 }
 
@@ -526,11 +672,8 @@ main > .container > :first-child {
 .nav-menu-heading {
   margin: 0.9rem 0 0.15rem;
   max-width: none;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 1.0625rem;
+  line-height: 1.3;
   color: var(--rust);
 }
 
@@ -678,7 +821,8 @@ main > .container > :first-child {
 .nav-link:hover::after,
 .nav-link:focus-visible::after,
 .nav-group[open] > .nav-link::after,
-.nav-link.is-active::after {
+.nav-link.is-active::after,
+.nav-link[aria-current='page']::after {
   transform: scaleX(1);
 }
 
@@ -726,6 +870,15 @@ main > .container > :first-child {
     border-radius: 12px;
     box-shadow: var(--shadow-md);
   }
+  /* The Tests menu: two headed groups side by side ("Tests" and "By herd"). */
+  .nav-panel-groups {
+    grid-template-columns: repeat(2, minmax(13rem, auto));
+    column-gap: 0.75rem;
+    padding: 0.25rem 0.75rem 0.75rem;
+  }
+  .nav-panel-groups .nav-menu-heading {
+    margin: 0.6rem 0.5rem 0.1rem;
+  }
 }
 
 /* Kept from the old header block: the hero call button and other .icon-phone uses need flex: none. */
@@ -754,8 +907,8 @@ main > .container > :first-child {
   transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
-/* Primary is solid teal on every light surface. On a dark surface (.on-dark)
-   it turns white. This is the fix for the invisible About-card button. */
+/* Primary is solid teal. Every button surface is light now (the hero panel
+   too), so there is no dark-surface variant. */
 .btn-primary,
 .btn-solid {
   background: var(--teal);
@@ -770,32 +923,6 @@ main > .container > :first-child {
   background: var(--teal-deep);
   color: #ffffff;
   border-color: var(--teal-deep);
-}
-
-.on-dark .btn-primary {
-  background: #ffffff;
-  color: var(--teal-deep);
-  border-color: #ffffff;
-}
-
-.on-dark .btn-primary:hover,
-.on-dark .btn-primary:focus-visible {
-  background: var(--mint);
-  color: var(--teal-deep);
-  border-color: var(--mint);
-}
-
-/* Secondary is for dark surfaces only. */
-.btn-secondary {
-  background: transparent;
-  color: #ffffff;
-  border-color: #ffffff;
-}
-
-.btn-secondary:hover,
-.btn-secondary:focus-visible {
-  background: rgba(255, 255, 255, 0.16);
-  color: #ffffff;
 }
 
 .btn-outline {
@@ -828,14 +955,15 @@ main > .container > :first-child {
   grid-template-areas:
     'photo'
     'panel';
-  background: var(--teal-deep);
+  background: #ffffff;
+  border-bottom: 1px solid var(--ice);
 }
 
 .hero-photo {
   grid-area: photo;
   position: relative;
   margin: 0;
-  background: var(--teal-deep);
+  background: var(--ice);
 }
 
 .hero-photo picture {
@@ -865,11 +993,13 @@ main > .container > :first-child {
   border-radius: 6px;
 }
 
+/* Light hero panel (BRAN-R1-12, constraint 10): white ground, deep teal
+   headline, rust underline kept. The header above stays teal. */
 .hero-panel {
   grid-area: panel;
   padding: 1.75rem var(--gutter) 2rem;
-  background: var(--teal-deep);
-  color: #ffffff;
+  background: #ffffff;
+  color: var(--ink);
 }
 
 .hero-panel-inner {
@@ -877,13 +1007,12 @@ main > .container > :first-child {
 }
 
 .hero-eyebrow {
-  color: #ffffff;
   margin-bottom: 0.5rem;
 }
 
 .hero-panel h1 {
   max-width: 20ch;
-  color: #ffffff;
+  color: var(--teal-deep);
   font-weight: 800;
   font-size: clamp(2rem, 1.2rem + 1.9vw, 3rem);
   line-height: 1.12;
@@ -899,7 +1028,6 @@ main > .container > :first-child {
 .hero-panel .lede {
   max-width: 46ch;
   margin-top: 1rem;
-  color: #ffffff;
   font-size: 1.0625rem;
 }
 
@@ -913,7 +1041,7 @@ main > .container > :first-child {
 @media (min-width: 640px) {
   .hero-img {
     aspect-ratio: 16 / 9;
-    object-position: 50% 60%;
+    object-position: 49% 55%;
   }
   .hero-panel {
     padding: 2.5rem var(--gutter) 2.75rem;
@@ -933,7 +1061,7 @@ main > .container > :first-child {
   .hero-img {
     height: 100%;
     aspect-ratio: auto;
-    object-position: 15% 60%;
+    object-position: 49% 55%;
   }
   .hero-panel {
     display: flex;
@@ -1050,11 +1178,31 @@ main > .container > :first-child {
   margin-top: 0.75rem;
 }
 
-/* Link lists on the 404 page get 44 px targets on a phone (3.15b h). */
-.page-intro ul a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
+/* 404 page: every page in the same groups as the header. It reuses the phone
+   menu's group, heading, list and link classes (44 px rows). */
+.site-map {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 1.5rem;
+  max-width: var(--measure);
+  margin-top: 0.5rem;
+}
+
+.site-map .nav-menu-heading {
+  margin-top: 1rem;
+}
+
+.site-map .nav-panel-link {
+  margin-inline: -0.5rem;
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+@media (min-width: 600px) {
+  .site-map {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* -------------------- 3.7 Herd-type door cards (home) -------------------- */
@@ -1562,17 +1710,18 @@ main > .container > :first-child {
   max-width: 22rem;
 }
 
+/* Side figures float INSIDE the reading column: the right margin puts their
+   right edge on the measure when the container is wider than it (900 to
+   1099 px), and is 0 in the 44rem reading column from 1100 px. Below 900 px
+   they sit full measure. Nothing depends on the empty margin. */
 @media (min-width: 900px) {
   .figure-side {
     float: right;
-    width: 40%;
-    margin: 0.35rem 0 1rem 1.75rem;
+    width: min(42%, 19rem);
+    margin: 0.35rem max(0px, calc(100% - var(--measure))) 1rem 1.5rem;
   }
-  /* The portrait sits just right of the reading measure, not at the far
-     edge of the container (the margin is 0 when the container is narrower). */
   .figure-side.figure-portrait {
-    width: 18rem;
-    margin-right: max(0px, calc(100% - var(--measure) - 1.75rem - 18rem));
+    width: min(40%, 16rem);
   }
 }
 
@@ -1584,31 +1733,12 @@ main h2,
   clear: both;
 }
 
-/* FAQ intro (3.15b e): the photo beside the intro and the search on a wide screen. */
-@media (min-width: 900px) {
-  .faq-intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 40%;
-    column-gap: 1.75rem;
-    align-items: start;
-  }
-  .faq-intro > * {
-    grid-column: 1;
-  }
-  .faq-intro > .figure-side {
-    grid-column: 2;
-    grid-row: 1 / span 5;
-    float: none;
-    width: auto;
-    margin: 0.35rem 0 0;
-  }
-}
-
+/* The archive result plate: a small figure, 160 px wide at most (R2 section 7). */
 .figure-plate {
-  width: 234px;
+  width: 160px;
   max-width: 100%;
-  margin: 1.5rem 0 0;
-  padding: 16px;
+  margin: 1.25rem 0 0;
+  padding: 12px;
   background: var(--card);
   border: 1px solid var(--ice);
   border-radius: var(--radius);
@@ -1617,7 +1747,7 @@ main h2,
 
 .figure-plate img {
   display: block;
-  width: 200px;
+  width: 112px;
   max-width: 100%;
   height: auto;
   margin-inline: auto;
@@ -1625,18 +1755,37 @@ main h2,
 }
 
 .figure-plate figcaption {
-  margin-top: 0.6rem;
-  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.35;
   color: var(--muted);
   text-align: center;
 }
 
-@media (min-width: 700px) {
+/* Phones: one short row, the plate beside its caption. */
+@media (max-width: 599px) {
+  .figure-plate {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    width: auto;
+    padding: 8px 12px 8px 8px;
+  }
+  .figure-plate img {
+    flex: none;
+    width: 88px;
+    margin: 0;
+  }
+  .figure-plate figcaption {
+    margin-top: 0;
+    text-align: left;
+  }
+}
+
+@media (min-width: 600px) {
   .figure-plate {
     float: right;
-    margin: 0.25rem 0 1rem 1.5rem;
-    /* Just right of the reading measure, not at the far edge of the container. */
-    margin-right: max(0px, calc(100% - var(--measure) - 1.5rem - 234px));
+    margin: 0.25rem max(0px, calc(100% - var(--measure))) 0.75rem 1.25rem;
   }
 }
 
@@ -1733,15 +1882,25 @@ main h2,
   }
 }
 
+/* About page: the lockup sits beside the first paragraphs, inside the
+   reading column, from 640 px; on a phone it sits under the heading. */
 .figure-lockup {
-  max-width: 520px;
-  margin: 1.5rem auto;
+  max-width: 18rem;
+  margin: 1rem 0 0;
 }
 
 .figure-lockup img {
   width: 100%;
   border-radius: var(--radius);
   border: 1px solid var(--ice);
+}
+
+@media (min-width: 640px) {
+  .figure-lockup {
+    float: right;
+    width: min(40%, 15rem);
+    margin: 0.35rem max(0px, calc(100% - var(--measure))) 1rem 1.5rem;
+  }
 }
 
 /* -------------------- 3.11 Steps as ruled lists -------------------- */
@@ -1791,29 +1950,67 @@ main h2,
   margin-top: 0;
 }
 
+/* Home "How it works". Phones: a compact ruled list, numbered by its
+   "Step 1" labels, no icon circles. From 640 px: cards, two by two. From
+   960 px: four cards in one row. Each card is as tall as its own content
+   (align-items: start), so no card is stretched blank (BRAN-R1-14, TECH-R1-10). */
 .steps-4 {
-  gap: 1rem;
-  max-width: none;
+  align-items: start;
 }
 
 .steps-4 > li {
-  padding: 1.6rem 1.35rem 1.35rem;
-  background: var(--card);
-  border: 1px solid var(--ice);
-  border-radius: var(--radius);
-}
-
-.steps-4 > li:last-child {
-  border-bottom: 1px solid var(--ice);
+  padding: 0.85rem 0;
 }
 
 .steps-4 > li::before {
   content: none;
 }
 
-/* Form buttons inside a narrow step card stack full width (CUST-19 lopsided pills). */
+.steps-4 h3 {
+  margin-top: 0;
+}
+
+.steps-4 .step-icon {
+  display: none;
+}
+
+/* Form buttons inside a narrow step stack full width (CUST-19 lopsided pills). */
 .steps-4 .tool-actions .btn {
   width: 100%;
+}
+
+@media (min-width: 640px) {
+  .steps-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: none;
+  }
+  .steps-4 > li,
+  .steps-4 > li:last-child {
+    padding: 1.35rem 1.25rem 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--ice);
+    border-radius: var(--radius);
+  }
+  .steps-4 .step-icon {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 960px) {
+  .steps-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .steps-4 > li,
+  .steps-4 > li:last-child {
+    padding: 1.25rem 1rem 1.15rem;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .steps-4 .tool-actions .btn {
+    padding-inline: 0.75rem;
+    font-size: 0.9375rem;
+  }
 }
 
 .step-icon {
@@ -1831,19 +2028,27 @@ main h2,
 .step-num {
   display: block;
   margin-bottom: 0.2rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 1.0625rem;
+  line-height: 1.3;
   color: var(--rust);
 }
 
-/* Two by two from 780 px. Four narrow columns left three cards mostly empty
-   beside step 2 (which holds the form buttons) and wrapped those buttons. */
-@media (min-width: 780px) {
-  .steps-4 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+/* -------------------- 3.11b Home: the timing tool beside "The vet reads your results" -------------------- */
+
+.home-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--section-gap) 2.5rem;
+}
+
+.home-pair > section + section {
+  margin-top: 0;
+}
+
+@media (min-width: 960px) {
+  .home-pair {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: start;
   }
 }
 
@@ -1857,6 +2062,12 @@ main h2,
   border: 1px solid var(--ice);
   border-top: 4px solid var(--rust);
   border-radius: var(--radius);
+}
+
+/* Closing boxes span the reading column on inner pages; the home page's
+   spans the full container. */
+.next-step-wide {
+  max-width: none;
 }
 
 .next-step h2 {
@@ -1905,15 +2116,15 @@ main h2,
 
 /* -------------------- 3.12b Engraved rule -------------------- */
 
+/* The lockup's double rule in rust: a heavier line over a hairline (BRAN-R1-12). */
 .engraved-rule {
-  height: 5px;
+  height: 6px;
   max-width: var(--measure);
   margin: 2.5rem 0 0;
   border: 0;
   background:
-    linear-gradient(var(--teal-deep), var(--teal-deep)) top / 100% 1px no-repeat,
-    linear-gradient(var(--teal-deep), var(--teal-deep)) bottom / 100% 1px no-repeat;
-  opacity: 0.55;
+    linear-gradient(var(--rust), var(--rust)) top / 100% 2px no-repeat,
+    linear-gradient(var(--rust), var(--rust)) bottom / 100% 1px no-repeat;
 }
 
 /* -------------------- 3.13 Credits list (credits page) -------------------- */
@@ -2068,9 +2279,11 @@ address p {
   margin-top: 1.5rem;
 }
 
-@media (min-width: 700px) {
+/* Cards never narrower than 15rem, so "Download PDF" stays on one line in
+   the 44rem reading column (two across there, more on a wider container). */
+@media (min-width: 600px) {
   .forms-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   }
 }
 
@@ -2245,24 +2458,16 @@ address p {
   border-radius: 8px;
 }
 
-.footer-brand {
-  margin-top: 1rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.footer-tagline {
+/* The lockup spells the legal name, so no name line repeats it underneath. */
+.site-footer .footer-tagline {
+  margin-top: 0.85rem;
   color: var(--ice);
   font-size: 0.95rem;
 }
 
 .footer-heading {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 1.0625rem;
+  line-height: 1.3;
   color: #ffffff;
 }
 
@@ -2415,8 +2620,89 @@ address p {
   .call-button,
   .hero-stats-wrap,
   .next-actions,
-  .footer-lockup {
+  .footer-lockup,
+  .jump-row,
+  .page-rail,
+  .footer-nav,
+  .door-card picture,
+  .about-teaser-photo picture {
     display: none !important;
+  }
+
+  /* overflow: hidden makes a box unbreakable on paper; the photos it clipped
+     are not printed. */
+  .door-card,
+  .about-teaser-photo {
+    overflow: visible;
+  }
+
+  /* Paper (TECH-R1-12): no heading alone at the foot of a page, no line
+     alone at the top of one, and the closing box stays with the text before
+     it. The footer prints as one small block. */
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3,
+  .section-head {
+    break-after: avoid;
+  }
+
+  .next-step,
+  figure,
+  .info-block,
+  .faq-item,
+  .form-card,
+  .steps > li,
+  .site-footer {
+    break-inside: avoid;
+  }
+
+  /* Block flow on paper: the screen's flex column on <body> lets Chrome
+     ignore the avoid rules below. */
+  body {
+    display: block;
+  }
+
+  /* Chrome weighs "avoid before" and "avoid inside" the same and then takes
+     the later break, so only the closing box carries both; the footer is
+     kept whole and short instead (a few lines, never one alone). */
+  section:has(> .next-step) {
+    break-before: avoid;
+  }
+
+  .site-footer .container {
+    padding-block: 0.75rem 0;
+  }
+
+  .footer-grid {
+    gap: 0.35rem;
+  }
+
+  .site-footer p {
+    margin-top: 0;
+    font-size: 10pt;
+  }
+
+  .footer-contact address p {
+    display: inline;
+  }
+
+  .footer-brand-col,
+  .footer-heading {
+    display: none;
+  }
+
+  .next-step {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .footer-contact address p:not(:last-child)::after {
+    content: ' \00B7  ';
   }
 
   .hero-split,
@@ -2454,7 +2740,7 @@ address p {
     background: #ffffff;
     color: #000000;
     border-top: 2px solid #000000;
-    margin-top: 1.5rem;
+    margin-top: 0.75rem;
   }
 
   .site-footer a {
@@ -2583,12 +2869,9 @@ address p {
 
 .stepper-num {
   margin-top: 1rem;
-  font-family: var(--font-display);
-  font-weight: 600;
   color: var(--rust);
-  font-size: 0.875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 1.0625rem;
+  line-height: 1.3;
 }
 
 .stepper-text {
@@ -2711,6 +2994,19 @@ address p {
   .faq-item > p,
   .faq-item > ul {
     display: block !important;
+  }
+}
+
+/* A closed <details class="faq-item"> prints in full (the BVD page has no
+   script that opens them before printing). Kept as its own rule: a browser
+   that does not know ::details-content drops only this rule. */
+@media print {
+  details.faq-item::details-content {
+    content-visibility: visible;
+    display: contents;
+  }
+  .faq-item summary::after {
+    content: none;
   }
 }
 

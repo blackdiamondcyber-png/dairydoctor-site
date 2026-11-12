@@ -47,33 +47,153 @@
   function isWeekend(d) {
     return d.getDay() === 0 || d.getDay() === 6;
   }
-  /* The lab is staffed Monday to Friday: a box that lands on a Saturday or
-     Sunday is counted from Monday. */
-  function labDay(d) {
-    if (d.getDay() === 6) return addDays(d, 2);
+
+  /* ---- Federal holidays and lab closed days ---- */
+  /* Days the owner closes the lab beyond the federal holidays, as ISO dates
+     ("2026-12-24"). Empty until he adds some. */
+  var LAB_CLOSED = [];
+
+  function nthWeekdayOf(y, mo, wd, n) {
+    var first = new Date(y, mo, 1);
+    return new Date(y, mo, 1 + ((wd - first.getDay() + 7) % 7) + 7 * (n - 1));
+  }
+  function lastWeekdayOf(y, mo, wd) {
+    var last = new Date(y, mo + 1, 0);
+    return new Date(y, mo, last.getDate() - ((last.getDay() - wd + 7) % 7));
+  }
+  /* A fixed-date holiday on Saturday is observed Friday, on Sunday Monday. */
+  function observedOf(y, mo, day) {
+    var d = new Date(y, mo, day);
+    if (d.getDay() === 6) return addDays(d, -1);
     if (d.getDay() === 0) return addDays(d, 1);
     return d;
+  }
+  var holidayCache = {};
+  /* The year's federal holidays as { "YYYY-MM-DD": "Name" }. */
+  function holidaysOf(y) {
+    if (holidayCache[y]) return holidayCache[y];
+    var h = {};
+    function add(d, name) {
+      h[iso(d)] = name;
+    }
+    function fixed(mo, day, name) {
+      var o = observedOf(y, mo, day);
+      var actual = new Date(y, mo, day);
+      h[iso(o)] = name + (o.getTime() === actual.getTime() ? "" : " (observed)");
+    }
+    fixed(0, 1, "New Year's Day");
+    add(nthWeekdayOf(y, 0, 1, 3), "Martin Luther King Jr. Day");
+    add(nthWeekdayOf(y, 1, 1, 3), "Presidents Day");
+    add(lastWeekdayOf(y, 4, 1), "Memorial Day");
+    fixed(5, 19, "Juneteenth");
+    fixed(6, 4, "Independence Day");
+    add(nthWeekdayOf(y, 8, 1, 1), "Labor Day");
+    add(nthWeekdayOf(y, 9, 1, 2), "Columbus Day");
+    fixed(10, 11, "Veterans Day");
+    add(nthWeekdayOf(y, 10, 4, 4), "Thanksgiving Day");
+    fixed(11, 25, "Christmas Day");
+    holidayCache[y] = h;
+    return h;
+  }
+  /* Name of the federal holiday observed on d, or "". New Year's Day of the
+     next year can be observed on December 31, so next year's list is read too. */
+  function holidayName(d) {
+    var y = d.getFullYear();
+    return holidaysOf(y)[iso(d)] || holidaysOf(y + 1)[iso(d)] || "";
+  }
+  /* Why d is a day off the lab calendar for a weekday: a holiday name, a
+     closed day the owner added, or "". */
+  function closedLabel(d) {
+    var h = holidayName(d);
+    if (h) return h;
+    return LAB_CLOSED.indexOf(iso(d)) !== -1 ? "a day the lab is closed" : "";
+  }
+  /* The lab works Monday to Friday except holidays and LAB_CLOSED days. */
+  function isLabClosed(d) {
+    return isWeekend(d) || closedLabel(d) !== "";
+  }
+  /* The first lab day on or after d: a box that lands on a weekend or a
+     closed day is counted from the next lab day. */
+  function labDay(d) {
+    var x = startOfDay(d);
+    for (var k = 0; k < 30 && isLabClosed(x); k++) x = addDays(x, 1);
+    return x;
   }
   /* Thursday of the week that holds d (d is Monday to Friday). */
   function thursdayOf(d) {
     return addDays(d, 4 - d.getDay());
   }
-  /* First weekday on or after `from` whose box arrives Monday, Tuesday or
-     Wednesday: samples that reach the lab by Wednesday are reported
-     Thursday. */
+  /* "Thursday, Nov 26, 2026 is Thanksgiving Day" */
+  function closedIs(d) {
+    return fmt(d) + " is " + closedLabel(d);
+  }
+  /* The answer for a report Thursday that is a holiday or closed day: no
+     report date, the phone line instead. */
+  function reportClosedHtml(d) {
+    return "<p>" + closedIs(d) + ". Call " + PHONE + " for that week's report day.</p>";
+  }
+
+  /* The one place that decides what a box does. Ship day + days in transit
+     give the arrival day; a box that lands on a weekend, holiday or closed
+     day counts as arriving the next lab day (count); a box counted Monday to
+     Wednesday makes that week's Thursday report, a box counted Thursday or
+     Friday makes the next week's. reportClosed names the holiday when that
+     Thursday is closed (then no report date may be stated). skipped lists the
+     weekday closed days the box waited through. */
+  function boxPlan(ship, transit) {
+    var arrive = addDays(ship, transit);
+    var count = arrive;
+    var skipped = [];
+    for (var k = 0; k < 30 && isLabClosed(count); k++) {
+      if (!isWeekend(count)) skipped.push(count);
+      count = addDays(count, 1);
+    }
+    var missed = count.getDay() > 3;
+    var report = addDays(thursdayOf(count), missed ? 7 : 0);
+    return {
+      ship: ship,
+      arrive: arrive,
+      count: count,
+      missed: missed,
+      report: report,
+      reportClosed: closedLabel(report),
+      skipped: skipped,
+      arriveWeekend: isWeekend(arrive),
+      arriveClosed: !isWeekend(arrive) && closedLabel(arrive) !== ""
+    };
+  }
+  /* First lab-day ship on or after `from` whose box arrives on a lab day,
+     Monday, Tuesday or Wednesday: samples that reach the lab by Wednesday are
+     reported Thursday. */
   function firstGoodShip(from, transit) {
-    for (var k = 0; k < 14; k++) {
+    for (var k = 0; k < 28; k++) {
       var s = addDays(from, k);
-      var a = addDays(s, transit);
-      if (!isWeekend(s) && a.getDay() >= 1 && a.getDay() <= 3) return { ship: s, arrive: a, report: thursdayOf(a) };
+      if (isLabClosed(s)) continue;
+      var plan = boxPlan(s, transit);
+      if (!plan.arriveWeekend && !plan.arriveClosed && plan.arrive.getDay() >= 1 && plan.arrive.getDay() <= 3) return plan;
     }
     return null;
   }
-  /* Latest ship day that still reaches the lab by Wednesday w. */
-  function latestShip(w, transit) {
-    var d = addDays(w, -transit);
-    while (isWeekend(d)) d = addDays(d, -1);
-    return d;
+  /* Latest lab-day ship whose box (by boxPlan) is in the report on the
+     Thursday after Wednesday w. A cold box must also land on a lab day.
+     null when no day in the two weeks before works. */
+  function latestShip(w, transit, cold) {
+    var thu = addDays(w, 1);
+    for (var k = 0; k < 14; k++) {
+      var s = addDays(w, -k);
+      if (isLabClosed(s)) continue;
+      var p = boxPlan(s, transit);
+      if (p.report.getTime() !== thu.getTime()) continue;
+      if (cold && (p.arriveWeekend || p.arriveClosed)) continue;
+      return s;
+    }
+    return null;
+  }
+  /* Days in transit from the shipping choice: 1, 2 or 3. Anything else is
+     read as 2, the default choice. */
+  function transitDays(v) {
+    var n = parseInt(v, 10);
+    return n === 1 || n === 3 ? n : 2;
   }
   function plural(n, one, many) {
     return n + " " + (n === 1 ? one : many);
@@ -86,6 +206,29 @@
   var REPORT_LINE = "Samples that reach the lab by Wednesday are reported Thursday.";
 
   /* ---------------- Core: pure answers (no page access) ---------------- */
+
+  var TRANSIT_LEAD = { 1: "By overnight shipping it", 2: "By Priority Mail it", 3: "With 3 days in transit it" };
+  var MARGIN = {
+    1: "Overnight shipping is not guaranteed. Shipping a day earlier leaves a margin.",
+    2: "Priority Mail usually takes 2 days but is not guaranteed. Shipping a day earlier, or overnight, leaves a margin.",
+    3: "Three days in transit is not guaranteed. Shipping a day earlier leaves a margin."
+  };
+  /* One margin line when the box lands on Wednesday itself, the last day
+     that makes Thursday's report. n is 1, 2 or 3 (transitDays). */
+  function marginHtml(plan, n) {
+    if (plan.arriveWeekend || plan.arriveClosed || plan.arrive.getDay() !== 3) return "";
+    return '<p class="muted">' + MARGIN[n] + "</p>";
+  }
+  function closedSentence(d) {
+    return closedIs(d) + (closedLabel(d) === "a day the lab is closed" ? "." : ", and the lab is closed.");
+  }
+  /* Why a box that lands on a weekend or closed day counts from a later day. */
+  function rollText(plan) {
+    var head = plan.arriveWeekend ? "That is a " + DAYS[plan.arrive.getDay()] + ". The lab is staffed Monday to Friday" : "";
+    var closed = plan.skipped.map(closedSentence).join(" ");
+    if (plan.arriveWeekend && !closed) return head + ", so count on " + fmt(plan.count) + ".";
+    return (head ? head + ". " : "") + (closed ? closed + " " : "") + "Count on " + fmt(plan.count) + ".";
+  }
 
   /* 1. "When can I test?" */
   var WAIT = { cattle: 28, heifer: 25, small: 30 };
@@ -126,33 +269,29 @@
       html += "<p><strong>Earliest sample date:</strong> " + fmt(earliest) + ". That is 90 days after calving, which comes later than " + wait + " days after breeding.</p>";
     } else {
       html += "<p><strong>Earliest sample date:</strong> " + fmt(earliest) + " (" + wait + " days after breeding for " + LABEL[kind] + ").</p>";
+      if (c) html += "<p>She will be at least 90 days past calving by then.</p>";
     }
 
-    var days = parseInt(transitValue, 10) || 2;
-    var future = earliest > today;
-    var start = future ? earliest : today;
+    var days = transitDays(transitValue);
+    var start = earliest > today ? earliest : today;
     var p = firstGoodShip(start, days);
-    var inTransit = plural(days, "day", "days") + " in transit";
     if (p) {
-      var same = daysBetween(start, p.ship) === 0;
-      if (future && same)
-        html += "<p>Draw and ship on " + fmt(p.ship) + ". With " + inTransit + " it arrives " + fmt(p.arrive) + " and is reported " + fmt(p.report) + ".</p>";
-      else if (future)
-        html += "<p>She can be drawn from " + fmt(earliest) + ". To reach the lab Monday to Wednesday, ship on " + fmt(p.ship) + ". It arrives " + fmt(p.arrive) + " and is reported " + fmt(p.report) + ".</p>";
-      else if (same)
-        html += "<p>She can be sampled now. Ship today and the box arrives " + fmt(p.arrive) + ". It is reported " + fmt(p.report) + ".</p>";
-      else
-        html += "<p>She can be sampled now. To reach the lab Monday to Wednesday, ship on " + fmt(p.ship) + ". It arrives " + fmt(p.arrive) + " and is reported " + fmt(p.report) + ".</p>";
+      html += "<p>Draw and ship on " + fmt(p.ship) + ". " + TRANSIT_LEAD[days] + " should arrive " + fmt(p.arrive) +
+        (p.reportClosed ? "." : " and be reported " + fmt(p.report) + ".") + "</p>";
+      if (p.reportClosed) html += reportClosedHtml(p.report);
+      html += marginHtml(p, days);
+    } else {
+      html += "<p>Call the lab at " + PHONE + " to plan the ship day.</p>";
     }
 
-    if (kind === "cattle" && !c) html += '<p class="muted">Cows should also be at least 90 days since calving. ' + REPORT_LINE + "</p>";
-    else if (kind === "small") html += '<p class="muted">For does and ewes that kidded or lambed recently, ask when you call. ' + REPORT_LINE + "</p>";
+    if (kind === "small") html += '<p class="muted">For does and ewes that kidded or lambed recently, ask when you call. ' + REPORT_LINE + "</p>";
     else html += '<p class="muted">' + REPORT_LINE + "</p>";
     return html;
   }
 
   /* 2. Ship-by planner. shipValue is "YYYY-MM-DD" or ""; transitValue is
-     "1", "2" or "3"; kindValue is "preg" or "bvd". */
+     "1", "2" or "3"; kindValue is "preg" or "bvd". The day logic comes from
+     boxPlan, the same function the timing tool uses. */
   function shipbyAnswer(shipValue, transitValue, kindValue, today) {
     today = startOfDay(today);
     var S = parseDate(shipValue);
@@ -160,32 +299,50 @@
     if (S < today) return '<p class="muted">That day has passed. Pick today or a later day.</p>';
     if (daysBetween(today, S) > 365) return '<p class="muted">Pick a day within the next year.</p>';
 
-    var N = parseInt(transitValue, 10) || 2;
+    var N = transitDays(transitValue);
     var bvd = kindValue === "bvd";
-    var A = addDays(S, N);
-    var R = labDay(A);
+    var plan = boxPlan(S, N);
+    var A = plan.arrive;
+    var R = plan.count;
     var html = "";
 
-    if (isWeekend(S)) html += "<p>That is a " + DAYS[S.getDay()] + ". If your carrier does not pick up on weekends, pick Monday.</p>";
+    if (isWeekend(S)) {
+      /* When that Monday is a holiday or closed day, name the next lab day. */
+      var mon = addDays(S, S.getDay() === 6 ? 2 : 1);
+      html += "<p>That is a " + DAYS[S.getDay()] + ". If your carrier does not pick up on weekends, pick " +
+        (isLabClosed(mon) ? fmt(labDay(mon)) + ". " + closedIs(mon) + ".</p>" : "Monday.</p>");
+    } else if (closedLabel(S)) html += "<p>" + closedIs(S) + ". If your carrier does not pick up that day, pick another day.</p>";
 
     html += "<p><strong>Arrives:</strong> " + fmt(A) + ".";
-    if (daysBetween(A, R) !== 0) html += "<br>That is a " + DAYS[A.getDay()] + ". The lab is staffed Monday to Friday, so count on " + fmt(R) + ".";
+    if (daysBetween(A, R) !== 0) html += "<br>" + rollText(plan);
     html += "</p>";
 
     /* A cold box that should not go out this way gets no report line;
        the cold-box line below says what to do instead. */
-    var coldStop = bvd && (N > 2 || isWeekend(A));
-    if (!coldStop && R.getDay() <= 3) {
-      html += "<p><strong>Report:</strong> " + fmt(thursdayOf(R)) + ". That makes the same week's report.</p>";
+    var coldStop = bvd && (N > 2 || plan.arriveWeekend || plan.arriveClosed);
+    if (!coldStop && !plan.missed) {
+      if (plan.reportClosed) html += reportClosedHtml(plan.report);
+      else html += "<p><strong>Report:</strong> " + fmt(plan.report) + ". That makes the same week's report.</p>";
+      html += marginHtml(plan, N);
     } else if (!coldStop) {
-      html += "<p>That arrival misses the Wednesday cutoff, so it is not in that week's Thursday report.</p>";
+      html += "<p>That arrival misses the Wednesday cutoff, so it is not in that week's Thursday report.";
+      if (plan.reportClosed) html += "</p>" + reportClosedHtml(plan.report);
+      else html += " This box is in the report on " + fmt(plan.report) + ".</p>";
+      /* Name a ship day for the report this box missed. A later report is
+         named only when the one this box makes is a closed Thursday;
+         otherwise the box is already in it and the line would add nothing. */
       var W0 = addDays(R, 3 - R.getDay());
-      var D0 = latestShip(W0, N);
-      if (D0 >= today) {
-        html += "<p>To make the report on " + fmt(addDays(W0, 1)) + ", ship by " + fmt(D0) + ".</p>";
-      } else {
-        var W1 = addDays(W0, 7);
-        html += "<p>To be in the report on " + fmt(addDays(W1, 1)) + ", ship by " + fmt(latestShip(W1, N)) + ".</p>";
+      var found = false;
+      for (var w = 0; w < 3 && !found; w++) {
+        var W = addDays(W0, 7 * w);
+        var thu = addDays(W, 1);
+        if (thu >= plan.report && !plan.reportClosed) break;
+        if (closedLabel(thu)) continue;
+        var D = latestShip(W, N, bvd);
+        if (D && D >= today) {
+          html += "<p>" + (w === 0 ? "To make the report on " : "To be in the report on ") + fmt(thu) + ", ship by " + fmt(D) + ".</p>";
+          found = true;
+        }
       }
       html += '<p class="muted">Questions about a late box? Call the lab at ' + PHONE + ".</p>";
     }
@@ -194,11 +351,16 @@
       html += '<p class="muted">Pregnancy blood tubes do not need ice. Pad the tubes well and keep the form and payment in their own bag.</p>';
     } else if (N > 2) {
       html += "<p><strong>Ear notches and BVD blood ship cold.</strong> This shipping takes longer than 48 hours. Call the lab first for instructions.</p>";
-    } else if (isWeekend(A)) {
+    } else if (plan.arriveWeekend || plan.arriveClosed) {
       var B = S > today ? S : today;
-      for (var k = 0; k < 14 && (isWeekend(B) || isWeekend(addDays(B, N))); k++) B = addDays(B, 1);
-      html += "<p><strong>Ear notches and BVD blood ship cold.</strong> This box would land on a " + DAYS[A.getDay()] +
-        " and wait for Monday, past 48 hours. Ship on " + fmt(B) + " instead, so it lands on a weekday.</p>";
+      for (var k = 0; k < 28 && (isLabClosed(B) || isLabClosed(addDays(B, N))); k++) B = addDays(B, 1);
+      if (plan.arriveWeekend && !plan.skipped.length)
+        html += "<p><strong>Ear notches and BVD blood ship cold.</strong> This box would land on a " + DAYS[A.getDay()] +
+          " and wait for Monday, past 48 hours. Ship on " + fmt(B) + " instead, so it lands on a weekday.</p>";
+      else
+        html += "<p><strong>Ear notches and BVD blood ship cold.</strong> This box would land on " +
+          (plan.arriveWeekend ? "a " + DAYS[A.getDay()] : fmt(A) + ", which is " + closedLabel(A) + ",") +
+          " and wait for " + fmt(R) + ", past 48 hours. Ship on " + fmt(B) + " instead, so it lands on a lab day.</p>";
     } else {
       html += "<p><strong>Ear notches and BVD blood ship cold.</strong> Refrigerate before shipping and pack with ice packs. Sample on the day you ship, so the box arrives within 48 hours of collection.</p>";
     }
@@ -299,12 +461,37 @@
       "</ul>";
   }
 
+  /* 7b. Supplies answer: two lists in one tool. Each group is
+     { total, labels } where labels are the unticked item texts. */
+  function listHtml(title, labels) {
+    return "<p><strong>" + title + '</strong></p><ul class="tight">' +
+      labels
+        .map(function (t) {
+          return "<li>" + esc(t) + "</li>";
+        })
+        .join("") +
+      "</ul>";
+  }
+  function suppliesAnswer(order, pack) {
+    var total = order.total + pack.total;
+    var left = order.labels.length + pack.labels.length;
+    if (left === total)
+      return '<p>Tick what you already have; whatever is left is listed here.</p><p class="tool-count">' + plural(total, "item", "items") + " not ticked yet.</p>";
+    if (!left) return "<p><strong>You have everything. Draw, pack, ship.</strong></p>";
+    return (order.labels.length ? listHtml("Still to order:", order.labels) : '<p class="muted">Nothing left to order.</p>') +
+      (pack.labels.length ? listHtml("Still to pack:", pack.labels) : '<p class="muted">Nothing left to pack.</p>');
+  }
+
   /* Test hook: node loads this file as a module; browsers have no `module`. */
   if (typeof module !== "undefined" && module.exports) {
     module.exports = {
       parseDate: parseDate,
       fmt: fmt,
       iso: iso,
+      LAB_CLOSED: LAB_CLOSED,
+      holidayName: holidayName,
+      isLabClosed: isLabClosed,
+      boxPlan: boxPlan,
       labDay: labDay,
       thursdayOf: thursdayOf,
       firstGoodShip: firstGoodShip,
@@ -313,7 +500,8 @@
       shipbyAnswer: shipbyAnswer,
       chooserAnswer: chooserAnswer,
       bvdAnswer: bvdAnswer,
-      checklistAnswer: checklistAnswer
+      checklistAnswer: checklistAnswer,
+      suppliesAnswer: suppliesAnswer
     };
   }
   if (typeof document === "undefined") return;
@@ -380,7 +568,7 @@
     var today = startOfDay(new Date());
     ship.min = iso(today);
     ship.max = iso(addDays(today, 365));
-    if (!ship.value) ship.value = iso(isWeekend(today) ? labDay(today) : today);
+    if (!ship.value) ship.value = iso(labDay(today));
 
     function run() {
       out.innerHTML = shipbyAnswer(ship.value, transit.value, kind ? kind.value : "preg", startOfDay(new Date()));
@@ -704,15 +892,26 @@
     var print = $(".tool-print", root);
     if (!boxes.length || !out) return;
     var have = root.getAttribute("data-mode") === "have";
-    function run() {
-      var labels = boxes
+    var orderBoxes = $all('[data-list="order"] input[type="checkbox"]', root);
+    var packBoxes = $all('[data-list="pack"] input[type="checkbox"]', root);
+    function unticked(list) {
+      return list
         .filter(function (b) {
           return !b.checked;
         })
         .map(function (b) {
           return b.parentNode.textContent.trim();
         });
-      out.innerHTML = checklistAnswer(have, boxes.length, labels);
+    }
+    function run() {
+      if (orderBoxes.length && packBoxes.length) {
+        out.innerHTML = suppliesAnswer(
+          { total: orderBoxes.length, labels: unticked(orderBoxes) },
+          { total: packBoxes.length, labels: unticked(packBoxes) }
+        );
+        return;
+      }
+      out.innerHTML = checklistAnswer(have, boxes.length, unticked(boxes));
     }
     boxes.forEach(function (b) {
       on(b, "change", run);

@@ -12,7 +12,7 @@ captions.
 
 | Files in images/ | Shows | Source | Author | License | Other changes |
 |---|---|---|---|---|---|
-| hero-columbia-{800,1200,1600,2100}, hero-columbia-m-{640,750,960,1344}, og-home.jpg | Farmer and adviser with a beef herd, Columbia County, WI (home hero; share image for faq, credits, thanks, 404) | https://commons.wikimedia.org/wiki/File:NRCSWI00105_-_Wisconsin_(6837)(NRCS_Photo_Gallery).jpg | Bob Nichols, USDA NRCS | Public domain (US government work) | CMYK converted to sRGB; a small emblem on a shirt painted out |
+| hero-columbia-{800,1200,1600,2100}, hero-columbia-m-{640,750,960,1344}, og-home.jpg | A farmhand moving a dairy herd in from pasture (home hero; share image for every page without its own band: results, tailbleeding, shipping_test, faq, consulting, aboutus, contact, credits, thanks, 404). The file stem keeps the old name hero-columbia | https://commons.wikimedia.org/wiki/File:20190515-FPAC-PJK-1177_TONED.jpg | Preston Keres, USDA Farm Production and Conservation (FPAC); shot at a dairy creamery farm in Federalsburg, Maryland, 15 May 2019 (the page caption does not name the place) | Public domain (US government work) | 7:5 desktop crop and 4:3 phone crop from the 3840 px file; midtones lifted slightly (gamma 0.92) and a light soften to hold the file weight |
 | fig-beef.jpg, fig-beef-760.jpg, fig-beef-{240,380}, fig-beef-760.webp | Beef cows and calves (home door) | https://commons.wikimedia.org/wiki/File:Livestock.jpg | USDA | CC0 1.0 | none |
 | door-dairy-{240,380,760} | Milking a Holstein in a tie-stall barn (home door) | https://commons.wikimedia.org/wiki/File:NRCSOH07039_-_Ohio_(717456)(NRCS_Photo_Gallery).jpg | Scott Bauer, USDA NRCS | Public domain (US government work) | right edge trimmed |
 | fig-heifers.jpg, fig-heifers-760.jpg, fig-heifers-{240,380}, fig-heifers-760.webp | Dairy heifers on pasture (home door) | https://commons.wikimedia.org/wiki/File:Dairy_Heifers_on_Pasture_.jpg | Kristenmacphee | CC BY-SA 4.0 | none |
@@ -25,24 +25,18 @@ captions.
 | band-bvdtest-*, og-bvdtest.jpg | Freestall barn (bvdtest band) | https://commons.wikimedia.org/wiki/File:20140415-OSEC-UNK-0003_(13905886561).jpg | USDA | Public domain (US government work) | none |
 | fig-calf.jpg, fig-calf-760.jpg, fig-calf.webp, fig-calf-760.webp | Holstein cow with newborn calf (bvdtest) | https://commons.wikimedia.org/wiki/File:Holstein_cow_with_one-day_calf_01.jpg | Witia | CC BY-SA 4.0 | none |
 | fig-ranchers-{760,1280} | Two ranchers with cow-calf pairs (bvdtest) | https://commons.wikimedia.org/wiki/File:Larry_Huntington_and_Justin_Maxey_survey_cattle3903034253_o.jpg | USDA | Public domain (US government work) | the site never names the two people |
-| band-tailbleeding-*, og-tailbleeding.jpg | Tail-vein blood draw (tailbleeding band) | https://commons.wikimedia.org/wiki/File:Cattle_blood_sampling.jpg | RianHS | CC BY-SA 4.0 | none |
+| fig-tailbleed-{760,1280} | Tail-vein blood draw (in-text figure on tailbleeding, 4:3) | https://commons.wikimedia.org/wiki/File:Cattle_blood_sampling.jpg | RianHS | CC BY-SA 4.0 | 4:3 crop, focal point 30 / 55, cow's head cropped out |
 | fig-jugular-{600,1200} | Jugular draw on a sheep (tailbleeding) | https://commons.wikimedia.org/wiki/File:Scrapie_testing.jpg | Stephen Ausmus, USDA ARS | Public domain (US government work) | portrait 4:5 crop |
-| band-shipping-*, og-shipping.jpg | Wisconsin dairy farm from the air (shipping band) | https://commons.wikimedia.org/wiki/File:Wisconsin_dairy_farm.jpg | Wikimedia Commons contributor | CC0 1.0 | cut from the 4000 px original |
-| fig-holstein.jpg, fig-holstein-760.jpg, fig-holstein.webp, fig-holstein-760.webp | Holstein on spring pasture (faq) | https://commons.wikimedia.org/wiki/File:Cow_female_black_white.jpg | Keith Weller, USDA ARS (image K5176-3) | Public domain (US government work) | none |
-| band-aboutus-*, og-aboutus.jpg | Farm in the Town of Rib Lake, WI (aboutus band) | https://commons.wikimedia.org/wiki/File:Town_of_Rib_Lake_Wisconsin_farm_on_C.jpg | Jeff the quiet | CC0 1.0 | none |
 | fig-dane.jpg, fig-dane-760.jpg, fig-dane.webp, fig-dane-760.webp | Dairy farm in Dane County, WI (aboutus) | https://commons.wikimedia.org/wiki/File:Dairy_Farm_in_Dane_County,_Wisconsin_-_panoramio_(8).jpg | Corey Coyle | CC BY 3.0 | none |
-| band-contact-*, og-contact.jpg | Farm in Brighton, Marathon County, WI (contact band) | https://commons.wikimedia.org/wiki/File:Farm_in_Brighton_Marathon_County_Wisconsin.jpg | Jeff the quiet | CC0 1.0 | phone crop leaves out a grass seed head |
-| band-goats-*, og-goats.jpg | Shepherd with a flock (goats band) | https://commons.wikimedia.org/wiki/File:20220516-FPAC-PJK-3738_TONED_(52081814040).jpg | USDA | Public domain (US government work) | none |
+| band-beef-*, og-beef.jpg | Beef cows on a farm in Brighton, Marathon County, WI (beef band; moved here from the contact page, which has no band now) | https://commons.wikimedia.org/wiki/File:Farm_in_Brighton_Marathon_County_Wisconsin.jpg | Jeff the quiet | CC0 1.0 | desktop crop keeps the barn, silo and herd; phone crop leaves out the bottom-left grass seed heads |
+| band-goats-*, og-goats.jpg | Dairy does in a bedded goat barn (goats band) | https://commons.wikimedia.org/wiki/File:Ardith_Mae_Farmstead_Goat_Cheese.JPG | Lenevarez (Ardith Mae Farmstead, Stuyvesant, New York, 18 April 2014) | CC BY-SA 3.0, https://creativecommons.org/licenses/by-sa/3.0/ | 3:1 desktop crop (rows 18 to 68 percent), phone view is the whole 3:2 frame; the resized copies carry the same license. The '38' on the chain tag is a herd number |
 | fig-ewes-{760,1280} | Ewes with lambs (goats) | https://commons.wikimedia.org/wiki/File:Agriculture_Research_Service_(ARS)_(8424922680).jpg | USDA ARS | Public domain (US government work) | top fence trimmed |
 | fig-goat-parlor-{760,1280} | Dairy goats, Wisconsin State Fair (goats) | https://commons.wikimedia.org/wiki/File:2023_Wisconsin_State_Fair_63_(Milking_Parlor).jpg | Michael Barera | CC BY-SA 4.0 | left wall strip trimmed |
-| band-beef-*, og-beef.jpg | Moving a herd to new pasture (beef band) | https://commons.wikimedia.org/wiki/File:Getting_the_herd_to_follow_us_to_the_new_pasture_(51328555504).jpg | Lars Plougmann | CC BY-SA 2.0 | none |
 | fig-chute-{760,1280} | Cow in a squeeze chute (beef) | https://commons.wikimedia.org/wiki/File:Cattle_inspected_for_ticks.jpg | Scott Bauer, USDA | Public domain (US government work) | none |
 | fig-bison-corrals-{760,1280} | Bison driven to corrals (beef) | https://commons.wikimedia.org/wiki/File:Bison_Driven_Toward_the_Corrals_(041cef6a-b789-4f8b-8967-d95b75ec2cb3).JPG | National Park Service | Public domain (US government work) | none |
-| band-consulting-*, og-consulting.jpg | Adviser and farmer looking at pasture grass, WI (consulting band) | https://commons.wikimedia.org/wiki/File:NRCSWI00107_-_Wisconsin_(6839)(NRCS_Photo_Gallery).jpg | Bob Nichols, USDA NRCS | Public domain (US government work) | CMYK converted to sRGB; small emblems on a shirt and a cap painted out; largest file 2100 px |
-| band-results-*, og-results.jpg | Filling a 96-well plate (results band) | https://commons.wikimedia.org/wiki/File:96_well_plate.jpg | J.N. Eskra | CC BY-SA 4.0 | none |
 
-`band-{stem}-*` means `band-{stem}-{800,1600,2400}` (consulting: 2100 in place of 2400) and
-`band-{stem}-m-{640,750,960}`, each as `.jpg` and `.webp`.
+`band-{stem}-*` means `band-{stem}-{800,1600,2400}` and `band-{stem}-m-{640,750,960}`, each as `.jpg` and `.webp`.
+Bands remain on pregtest, bvdtest, beef and goats only. The other inner pages lead with their own drawing and use og-home.jpg as the share image.
 
 ## The lab's own images
 
