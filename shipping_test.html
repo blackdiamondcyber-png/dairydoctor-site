@@ -210,7 +210,7 @@
     <div class="page-main">
     <section class="container page-intro">
       <h1>Packing and shipping your samples</h1>
-      <p class="lede">Follow these steps to get your blood or ear notch samples to our lab safely. Samples that reach the lab by Wednesday are reported Thursday.</p>
+      <p class="lede">Follow these steps to get your blood or ear notch samples to the lab safely. Samples that reach the lab by Wednesday are reported Thursday.</p>
       <nav class="jump-row" aria-label="On this page"><span>On this page:</span> <a href="#packing">Packing</a> <a href="#planner">Planner</a> <a href="#ship-to">Address</a> <a href="#forms">Forms</a> <a href="#barn-card">Barn card</a> <a href="#supplies">Supplies</a></nav>
     </section>
   <section class="container">
@@ -458,9 +458,9 @@
         </div>
         <div class="tool-out" aria-live="polite">
           <p>Boxes that reach the lab Monday to Wednesday are in that Thursday's report. With Priority Mail, usually 2 days, ship by Monday. With overnight shipping, ship by Tuesday. A box shipped later is in the next week's report.</p>
-          <p class="muted">The Postal Service does not deliver on federal holidays, and next-day carriers do not deliver on New Year's Day, Memorial Day, Independence Day, Labor Day, Thanksgiving or Christmas. A box that would arrive on a weekend or one of those days counts from the next lab day. If the report Thursday is a holiday, call <a href="tel:+17156532201">(715) 653-2201</a> for that week's report day. Ear notches and BVD blood ship cold and must reach the lab within 48 hours of collection, so they should not wait over a weekend or a holiday.</p>
+          <p class="muted">The Postal Service does not deliver on federal holidays, and next-day carriers do not deliver on New Year's Day, Memorial Day, Independence Day, Labor Day, Thanksgiving or Christmas, or on the Friday or Monday when one of those is observed. A box that would arrive on a weekend or one of those days counts from the next lab day. If the report Thursday is a holiday, call <a href="tel:+17156532201">(715) 653-2201</a> for that week's report day. Ear notches and BVD blood ship cold and must reach the lab within 48 hours of collection, so they should not wait over a weekend or a holiday.</p>
         </div>
-        <p class="tool-actions"><button type="button" class="btn btn-outline" data-ics hidden>Add the draw and ship day to my calendar</button> <span class="tool-day" data-day hidden></span></p>
+        <p class="tool-actions"><button type="button" class="btn btn-outline" data-ics hidden>Add the draw and ship day to my calendar</button> <span class="tool-day-wrap"><span class="tool-day" data-day hidden></span> <button type="button" class="tool-copy" data-copy-day aria-label="Copy the draw and ship day" hidden>Copy</button></span></p>
       </div>
 
       <div class="section-head" data-reveal>
@@ -481,7 +481,7 @@
         <h2 id="forms">Submission forms</h2>
       </div>
       <p>Download and complete the form that matches your samples, then include it in your shipment.</p>
-      <div class="tool forms-block" data-tool="chooser" id="chooser">
+      <div class="tool forms-block" id="chooser">
         <ul class="form-lines">
           <li class="form-line">
             <p><strong>Cattle and bison pregnancy</strong><br><span class="muted">Cattle-Bison Pregnancy Test Submission Form</span></p>
@@ -496,30 +496,7 @@
             <a class="btn btn-outline" href="BVD_PI_Test.pdf"><svg class="icon-download" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg> Download PDF<span class="sr-only">, BVD PI Test Submission Form</span></a>
           </li>
         </ul>
-        <div class="forms-block-chooser">
-          <h3 class="needs-js">Not sure which one? Pick your animals and the test.</h3>
-          <div class="tool-grid">
-            <div class="form-field">
-              <label for="fc-species">Animals</label>
-              <select id="fc-species" name="species">
-                <option value="cattle">Cattle or bison</option>
-                <option value="small">Goats or sheep</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label for="fc-test">Test</label>
-              <select id="fc-test" name="test" aria-describedby="fc-test-hint">
-                <option value="preg">Pregnancy</option>
-                <option value="bvd">BVD PI</option>
-                <option value="other">Disease monitoring</option>
-              </select>
-              <p class="muted" id="fc-test-hint">Disease monitoring covers Johne's, Leukosis, Mycoplasma and other tests.</p>
-            </div>
-          </div>
-          <div class="tool-out" aria-live="polite">
-            <p>For Johne's, Leukosis or Mycoplasma, call the lab first at <a href="tel:+17156532201">(715) 653-2201</a>.</p>
-          </div>
-        </div>
+        <p>For Johne's, Leukosis or Mycoplasma, call the lab first at <a href="tel:+17156532201">(715) 653-2201</a>.</p>
       </div>
       <p class="muted">More animals than lines on the form? Print a second copy.</p>
       <p class="first-box-note"><strong>First box?</strong> Please call our office before your first submission, at <a href="tel:+17156532201">(715) 653-2201</a>, or <a href="contact.html#new-client">send the new client form</a>. We'd like to meet you. A call settles which supplies you need.</p>
@@ -645,9 +622,13 @@
 
 <footer class="site-footer">
   <div class="container footer-grid">
-    <div class="footer-brand-col">
-      <img class="footer-lockup" src="images/logo-lockup-600.jpg" srcset="images/logo-lockup-600.jpg 600w, images/logo-lockup.jpg 1200w" sizes="220px" width="600" height="394" alt="" loading="lazy" decoding="async">
-      <p class="footer-tagline">Serving herds since 1999.</p>
+    <div class="footer-brand-col footer-brand">
+      <img class="footer-mark" src="images/header-mark.png" width="96" height="77" alt="" loading="lazy" decoding="async">
+      <div>
+        <p class="footer-name">The Dairy Doctor</p>
+        <p class="footer-legal">Advanced Dairy Diagnostics &amp; Consulting, LLC</p>
+        <p class="footer-est">Est. 1999, Frederic, Wisconsin</p>
+      </div>
     </div>
     <nav class="footer-nav" aria-label="All pages">
       <p class="footer-heading">Pages</p>

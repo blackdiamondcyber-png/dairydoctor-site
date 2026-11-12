@@ -362,6 +362,12 @@ main .link-rows li + li {
   font-size: 1.125rem;
 }
 
+/* R5 ruling 12 (TECH-R4-04): one plain line under each home link row. */
+.link-rows p {
+  margin: 0;
+  padding-bottom: 0.85rem;
+}
+
 @media (min-width: 780px) {
   .link-rows {
     display: grid;
@@ -1232,6 +1238,16 @@ section + section {
     aspect-ratio: 3 / 1;
     max-height: 35rem;
   }
+  /* A 2:1 band (bvdtest: the cow's head and her whole calf do not fit in
+     3:1; R5 ruling 1, BRAN-R4-02, TECH-R4-05). It stops at the page
+     text's width, 1040 px, lined up with the header's mark and call
+     button, so it is never more than 520 px tall and is never cropped. */
+  .page-band--tall img {
+    aspect-ratio: 2 / 1;
+    max-width: calc(var(--content-max) - 2 * var(--gutter));
+    max-height: none;
+    margin-inline: auto;
+  }
 }
 
 .page-intro {
@@ -1549,13 +1565,13 @@ section + section {
   color: var(--muted);
 }
 
+/* The sample report's table is ruled, not boxed: one rule above and one
+   below inside the card's double frame (R5 ruling 5, BRAN-R4-04). */
 .report {
   width: 100%;
-  background: var(--card);
-  border: 1px solid var(--ice);
-  border-radius: var(--radius);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
   font-size: 0.95rem;
-  overflow: hidden;
 }
 
 .report th,
@@ -1566,9 +1582,14 @@ section + section {
   vertical-align: top;
 }
 
+/* With no box, the first column starts on the rules' left edge. */
+.report th:first-child,
+.report td:first-child {
+  padding-left: 0;
+}
+
 .report th {
   border-top: none;
-  background: var(--mint);
   color: var(--teal-deep);
   font-size: 0.875rem;
   letter-spacing: 0.04em;
@@ -1592,7 +1613,7 @@ section + section {
     width: 100%;
   }
   .report tr {
-    padding: 0.6rem 0.8rem;
+    padding: 0.6rem 0;
     border-top: 1px solid var(--ice);
   }
   .report tr:first-child {
@@ -2571,6 +2592,42 @@ address p {
   user-select: all;
 }
 
+/* The day line and its small Copy button stay together where they fit
+   (R5 ruling 10, BRAN-R4-10). js/tools.js shows [data-copy-day] only while
+   the day line shows and the browser has the clipboard API; the button reads
+   "Copied" for a moment and a live region says so. 14 px label, 44 px target. */
+.tool-day-wrap {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+
+.tool-day-wrap:has(> [data-day][hidden]) {
+  display: none;
+}
+
+.tool-copy {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--teal-deep);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.tool-copy:hover,
+.tool-copy:focus-visible {
+  background: var(--mint);
+  border-color: var(--teal-deep);
+}
+
 /* -------------------- Inquiry form (contact.html) -------------------- */
 
 .inquiry-form {
@@ -2724,18 +2781,42 @@ address p {
   color: #ffffff;
 }
 
-.footer-lockup {
-  display: block;
-  width: 220px;
-  height: auto;
-  border-radius: var(--radius);
+/* Footer lockup (R5 ruling 4, BRAN-R4-05, CUST-R4-03): the cow mark at
+   96 px with the name in real text beside it, every line 14 px or more.
+   White on deep teal is 9.9 to 1, ice on deep teal 5.6 to 1 (AA). */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-/* The lockup spells the legal name, so no name line repeats it underneath. */
-.site-footer .footer-tagline {
-  margin-top: 0.85rem;
+.footer-mark {
+  flex: none;
+  width: 96px;
+  height: auto;
+}
+
+.site-footer .footer-brand p {
+  margin-top: 0;
+  line-height: 1.35;
+}
+
+.site-footer .footer-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.site-footer .footer-legal {
+  margin-top: 0.3rem;
+  font-size: 0.9375rem;
+}
+
+.site-footer .footer-est {
+  margin-top: 0.2rem;
   color: var(--ice);
-  font-size: 0.95rem;
+  font-size: 0.9375rem;
 }
 
 .footer-heading {
@@ -2814,6 +2895,13 @@ address p {
   .footer-grid {
     grid-template-columns: 1fr 1.6fr 1.1fr;
     gap: 2.5rem;
+  }
+  /* The brand column is narrow here: the mark sits above the name, both
+     on the top line of the Pages and Contact columns. */
+  .footer-brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
   }
 }
 
@@ -2929,7 +3017,6 @@ address p {
   .call-button,
   .hero-stats-wrap,
   .next-actions,
-  .footer-lockup,
   .jump-row,
   .page-rail,
   .footer-nav,
@@ -3287,18 +3374,24 @@ address p {
   cursor: default;
 }
 
-/* FAQ accordions */
+/* FAQ accordions: ruled rows like the step and jump lists, a rule above and
+   below, no box and no radius (R5 ruling 5, BRAN-R4-04). Rows that follow
+   each other share one rule: each overlaps the one before by 1 px, which
+   still holds when the FAQ search hides rows in between. */
 .faq-item {
-  border: 1px solid var(--ice);
-  border-radius: var(--radius);
-  background: var(--card);
-  margin-top: 0.75rem;
   max-width: var(--measure);
+  margin-top: 0.75rem;
+  border-top: 1px solid var(--ice);
+  border-bottom: 1px solid var(--ice);
+}
+
+.faq-item + .faq-item {
+  margin-top: -1px;
 }
 
 .faq-item summary {
   cursor: pointer;
-  padding: 0.85rem 1.25rem;
+  padding: 0.85rem 0;
   font-family: var(--font-display);
   font-weight: 600;
   color: var(--teal-deep);
@@ -3316,8 +3409,8 @@ address p {
 .faq-item summary::after {
   content: '+';
   position: absolute;
-  right: 1.1rem;
-  top: 0.7rem;
+  right: 0.35rem;
+  top: 0.8rem;
   font-size: 1.4rem;
   color: var(--rust);
   line-height: 1;
@@ -3329,12 +3422,16 @@ address p {
 
 .faq-item > p,
 .faq-item > ul {
-  padding: 0 1.25rem 1rem;
+  padding: 0 2.6rem 1rem 0;
   margin-top: 0;
 }
 
 .faq-item > ul {
-  padding-left: 2.5rem;
+  padding-left: 1.3em;
+}
+
+.faq-item summary:hover {
+  color: var(--link);
 }
 
 .faq-tools .form-field {

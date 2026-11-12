@@ -97,18 +97,19 @@
   }
   /* The days a next-day carrier does not deliver. The Postal Service (Priority
      Mail and 3-day boxes) stops on all 11 federal holidays; the overnight
-     choice stops only on these six, on the day itself (an "observed" Friday or
-     Monday is a working day for a carrier). */
+     choice stops only on these six, and on their observed Friday or Monday
+     too (a carrier has closed on an observed Monday, for example Monday,
+     Jul 5, 2027, so the box is not counted as delivered that day). */
   var OVERNIGHT_HOLIDAYS = ["New Year's Day", "Memorial Day", "Independence Day", "Labor Day", "Thanksgiving Day", "Christmas Day"];
   /* Name of the holiday on d that stops delivery, or "". transit is 1 for the
-     overnight choice (six days); anything else is the Postal Service (all 11
-     federal holidays, observed dates). New Year's Day of the next year can be
+     overnight choice (six holidays, observed dates included); anything else is
+     the Postal Service (all 11 federal holidays, observed dates). New Year's Day of the next year can be
      observed on December 31, so next year's list is read too. */
   function holidayName(d, transit) {
     var y = d.getFullYear();
     var name = holidaysOf(y)[iso(d)] || holidaysOf(y + 1)[iso(d)] || "";
     if (transit !== 1) return name;
-    return name.indexOf("(observed)") === -1 && OVERNIGHT_HOLIDAYS.indexOf(name) !== -1 ? name : "";
+    return OVERNIGHT_HOLIDAYS.indexOf(name.replace(" (observed)", "")) !== -1 ? name : "";
   }
   /* Why d is a day off the calendar for a weekday: a holiday name, a closed
      day the owner added, or "". transit picks the holiday set (see above). */
@@ -204,6 +205,25 @@
     }
     return null;
   }
+  /* The ship day the planner opens on: the next good ship day (a lab day whose
+     box lands Monday to Wednesday), so it agrees with the timing tool. Falls
+     back to the next lab day when no good day is found. */
+  function defaultShipDay(today, transit) {
+    var p = firstGoodShip(startOfDay(today), transit);
+    return p ? p.ship : labDay(today, transit);
+  }
+  /* For a box that would land on a weekend: the first later lab day (within a
+     week) whose box lands on a lab day and makes the same report, or null. */
+  function sameReportShip(S, transit, plan) {
+    for (var k = 1; k <= 7; k++) {
+      var s = addDays(S, k);
+      if (isLabClosed(s, transit)) continue;
+      var p = boxPlan(s, transit);
+      if (p.arriveWeekend || p.arriveClosed) continue;
+      if (p.report.getTime() === plan.report.getTime()) return s;
+    }
+    return null;
+  }
   /* Days in transit from the shipping choice: 1, 2 or 3. Anything else is
      read as 2, the default choice. */
   function transitDays(v) {
@@ -226,6 +246,9 @@
      reach the lab Thursday or Friday are tested too, in the next report. */
   var MON_WED_LINE = "Boxes that reach the lab Monday to Wednesday are in that Thursday's report, so draw and ship on ";
   var DAY_LINE = "Draw and ship: ";
+  /* The Copy button beside the day line: its words and its spoken name. */
+  var COPY_LABEL = "Copy";
+  var COPY_NAME = "Copy the draw and ship day";
 
   /* ---------------- Core: pure answers (no page access) ---------------- */
 
@@ -248,9 +271,11 @@
     if (closedLabel(d, transit) === "a day the lab is closed") return closedIs(d, transit) + ".";
     return closedIs(d, transit) + (transit === 1 ? " and next-day carriers do not deliver." : " and the Postal Service does not deliver.");
   }
-  /* Why a box that lands on a weekend or closed day counts from a later day. */
+  /* Why a box that lands on a weekend or closed day counts from a later day.
+     The Arrives line above it already names the weekend day, so this text
+     does not name it again. */
   function rollText(plan) {
-    var head = plan.arriveWeekend ? "That is a " + DAYS[plan.arrive.getDay()] + ". The lab is staffed Monday to Friday" : "";
+    var head = plan.arriveWeekend ? "The lab is staffed Monday to Friday" : "";
     var closed = plan.skipped
       .map(function (d) {
         return closedSentence(d, plan.transit);
@@ -393,6 +418,15 @@
       html += '<p class="muted">Questions about a late box? Call the lab at ' + PHONE + ".</p>";
     }
 
+    /* A pregnancy box that would sit in the post office over a weekend: name
+       the later ship day that makes the same report with less time in the box.
+       A cold box has its own line below, and a weekend ship day already has
+       "pick Monday" above. */
+    if (!bvd && plan.arriveWeekend && !isWeekend(S)) {
+      var better = sameReportShip(S, N, plan);
+      if (better) html += "<p>Shipping " + fmt(better) + " makes the same report with less time in the box.</p>";
+    }
+
     if (!bvd) {
       html += '<p class="muted">Pregnancy blood tubes do not need ice. Pad the tubes well and keep the form and payment in their own bag.</p>';
     } else if (N > 2) {
@@ -498,7 +532,7 @@
   function checklistAnswer(have, total, labels) {
     if (labels.length === total) {
       return have
-        ? "<p>Tick what you have in hand and what is still missing is listed here.</p>"
+        ? "<p>Tick what you already have. Whatever is left shows below.</p>"
         : '<p>Tick what you already have; whatever is left is your order list.</p><p class="tool-count">' +
           plural(total, "item", "items") + " not ticked yet.</p>";
     }
@@ -624,6 +658,26 @@
      "" when there is no day. No outside calendar service is named or linked. */
   function dayLine(ship) {
     return ship instanceof Date && !isNaN(ship.getTime()) ? DAY_LINE + fmt(ship) : "";
+  }
+
+  /* The one announcement the stepper makes for a step: "Step 2 of 12: text".
+     html is the step's list item markup; tags are dropped. */
+  function stepAnnouncement(n, total, html) {
+    var plain = String(html)
+      .replace(/<\/?(br|p|div|li|ul|ol)(?=[\s/>])[^>]*>/gi, " ")
+      .replace(/<[^>]*>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#(\d+);/g, function (m, c) {
+        return String.fromCharCode(parseInt(c, 10));
+      })
+      .replace(/&#39;|&apos;/g, "'")
+      .replace(/&amp;/g, "&")
+      .replace(/\s+/g, " ")
+      .trim();
+    return "Step " + n + " of " + total + (plain ? ": " + plain : "");
   }
 
   /* 9. Herd list sheets (herd-list.html). A herd with more animals than lines
@@ -902,6 +956,10 @@
       drawShipIcs: drawShipIcs,
       ICS_FILE: ICS_FILE,
       dayLine: dayLine,
+      defaultShipDay: defaultShipDay,
+      stepAnnouncement: stepAnnouncement,
+      COPY_LABEL: COPY_LABEL,
+      COPY_NAME: COPY_NAME,
       TRANSIT_LABEL: TRANSIT_LABEL,
       TRANSIT_HINT: TRANSIT_HINT,
       MON_WED_LINE: MON_WED_LINE,
@@ -993,6 +1051,54 @@
     }
     line.hidden = true;
     btn.hidden = true;
+
+    /* A small Copy button beside the day line: it puts "Draw and ship: <day>"
+       on the clipboard and says "Copied" in the live region. It is made here
+       when the page has none, and stays hidden when the browser has no
+       clipboard API. */
+    var canCopy = !!(navigator && navigator.clipboard && typeof navigator.clipboard.writeText === "function");
+    var copyBtn = $("[data-copy-day]", root);
+    if (!copyBtn && canCopy) {
+      copyBtn = document.createElement("button");
+      copyBtn.type = "button";
+      copyBtn.className = "tool-copy";
+      copyBtn.setAttribute("data-copy-day", "");
+      copyBtn.textContent = COPY_LABEL;
+      line.parentNode.insertBefore(copyBtn, line.nextSibling);
+    }
+    var copyTimer = null;
+    function tell(msg) {
+      status.textContent = "";
+      setTimeout(function () {
+        status.textContent = msg;
+      }, 50);
+    }
+    function copyReset() {
+      copyBtn.textContent = COPY_LABEL;
+      copyBtn.setAttribute("aria-label", COPY_NAME);
+    }
+    if (copyBtn) {
+      copyBtn.hidden = true;
+      copyBtn.setAttribute("aria-label", COPY_NAME);
+      on(copyBtn, "click", function () {
+        if (!canCopy || !current || !current.ship) return;
+        function done() {
+          copyBtn.textContent = "Copied";
+          copyBtn.setAttribute("aria-label", "Copied");
+          clearTimeout(copyTimer);
+          copyTimer = setTimeout(copyReset, 1600);
+          tell("Copied");
+        }
+        function failed() {
+          tell("Could not copy. Select the day and copy it by hand.");
+        }
+        try {
+          navigator.clipboard.writeText(dayLine(current.ship)).then(done, failed);
+        } catch (err) {
+          failed();
+        }
+      });
+    }
     on(btn, "click", function () {
       if (!current || !current.ship) return;
       var text = drawShipIcs(current.ship, current.form, current.cold, new Date());
@@ -1030,6 +1136,10 @@
       btn.hidden = !current;
       line.textContent = current ? dayLine(current.ship) : "";
       line.hidden = !current;
+      if (copyBtn) {
+        copyBtn.hidden = !current || !canCopy;
+        if (!current) copyReset();
+      }
     };
   }
 
@@ -1049,7 +1159,8 @@
       calved.min = iso(addDays(today, -730));
       calved.max = iso(today);
     }
-    if (!bred.value) bred.value = iso(addDays(today, -30));
+    /* The breeding date starts empty: no plan, calendar button or day line is
+       shown until the farmer enters a date. */
 
     var calendar = icsButton(root);
     function run() {
@@ -1080,7 +1191,13 @@
     var today = startOfDay(new Date());
     ship.min = iso(today);
     ship.max = iso(addDays(today, 365));
-    if (!ship.value) ship.value = iso(labDay(today));
+    /* Opens on the next good ship day. While the farmer has not picked a day,
+       a new shipping choice moves it to that choice's next good day. */
+    var picked = !!ship.value;
+    function openDay() {
+      return iso(defaultShipDay(today, transitDays(transit.value)));
+    }
+    if (!picked) ship.value = openDay();
 
     var calendar = icsButton(root);
     function run() {
@@ -1089,9 +1206,18 @@
       calendar(r);
     }
     var settle = settleThen(run);
-    on(ship, "change", settle.later);
+    on(ship, "input", function () {
+      picked = true;
+    });
+    on(ship, "change", function () {
+      picked = true;
+      settle.later();
+    });
     on(ship, "blur", settle.now);
-    on(transit, "change", run);
+    on(transit, "change", function () {
+      if (!picked) ship.value = openDay();
+      run();
+    });
     on(kind, "change", run);
     run();
   });
@@ -1150,6 +1276,26 @@
     var head = list.previousElementSibling;
     if (!(head && head.classList.contains("section-head"))) head = null;
 
+    /* One live region says "Step 2 of 12: <text>" once per press. The page
+       text itself is not live, so a screen reader does not queue two
+       announcements for one step. */
+    var live = document.createElement("span");
+    live.className = "sr-only";
+    live.setAttribute("aria-live", "polite");
+    live.setAttribute("aria-atomic", "true");
+    root.appendChild(live);
+    num.removeAttribute("aria-live");
+    text.removeAttribute("aria-live");
+    var liveTimer = null;
+    function announce() {
+      live.textContent = stepAnnouncement(i + 1, steps.length, steps[i]);
+      clearTimeout(liveTimer);
+      /* Empty it again so the words are not read twice when browsing. */
+      liveTimer = setTimeout(function () {
+        live.textContent = "";
+      }, 3000);
+    }
+
     function render() {
       num.textContent = "Step " + (i + 1) + " of " + steps.length;
       text.innerHTML = steps[i];
@@ -1160,10 +1306,12 @@
     on(prev, "click", function () {
       if (i > 0) i--;
       render();
+      announce();
     });
     on(next, "click", function () {
       i = i === steps.length - 1 ? 0 : i + 1;
       render();
+      announce();
     });
     on(root, "keydown", function (e) {
       if (e.key === "ArrowRight") {
