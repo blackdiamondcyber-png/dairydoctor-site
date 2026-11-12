@@ -1506,11 +1506,11 @@ main .btn[href^='tel:']::before {
 
 /* bvdtest: the Holstein photo is 2:1, so a 3:1 band shows two thirds of it.
    The cap is raised for this band only (40rem, 60vh) so the cow's head and the
-   calf's head both stay in frame; the position sits the window between them. */
+   calf both stay in frame; the window is set low enough to hold the calf. */
 @media (min-width: 640px) {
   .page-band--bvd img {
     max-height: min(40rem, 60vh);
-    object-position: 50% 25%;
+    object-position: 50% 62%;
   }
 }
 

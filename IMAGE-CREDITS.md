@@ -13,7 +13,7 @@ captions.
 | Files in images/ | Shows | Source | Author | License | Other changes |
 |---|---|---|---|---|---|
 | hero-columbia-{800,1200,1600,2100}, hero-columbia-m-{640,750,960,1344} | A farmer on a call in the barn (home hero). The file stem keeps the old name hero-columbia | none (made for this site) | Generated illustration, 12 Nov 2026; not a photograph; shows no real person, farm or herd | Made for this site | 7:5 desktop crop and 4:3 phone crop from the 2496 px original, focal point 52% across and 45% down; no other processing |
-| fig-beef-760.jpg, fig-beef-{240,380}, fig-beef-760.webp | Beef cows and calves (home door) | https://commons.wikimedia.org/wiki/File:Livestock.jpg | USDA | CC0 1.0 | none |
+| fig-beef-760.jpg, fig-beef-{240,380}, fig-beef-760.webp | Beef cows and calves (home door and the beef and bison page) | https://commons.wikimedia.org/wiki/File:Livestock.jpg | USDA | CC0 1.0 | none |
 | door-dairy-{240,380,760} | Milking a Holstein in a tie-stall barn (home door) | https://commons.wikimedia.org/wiki/File:NRCSOH07039_-_Ohio_(717456)(NRCS_Photo_Gallery).jpg | Scott Bauer, USDA NRCS | Public domain (US government work) | right edge trimmed |
 | fig-heifers-760.jpg, fig-heifers-{240,380}, fig-heifers-760.webp | Dairy heifers on pasture (home door) | https://commons.wikimedia.org/wiki/File:Dairy_Heifers_on_Pasture_.jpg | Kristenmacphee | CC BY-SA 4.0 | none |
 | door-goats-{240,380,760} | Nubian does at a feed rail (home door) | https://commons.wikimedia.org/wiki/File:Animals_(20191018-NRCS-LSC-0812).jpg | USDA NRCS | Public domain (US government work) | none |

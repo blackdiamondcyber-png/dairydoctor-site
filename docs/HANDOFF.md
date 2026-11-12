@@ -13,6 +13,13 @@ Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass
   Checks after the pass: site check 16 pages 0 problems, tool tests 552 of 552, behaviour 483 of
   483, axe 0 violations, Lighthouse 98 to 100 on six pages. Spec and captures: `.work/2026-11-11/ui/`
   and `evidence/ui0` (before), `evidence/ui-final` (after).
+- Review rounds on the new look (12 Nov): round 6 on the UI pass scored 94.5 / 96 / 94.5, so a
+  fix round followed (beef cattle photo, full-width BVD band, print footers, hours, wording,
+  lighter hero files, contact details as one ruled list). Round 7 scored 97 / 97 / 96.5. Four
+  small catches from round 7 were fixed afterwards and are not re-scored. Tool tests are now
+  554. Still open, by choice: a new hero illustration (Erik's pick), goat and sheep photographs,
+  the drawing label typeface on Android, the advice line when the day before ship day is a
+  holiday, empty cells in three-field tools, the no-script timing text.
 - Constraints: `CLAUDE.md`, "Hard constraints" (16 items). Plan: `docs/plans/2026-11-11-full-pass.md`.
 - State: `full-pass` and `master` hold the same site build, commit `1a1ba45` (round 5). Erik
   sent Dr. Pearson the preview link on 11 Nov, so every build that passes the local checks goes

@@ -1255,7 +1255,10 @@
       else herd.removeAttribute("aria-invalid");
       out.innerHTML = a.html;
     }
-    on(herd, "input", run);
+    /* The answer is a live region: wait until the typing stops (or the field loses focus). */
+    var settle = settleThen(run);
+    on(herd, "input", settle.later);
+    on(herd, "blur", settle.now);
     on(pattern, "change", run);
     on(status, "change", run);
     run();
