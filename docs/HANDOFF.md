@@ -2,32 +2,32 @@
 
 Goal: a site Dr. Pearson is proud of and that sets his practice apart (full pass started 11 Nov 2026).
 
-## START HERE (11 Nov 2026, afternoon)
+## START HERE (12 Nov 2026)
 
 - Constraints: `CLAUDE.md`, "Hard constraints" (15 items). Plan: `docs/plans/2026-11-11-full-pass.md`.
-- State (11 Nov, late afternoon): `full-pass` and `master` hold the same build. Erik sent Dr.
-  Pearson the preview link on 11 Nov, so from now on every build that passes the local checks
-  goes to `master` as well (fast-forward, push, one live check of about 10 page loads).
-- Round 2 build: 15 pages, new menu (Tests, Consulting, Sending samples, The practice), a right
-  rail on inner pages from 1100 px, a light hero with a new working photograph, date tools that
-  know federal holidays, a cow-only header mark, fewer and more relevant photographs (seven
-  pages lead with a drawing), 82 unused image files removed.
-- Round 3 build (12 Nov): "Submission forms" in every menu and footer, a contact form that
-  takes a phone number or an email, a printable barn card, add-to-calendar on the date tools,
-  holiday wording ("the mail does not run"), a print letterhead, a new home hero (a dairy
-  farmer with his Holstein herd), one cow drawing in the header mark, favicons and lockup, six
-  redrawn engraved plates, and `herd-list.html` (a printable animal list sheet; deliberately
-  unlinked and noindex until Dr. Pearson agrees to take list sheets).
-- Local checks on the round 3 build: site check 16 pages, 0 problems; tool tests 365 of 365;
-  behaviour checks 443 of 443; axe 0 violations at 375 and 1280 px; Lighthouse performance,
-  accessibility and best practices 100, SEO 100 (`thanks.html`, `404.html` and `herd-list.html`
-  are noindex on purpose).
-- Working files live in `.work/` on the G7 only (git-ignored). If it exists, read
-  `.work/2026-11-11/STATE.md` first, from "RUNNING STATE 5" onward: decisions, file map, next steps.
-- Review scores so far: round 1 was 74, 80.5 and 82; round 2 was 84.5, 90 and 88. The bar is
-  95 each.
-- Next: score round 3 with the same three reviewers, fix what they find, and repeat until each
-  reviewer is at 95 or more (constraint 15).
+- State: `full-pass` and `master` hold the same site build, commit `1a1ba45` (round 5). Erik
+  sent Dr. Pearson the preview link on 11 Nov, so every build that passes the local checks goes
+  to `master` as well (fast-forward, push, one live check of about 10 page loads).
+- The score bar is met. Review scores by round (customer, brand, technical): 74 / 80.5 / 82,
+  84.5 / 90 / 88, 93 / 88 / 93, 95 / 92 / 95, and round 5: 96.5 / 97.5 / 97.
+- The build: 16 pages (15 public plus `herd-list.html`, a printable animal list sheet that is
+  deliberately unlinked and noindex until Dr. Pearson agrees to take list sheets), four menus,
+  "Submission forms" in every menu and footer, a contact form that takes a phone number or an
+  email, a printable barn card, date tools that know postal and carrier holidays, one cow mark
+  in header, footer, favicons and the share card, seven engraved drawings, a text footer.
+- Local checks on `1a1ba45`: site check 16 pages, 0 problems; tool tests 552 of 552; behaviour
+  checks 483 of 483; axe 0 violations at 375 and 1280 px; Lighthouse 99 to 100 (`thanks.html`,
+  `404.html` and `herd-list.html` are noindex on purpose); live check 10 of 10.
+- Not done, by choice: about nine small items the reviewers still took half a point for (beef
+  page has no beef cattle photograph, BVD band width, a few wording lines, drawing label
+  typeface on Android, footer hours wrapping). The scored build was left as scored.
+- Not verified: a real Android phone; the contact form relay (it needs a one-time confirmation
+  click at the lab's inbox before messages arrive).
+- Waiting on Dr. Pearson: his answers to the question list Erik holds (inbox, bison day count,
+  handling limits, closed days, list sheets, what consulting delivers, his own photographs,
+  sources for his figures, and whether the pages may go on his existing host with no DNS change).
+- Working files live in `.work/` on the G7 only (git-ignored): `.work/2026-11-11/STATE.md`
+  (running state), `closeout/` (the change list written for Dr. Pearson and the change log).
 - Tool arguments: `behavior_check.js`, `shoot.js` and `lh_run.py` take page names WITHOUT
   `.html`.
 - Capturing pages: take slices by scrolling inside the viewport. Capturing beyond the viewport
